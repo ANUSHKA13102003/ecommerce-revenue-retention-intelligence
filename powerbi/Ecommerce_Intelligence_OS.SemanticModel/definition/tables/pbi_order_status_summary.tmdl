@@ -1,30 +1,37 @@
 table pbi_order_status_summary
+	lineageTag: 06f1e206-9657-4bee-8f6c-b896f5f3e20c
 
 	column order_status
 		dataType: string
+		lineageTag: 21caf690-35a4-47d8-b841-5907f38dcb6c
 		sourceColumn: order_status
 
 	column order_count
 		dataType: int64
+		lineageTag: 9c589b5c-8c12-4dd2-bc51-90d49b9b1f7c
 		sourceColumn: order_count
 
 	column orders_with_items
 		dataType: double
+		lineageTag: 34a14377-8c39-4633-be21-a5740caaf5a8
 		sourceColumn: orders_with_items
 
 	column total_payment_value_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: a75b170f-0a53-4b00-96b4-d2f121c7daad
 		sourceColumn: total_payment_value_brl
 
 	column total_item_price_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 96d26207-451e-4cb4-81d9-ba6e3cbe67a6
 		sourceColumn: total_item_price_brl
 
 	column avg_review_score
 		dataType: double
 		formatString: 0.00
+		lineageTag: 7defa50e-6b46-4793-80b6-d67de4feec3f
 		sourceColumn: avg_review_score
 
 	partition pbi_order_status_summary = m

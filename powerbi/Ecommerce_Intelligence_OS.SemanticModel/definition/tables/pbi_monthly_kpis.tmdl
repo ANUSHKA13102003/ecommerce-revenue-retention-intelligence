@@ -1,65 +1,84 @@
 table pbi_monthly_kpis
+	lineageTag: 1a12e369-b8b0-4d04-aefe-3205a7ffc0c6
 
 	column sales_month
 		dataType: string
+		lineageTag: b1e725ad-9236-4d92-b8a5-7d2be2b64845
 		sourceColumn: sales_month
 
 	column month_start_date
 		dataType: dateTime
 		formatString: yyyy-MM-dd
+		lineageTag: 02a1bdc0-8e86-4f58-bd73-349278a8c357
+		summarizeBy: none
 		sourceColumn: month_start_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	column delivered_orders
 		dataType: int64
+		lineageTag: f5019ddb-c6c4-4a16-90fb-6f6283eed22e
 		sourceColumn: delivered_orders
 
 	column active_customers
 		dataType: int64
+		lineageTag: e7fa5adb-695d-4a38-91bf-18c5876b63a4
 		sourceColumn: active_customers
 
 	column order_value_proxy_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: af04d700-2d76-4b61-91bd-c730303d40dd
 		sourceColumn: order_value_proxy_brl
 
 	column item_revenue_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: ca0bc5fa-d33f-4ba4-b72d-8e150f72b043
 		sourceColumn: item_revenue_brl
 
 	column freight_value_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 373fd0db-a39b-4582-a98f-43e34fd91fc4
 		sourceColumn: freight_value_brl
 
 	column average_order_value_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 449ff238-4d74-40ca-a1e6-f292f2461366
 		sourceColumn: average_order_value_brl
 
 	column prev_month_order_value_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: f635b0b5-78bc-4e99-adb2-a9d9fce4bd4e
 		sourceColumn: prev_month_order_value_brl
 
 	column mom_growth_pct
 		dataType: double
 		formatString: 0.00"%"
+		lineageTag: bf41a966-ef7f-4b62-ab23-5a97132ad87d
 		sourceColumn: mom_growth_pct
 
 	column avg_delivery_days
 		dataType: double
 		formatString: 0.00
+		lineageTag: 5078adf4-bd3d-4f47-ae27-b62272a186a3
 		sourceColumn: avg_delivery_days
 
 	column late_delivery_rate_pct
 		dataType: double
 		formatString: 0.00"%"
+		lineageTag: fb457db9-8840-4a38-8d54-99621154fbcf
 		sourceColumn: late_delivery_rate_pct
 
 	column avg_review_score
 		dataType: double
 		formatString: 0.00
+		lineageTag: fd0b096d-7437-4206-b7cb-197ab337ecc7
 		sourceColumn: avg_review_score
 
 	partition pbi_monthly_kpis = m

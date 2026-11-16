@@ -1,81 +1,108 @@
 table dim_date
+	lineageTag: 17a9d0d0-7cc9-4f8c-ae9c-601c80ba78ac
 	dataCategory: Time
 
 	column date_key
 		dataType: dateTime
 		isKey
 		formatString: yyyy-MM-dd
+		lineageTag: 33848fd0-ad6f-44e5-bc96-bbffa15ecceb
+		summarizeBy: none
 		sourceColumn: date_key
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	column year
 		dataType: int64
+		lineageTag: 32508b24-e83b-4096-be08-b5fc5579e706
 		summarizeBy: none
 		sourceColumn: year
 
 	column quarter_num
 		dataType: int64
+		lineageTag: 42c7c2eb-3902-4df8-9b66-4476b7903f0b
 		summarizeBy: none
 		sourceColumn: quarter_num
 
 	column quarter_label
 		dataType: string
+		lineageTag: 41922ef8-cb4b-4de6-b09e-da8db9a39725
 		sourceColumn: quarter_label
 
 	column month_num
 		dataType: int64
+		lineageTag: 9a2d4a77-a265-4d18-9e1e-fc3822060c3f
 		summarizeBy: none
 		sourceColumn: month_num
 
 	column year_month
 		dataType: string
+		lineageTag: b6679182-e0d2-4906-924b-e7d7d055cace
 		sourceColumn: year_month
 		sortByColumn: month_start_date
 
 	column month_start_date
 		dataType: dateTime
 		formatString: yyyy-MM-dd
+		lineageTag: e7ee2f44-c0e0-410a-8965-530b75ebb565
+		summarizeBy: none
 		sourceColumn: month_start_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	column month_name
 		dataType: string
+		lineageTag: 2b3cfc1c-8dfe-46e4-b7c1-33e69726fd1c
 		sourceColumn: month_name
 		sortByColumn: month_num
 
 	column month_short
 		dataType: string
+		lineageTag: 9a5f903f-5e27-4940-b494-b5fbb5b31870
 		sourceColumn: month_short
 		sortByColumn: month_start_date
 
 	column day_of_month
 		dataType: int64
+		lineageTag: a30de760-f373-4ca7-9abb-7ba541a1e9f5
 		summarizeBy: none
 		sourceColumn: day_of_month
 
 	column day_of_week_num
 		dataType: int64
+		lineageTag: 4995c273-e1fa-4823-a083-aa6c4e3ec203
 		summarizeBy: none
 		sourceColumn: day_of_week_num
 
 	column day_name
 		dataType: string
+		lineageTag: a7da165a-0c49-4aff-a0dc-25d9cbb4d1ab
 		sourceColumn: day_name
 		sortByColumn: day_of_week_num
 
 	column is_weekend
 		dataType: boolean
+		lineageTag: c86821d3-b320-4258-953b-e6c86b1da7b5
 		sourceColumn: is_weekend
 
 	column in_analysis_window
 		dataType: boolean
+		lineageTag: 08d0f841-3ea6-4427-b75b-7faa62960277
 		sourceColumn: in_analysis_window
 
 	column year_label
 		dataType: string
+		lineageTag: a64038a3-13df-44fa-a085-b8e53ae45cfb
 		sourceColumn: year_label
 		sortByColumn: year
 
 	column analysis_window_label
 		dataType: string
+		lineageTag: 36989729-62ad-4198-9308-e2fb50240a90
 		sourceColumn: analysis_window_label
 
 	partition dim_date = m

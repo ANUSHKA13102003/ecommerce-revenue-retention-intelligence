@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "p3_ch2",
+  "position": {
+    "x": 644,
+    "y": 244,
+    "z": 11000,
+    "height": 226,
+    "width": 624,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "pbi_customer_clv_groups"
+                    }
+                  },
+                  "Property": "customer_behaviour_group"
+                }
+              },
+              "queryRef": "pbi_customer_clv_groups.customer_behaviour_group",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "pbi_customer_clv_groups"
+                    }
+                  },
+                  "Property": "CLV Weighted Avg Order Value Proxy (BRL)"
+                }
+              },
+              "queryRef": "pbi_customer_clv_groups.CLV Weighted Avg Order Value Proxy (BRL)"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Weighted Avg Historical CLV Proxy: D-5 Repeat vs Same-Day vs Single'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

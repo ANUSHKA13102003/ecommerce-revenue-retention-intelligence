@@ -1,28 +1,35 @@
 table customers_clean
+	lineageTag: c1ec7804-8154-41fd-83da-57690e064dd4
 
 	column customer_id
 		dataType: string
 		isKey
+		lineageTag: 1033fad3-13fd-4ed2-bf93-8b39981f8560
 		sourceColumn: customer_id
 
 	column customer_unique_id
 		dataType: string
+		lineageTag: 996921d4-21a7-4eea-b44d-cf42fb8f8c31
 		sourceColumn: customer_unique_id
 
 	column customer_zip_code_prefix
 		dataType: string
+		lineageTag: 38576f70-b76e-4df8-a403-68b3f6daaa54
 		sourceColumn: customer_zip_code_prefix
 
 	column customer_city
 		dataType: string
+		lineageTag: 99386786-ff42-4aa6-8ace-f4609e7644b5
 		sourceColumn: customer_city
 
 	column customer_state
 		dataType: string
+		lineageTag: 6b716ac5-7448-4fbe-ac67-24467139c7f5
 		sourceColumn: customer_state
 
 	column customer_city_normalized
 		dataType: string
+		lineageTag: 174503d3-8c52-4546-bfbb-4d845635dc68
 		sourceColumn: customer_city_normalized
 
 	partition customers_clean = m

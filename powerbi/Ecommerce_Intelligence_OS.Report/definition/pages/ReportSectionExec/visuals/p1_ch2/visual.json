@@ -1,0 +1,126 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "p1_ch2",
+  "position": {
+    "x": 644,
+    "y": 244,
+    "z": 11000,
+    "height": 226,
+    "width": 624,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "products_clean"
+                    }
+                  },
+                  "Property": "category_name_en"
+                }
+              },
+              "queryRef": "products_clean.category_name_en",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "order_items_clean"
+                    }
+                  },
+                  "Property": "Delivered Item Revenue (BRL)"
+                }
+              },
+              "queryRef": "order_items_clean.Delivered Item Revenue (BRL)"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "order_items_clean"
+                  }
+                },
+                "Property": "Delivered Item Revenue (BRL)"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Delivered Item Revenue by Product Category (SUM Price)'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "7fbf33c8a876569675d0",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "products_clean"
+              }
+            },
+            "Property": "category_name_en"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "e35837004a071bca2deb",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "order_items_clean"
+              }
+            },
+            "Property": "Delivered Item Revenue (BRL)"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

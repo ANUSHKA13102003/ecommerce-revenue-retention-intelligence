@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     Builds and validates the complete Power BI Project (.pbip + TMDL Semantic Model + 5-page Report)
     for E-Commerce Intelligence OS using Power BI Desktop SDK assemblies.

@@ -1,62 +1,76 @@
 table pbi_state_performance
+	lineageTag: 60954914-2000-4e61-ab72-fd74063bf51e
 
 	measure 'Summary State Weighted Delivery Days' = DIVIDE(SUMX(pbi_state_performance, pbi_state_performance[avg_delivery_days] * pbi_state_performance[delivered_orders]), SUM(pbi_state_performance[delivered_orders]), 0)
 		formatString: 0.00
 		displayFolder: 04 Delivery & CX
+		lineageTag: 256277f3-ae1f-4214-915b-800f5be98880
 
 	measure 'Summary State Weighted Late Rate %' = DIVIDE(SUMX(pbi_state_performance, (pbi_state_performance[late_delivery_rate_pct] / 100.0) * pbi_state_performance[delivered_orders]), SUM(pbi_state_performance[delivered_orders]), 0)
 		formatString: 0.00%
 		displayFolder: 04 Delivery & CX
+		lineageTag: 322c1caa-f590-4151-b371-ff234674a183
 
 	measure 'Summary State Weighted Review Score' = DIVIDE(SUMX(pbi_state_performance, pbi_state_performance[avg_review_score] * pbi_state_performance[delivered_orders]), SUM(pbi_state_performance[delivered_orders]), 0)
 		formatString: 0.00
 		displayFolder: 04 Delivery & CX
+		lineageTag: 087284a8-5890-4f9c-93fe-21e7c15e17eb
 
 	column customer_state
 		dataType: string
+		lineageTag: 2036ff47-cb8c-4866-8720-743fe4f76eab
 		sourceColumn: customer_state
 
 	column delivered_orders
 		dataType: int64
+		lineageTag: 43843fd8-7e08-4e43-99fd-50edc6b3265f
 		sourceColumn: delivered_orders
 
 	column unique_customers
 		dataType: int64
+		lineageTag: b93dd7f7-b919-4e62-a677-a7bcc7661cf8
 		sourceColumn: unique_customers
 
 	column order_value_proxy_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 9be37f25-1340-43e8-9ded-065b2860f4c9
 		sourceColumn: order_value_proxy_brl
 
 	column item_revenue_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: ecdb653e-3af6-479c-925d-1b2048d0791f
 		sourceColumn: item_revenue_brl
 
 	column freight_value_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 14b3bb2c-d07b-4982-8226-942ab034f93e
 		sourceColumn: freight_value_brl
 
 	column avg_order_value_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 626e5dcb-3bc7-478b-9e36-4d281b9362b9
 		sourceColumn: avg_order_value_brl
 
 	column avg_delivery_days
 		dataType: double
 		formatString: 0.00
+		lineageTag: 0bdfaf08-c7c1-431f-818a-6c347e8784d8
 		sourceColumn: avg_delivery_days
 
 	column late_delivery_rate_pct
 		dataType: double
 		formatString: 0.00"%"
+		lineageTag: 6a2fc8e8-07ef-48f1-9779-e6ea4ca20a3f
 		sourceColumn: late_delivery_rate_pct
 
 	column avg_review_score
 		dataType: double
 		formatString: 0.00
+		lineageTag: fbee3695-1a4c-45f2-b4de-cf5788706767
 		sourceColumn: avg_review_score
 
 	partition pbi_state_performance = m

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "p1_hdr",
+  "position": {
+    "x": 12,
+    "y": 8,
+    "z": 0,
+    "height": 48,
+    "width": 1256,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "CommerceLens AI — Executive Overview   ",
+                    "textStyle": {
+                      "color": "#0F172A",
+                      "fontWeight": "bold",
+                      "fontSize": "13pt"
+                    }
+                  },
+                  {
+                    "value": "All Dates Default (Use Analysis Window Slicer for Jan 2017 - Aug 2018) | Rule D-5 Repeat: 2.16% (2,015)",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#475569"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

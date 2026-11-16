@@ -1,46 +1,62 @@
 table pbi_cohort_retention_long
+	lineageTag: c9b5602b-9923-4d53-95f7-601cb1b5796f
 
 	measure 'Cohort Retention Rate %' = DIVIDE(SUM(pbi_cohort_retention_long[active_customers]), SUM(pbi_cohort_retention_long[cohort_size]), BLANK())
 		formatString: 0.00%
 		displayFolder: 02 Customer & Retention
+		lineageTag: 93b88deb-cf3a-4046-bd63-61d6c6ae1d46
 
 	column cohort_month
 		dataType: string
+		lineageTag: 7f71b7ec-70e1-4db9-8f6e-918b8d8efebb
 		sourceColumn: cohort_month
 
 	column cohort_start_date
 		dataType: dateTime
 		formatString: yyyy-MM-dd
+		lineageTag: 4a047af5-1e7f-4405-bb62-5135be6f0f8a
+		summarizeBy: none
 		sourceColumn: cohort_start_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	column cohort_size
 		dataType: int64
+		lineageTag: b75f64c8-32c4-4983-997b-c0853a854461
 		sourceColumn: cohort_size
 
 	column order_month
 		dataType: string
+		lineageTag: e9fb05bb-aec8-418b-91c9-801c6c091fff
 		sourceColumn: order_month
 
 	column month_index
 		dataType: int64
+		lineageTag: a5a75930-6ff3-412c-9679-127d8c7a90b2
 		sourceColumn: month_index
 
 	column active_customers
 		dataType: int64
+		lineageTag: eacc019d-0761-4070-80ad-9226ac5e03f7
 		sourceColumn: active_customers
 
 	column retention_rate_pct
 		dataType: double
 		formatString: 0.000"%"
+		lineageTag: eeacdcb1-063a-464e-8a7c-7542f52dbb40
 		sourceColumn: retention_rate_pct
 
 	column delivered_orders
 		dataType: int64
+		lineageTag: 4a9cf958-2a8a-4f8e-b15d-b3b4bb7e8f8f
 		sourceColumn: delivered_orders
 
 	column cohort_order_value_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: bdb108c0-c2eb-4b5c-a302-237ea29517b2
 		sourceColumn: cohort_order_value_brl
 
 	partition pbi_cohort_retention_long = m

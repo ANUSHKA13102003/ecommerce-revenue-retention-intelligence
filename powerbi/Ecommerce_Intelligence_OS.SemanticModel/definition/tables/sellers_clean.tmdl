@@ -1,24 +1,30 @@
 table sellers_clean
+	lineageTag: 9ace6467-a34f-44e1-81cd-857f0c5e37c8
 
 	column seller_id
 		dataType: string
 		isKey
+		lineageTag: f08ad3d1-9b01-4aa5-bba0-7ba6e165c192
 		sourceColumn: seller_id
 
 	column seller_zip_code_prefix
 		dataType: string
+		lineageTag: f4c27bae-9be9-4761-b7c0-acba376ce8e3
 		sourceColumn: seller_zip_code_prefix
 
 	column seller_city
 		dataType: string
+		lineageTag: 4cec383f-f646-4d22-ac63-6a4f8d42971b
 		sourceColumn: seller_city
 
 	column seller_state
 		dataType: string
+		lineageTag: f7158741-1064-4c80-9838-ade0db14135f
 		sourceColumn: seller_state
 
 	column seller_city_normalized
 		dataType: string
+		lineageTag: 14921862-73ba-49aa-9bbf-cfd42f6e70f0
 		sourceColumn: seller_city_normalized
 
 	partition sellers_clean = m

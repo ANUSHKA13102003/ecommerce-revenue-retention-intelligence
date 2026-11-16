@@ -1,11 +1,11 @@
 {
-    "config":  {
-                   "version":  "2.0",
-                   "logicalId":  "b41f78c2-119d-4d6e-9f44-6e81239a0002"
-               },
-    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
-    "metadata":  {
-                     "displayName":  "Ecommerce_Intelligence_OS",
-                     "type":  "Report"
-                 }
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Ecommerce_Intelligence_OS"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b41f78c2-119d-4d6e-9f44-6e81239a0002"
+  }
 }

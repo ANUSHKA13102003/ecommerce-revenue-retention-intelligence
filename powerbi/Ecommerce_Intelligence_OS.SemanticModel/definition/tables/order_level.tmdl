@@ -1,29 +1,36 @@
 table order_level
+	lineageTag: 3ea4ae5d-3a77-465f-8122-6e87a06040d0
 
 	measure 'Delivered Orders' = CALCULATE(DISTINCTCOUNT(order_level[order_id]), order_level[is_delivered] = TRUE())
 		formatString: #,##0
 		displayFolder: 01 Revenue & Orders
+		lineageTag: c3f6426b-e281-45e2-86e1-c7e964c3ba48
 
 	measure 'Total Orders (All Statuses)' = DISTINCTCOUNT(order_level[order_id])
 		formatString: #,##0
 		displayFolder: 01 Revenue & Orders
+		lineageTag: e7d629e2-4287-49ad-8221-7dbac8bccdec
 
 	measure 'Delivery Completion Rate %' = DIVIDE([Delivered Orders], [Total Orders (All Statuses)], 0)
 		formatString: 0.00%
 		displayFolder: 01 Revenue & Orders
+		lineageTag: c541e662-84b0-4729-8686-efefd9a021a2
 
 	/// Approved Rule D-1: Total payment_value on delivered orders (Order Value Proxy, not marketplace commission revenue).
 	measure 'Delivered Order Value Proxy (BRL)' = CALCULATE(SUM(order_level[payment_value]), order_level[is_delivered] = TRUE())
 		formatString: "R$" #,##0.00
 		displayFolder: 01 Revenue & Orders
+		lineageTag: 9e686be3-a7ad-4a6e-b34a-c549c8d0defc
 
 	measure 'Average Order Value (BRL)' = DIVIDE([Delivered Order Value Proxy (BRL)], [Delivered Orders], 0)
 		formatString: "R$" #,##0.00
 		displayFolder: 01 Revenue & Orders
+		lineageTag: 8ac002a5-9537-4b61-801c-75f3985b7d8b
 
 	measure 'Previous Month Order Value Proxy (BRL)' = CALCULATE([Delivered Order Value Proxy (BRL)], DATEADD(dim_date[date_key], -1, MONTH))
 		formatString: "R$" #,##0.00
 		displayFolder: 01 Revenue & Orders
+		lineageTag: b5531fb5-9608-41b8-8bc7-b80e4c754f67
 
 	measure 'MoM Order Value Growth %' =
 			VAR CurrentVal = [Delivered Order Value Proxy (BRL)]
@@ -32,10 +39,12 @@ table order_level
 			    DIVIDE(CurrentVal - PrevVal, PrevVal, BLANK())
 		formatString: 0.00%
 		displayFolder: 01 Revenue & Orders
+		lineageTag: 43417cf0-3611-4ada-ad87-c6b45172a2aa
 
 	measure 'Unique Delivered Customers' = CALCULATE(DISTINCTCOUNT(order_level[customer_unique_id]), order_level[is_delivered] = TRUE())
 		formatString: #,##0
 		displayFolder: 02 Customer & Retention
+		lineageTag: 069f8aef-3947-4c45-8fc4-46bbb9710ff9
 
 	/// Approved Rule D-5: 2+ delivered orders placed on 2+ distinct purchase dates (2,015 / 2.16%).
 	measure 'Repeat Customers (D-5 Distinct Days)' =
@@ -57,6 +66,7 @@ table order_level
 			)
 		formatString: #,##0
 		displayFolder: 02 Customer & Retention
+		lineageTag: cf3f4d98-e834-456d-bb10-0dbf0f5ce0cb
 
 	/// Split-basket checkout buyers with 2+ delivered orders on 1 distinct calendar date (786 / 0.84%).
 	measure 'Same-Day Multi-Order Customers' =
@@ -78,6 +88,7 @@ table order_level
 			)
 		formatString: #,##0
 		displayFolder: 02 Customer & Retention
+		lineageTag: 67063ea3-5624-4a11-b6ff-428a22da5578
 
 	/// Sensitivity benchmark: 2+ delivered orders regardless of purchase date (2,801 / 3.00%).
 	measure 'Any-Day Repeat Customers (Option A)' =
@@ -94,189 +105,370 @@ table order_level
 			)
 		formatString: #,##0
 		displayFolder: 02 Customer & Retention
+		lineageTag: d7518d42-ce7c-40d5-b93d-9563ddf38566
 
 	measure 'Repeat Customer Rate %' = DIVIDE([Repeat Customers (D-5 Distinct Days)], [Unique Delivered Customers], 0)
 		formatString: 0.00%
 		displayFolder: 02 Customer & Retention
+		lineageTag: ef45dd7c-17e5-4f10-8ac6-3e1cbcf13f14
 
 	measure 'Same-Day Multi-Order Rate %' = DIVIDE([Same-Day Multi-Order Customers], [Unique Delivered Customers], 0)
 		formatString: 0.00%
 		displayFolder: 02 Customer & Retention
+		lineageTag: 50de1c23-d009-4cd4-ae0c-0b7b40bef6f5
 
 	measure 'Historical CLV Proxy per Customer (BRL)' = DIVIDE([Delivered Order Value Proxy (BRL)], [Unique Delivered Customers], 0)
 		formatString: "R$" #,##0.00
 		displayFolder: 02 Customer & Retention
+		lineageTag: 895c8cc9-d865-451a-b6b0-621082cc8742
 
 	measure 'Average Delivery Days' = CALCULATE(AVERAGE(order_level[delivery_days]), order_level[is_delivered] = TRUE(), order_level[missing_delivery_date] = FALSE())
 		formatString: 0.00
 		displayFolder: 04 Delivery & CX
+		lineageTag: 1822ba99-12e7-4df8-b88f-0ca64372b3f9
 
 	measure 'Late Delivered Orders' = CALCULATE(DISTINCTCOUNT(order_level[order_id]), order_level[is_delivered] = TRUE(), order_level[is_late] = TRUE())
 		formatString: #,##0
 		displayFolder: 04 Delivery & CX
+		lineageTag: 194e6780-577d-4be4-af96-5dae7f8cb977
 
 	measure 'Delivered Orders With Delivery Date' = CALCULATE(DISTINCTCOUNT(order_level[order_id]), order_level[is_delivered] = TRUE(), order_level[missing_delivery_date] = FALSE())
 		formatString: #,##0
 		displayFolder: 04 Delivery & CX
+		lineageTag: 465abcec-b5ce-4e20-9a89-b4f837affc54
 
 	measure 'Late Delivery Rate %' = DIVIDE([Late Delivered Orders], [Delivered Orders With Delivery Date], 0)
 		formatString: 0.00%
 		displayFolder: 04 Delivery & CX
+		lineageTag: 427700b3-04df-4c86-9c44-711d69ef7a7c
 
 	measure 'On-Time Delivery Rate %' = 1.0 - [Late Delivery Rate %]
 		formatString: 0.00%
 		displayFolder: 04 Delivery & CX
+		lineageTag: 6aead076-2b5b-4680-bb9b-b2b00ca7ff8d
 
 	/// Approved Rule D-3: Primary order-level review score uses the most recent review per order.
 	measure 'Average Review Score' = CALCULATE(AVERAGE(order_level[review_score]), order_level[is_delivered] = TRUE())
 		formatString: 0.00
 		displayFolder: 04 Delivery & CX
+		lineageTag: fc027b33-8bc4-4bca-9b2c-b384ff32f810
 
 	column order_id
 		dataType: string
 		isKey
+		lineageTag: 2a443c9b-a14a-4dc6-9bd2-12cac3557030
+		summarizeBy: none
 		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
 
 	column customer_id
 		dataType: string
+		lineageTag: d9c157d7-a0d0-4293-b4e2-ffa361c0ecd9
+		summarizeBy: none
 		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
 
 	column order_status
 		dataType: string
+		lineageTag: def7b55a-ebaa-4dc9-bbd2-41ec7d3f6a0f
+		summarizeBy: none
 		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
 
 	column order_purchase_timestamp
 		dataType: dateTime
 		formatString: yyyy-MM-dd
+		lineageTag: cd303658-9ea5-4c1e-83e1-05ee952974e1
+		summarizeBy: none
 		sourceColumn: order_purchase_timestamp
+
+		variation Variation
+			isDefault
+			relationship: 3aa91628-439f-4068-9c18-1e8c352b26c0
+			defaultHierarchy: LocalDateTable_c0330da5-8f66-4727-bb49-09af6305560a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
 
 	column order_approved_at
 		dataType: dateTime
 		formatString: yyyy-MM-dd
+		lineageTag: 1e6f9312-1913-4a4d-88bc-6c8d65c422a2
+		summarizeBy: none
 		sourceColumn: order_approved_at
+
+		variation Variation
+			isDefault
+			relationship: f4c0c1f8-8e89-491f-ae34-9caf00805252
+			defaultHierarchy: LocalDateTable_43c2abae-2770-4586-9234-275e863b965d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
 
 	column order_delivered_carrier_date
 		dataType: dateTime
 		formatString: yyyy-MM-dd
+		lineageTag: b591abe0-7f01-4f71-86f8-a01c176e9b24
+		summarizeBy: none
 		sourceColumn: order_delivered_carrier_date
+
+		variation Variation
+			isDefault
+			relationship: e37e8b31-4eef-4710-a155-6aaa2689f67d
+			defaultHierarchy: LocalDateTable_944d98f5-7baf-4024-a709-c58945bd6eea.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
 
 	column order_delivered_customer_date
 		dataType: dateTime
 		formatString: yyyy-MM-dd
+		lineageTag: 0e0a1a5c-1d69-481c-87e8-b45eb5b1fc31
+		summarizeBy: none
 		sourceColumn: order_delivered_customer_date
+
+		variation Variation
+			isDefault
+			relationship: 5cc22c09-027f-49fb-ae27-21e40207b73e
+			defaultHierarchy: LocalDateTable_70b4fa02-938c-4503-9770-12e83d95e927.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
 
 	column order_estimated_delivery_date
 		dataType: dateTime
 		formatString: yyyy-MM-dd
+		lineageTag: 8fbc3a75-238f-4fd7-85fe-7de81cd3107f
+		summarizeBy: none
 		sourceColumn: order_estimated_delivery_date
+
+		variation Variation
+			isDefault
+			relationship: cd9a5adb-ad6a-432e-bf46-31d1c1502d36
+			defaultHierarchy: LocalDateTable_5027b898-a465-47a7-83aa-7224b4c5f29f.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	column missing_delivery_date
 		dataType: boolean
+		lineageTag: 9a0c240d-9bb2-499d-833a-883294cfc247
+		summarizeBy: none
 		sourceColumn: missing_delivery_date
+
+		annotation SummarizationSetBy = Automatic
 
 	column missing_stage_date
 		dataType: boolean
+		lineageTag: c745fc37-cc1a-4615-94bd-e8a437112b45
+		summarizeBy: none
 		sourceColumn: missing_stage_date
+
+		annotation SummarizationSetBy = Automatic
 
 	column carrier_before_purchase
 		dataType: boolean
+		lineageTag: 4cba382b-99b8-4b6b-99b3-a8faaf6f3808
+		summarizeBy: none
 		sourceColumn: carrier_before_purchase
+
+		annotation SummarizationSetBy = Automatic
 
 	column carrier_before_approval
 		dataType: boolean
+		lineageTag: d96852a9-f4d9-4e4e-891c-cd6f60e60ba8
+		summarizeBy: none
 		sourceColumn: carrier_before_approval
+
+		annotation SummarizationSetBy = Automatic
 
 	column delivered_before_carrier
 		dataType: boolean
+		lineageTag: 518febcc-4f8e-407a-b12a-a92d67967118
+		summarizeBy: none
 		sourceColumn: delivered_before_carrier
+
+		annotation SummarizationSetBy = Automatic
 
 	column status_date_conflict
 		dataType: boolean
+		lineageTag: d1a458c5-04b2-410b-9fb5-a54cc3ad64aa
+		summarizeBy: none
 		sourceColumn: status_date_conflict
+
+		annotation SummarizationSetBy = Automatic
 
 	column has_items
 		dataType: boolean
+		lineageTag: 1749acce-2e33-4b84-b9de-c6ab0939ef13
+		summarizeBy: none
 		sourceColumn: has_items
+
+		annotation SummarizationSetBy = Automatic
 
 	column in_analysis_window
 		dataType: boolean
+		lineageTag: 948206a7-232e-449a-b46d-b50b54eb646f
+		summarizeBy: none
 		sourceColumn: in_analysis_window
+
+		annotation SummarizationSetBy = Automatic
 
 	column delivery_days
 		dataType: double
 		formatString: 0.00
+		lineageTag: 5bc2542a-2c3a-4f80-a179-7cd2f9795fc6
+		summarizeBy: sum
 		sourceColumn: delivery_days
+
+		annotation SummarizationSetBy = Automatic
 
 	column is_late
 		dataType: boolean
+		lineageTag: 8787122a-ca26-4afc-b1a2-50a03814d628
+		summarizeBy: none
 		sourceColumn: is_late
+
+		annotation SummarizationSetBy = Automatic
 
 	column is_delivered
 		dataType: boolean
+		lineageTag: 6c439d47-e505-4225-a0e9-c4c6ed67b968
+		summarizeBy: none
 		sourceColumn: is_delivered
+
+		annotation SummarizationSetBy = Automatic
 
 	column customer_unique_id
 		dataType: string
+		lineageTag: da1fff9c-2994-4f00-8d70-8956fa1be64f
+		summarizeBy: none
 		sourceColumn: customer_unique_id
+
+		annotation SummarizationSetBy = Automatic
 
 	column item_count
 		dataType: double
+		lineageTag: 4e5dfe8b-7f4f-44ba-94d8-86c58ecbb388
+		summarizeBy: sum
 		sourceColumn: item_count
+
+		annotation SummarizationSetBy = Automatic
 
 	column item_revenue
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 8943729c-9b2a-411f-a215-2cb29b504aa3
+		summarizeBy: sum
 		sourceColumn: item_revenue
+
+		annotation SummarizationSetBy = Automatic
 
 	column freight_value
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 25661c34-e7f9-400a-9919-e54ab23e0566
+		summarizeBy: sum
 		sourceColumn: freight_value
+
+		annotation SummarizationSetBy = Automatic
 
 	column distinct_products
 		dataType: double
+		lineageTag: 51a2eae3-7f4a-4f16-ba12-f4c24770d075
+		summarizeBy: sum
 		sourceColumn: distinct_products
+
+		annotation SummarizationSetBy = Automatic
 
 	column distinct_sellers
 		dataType: double
+		lineageTag: 7a22d575-7a7e-4e0e-adeb-daf7ddc711fa
+		summarizeBy: sum
 		sourceColumn: distinct_sellers
+
+		annotation SummarizationSetBy = Automatic
 
 	column payment_value
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: b1e5b8b9-e78c-45cc-8dde-d065dee086d2
+		summarizeBy: sum
 		sourceColumn: payment_value
+
+		annotation SummarizationSetBy = Automatic
 
 	column payment_count
 		dataType: double
+		lineageTag: 4d5f1fe3-b663-4b72-9ab3-fe6f726ed211
+		summarizeBy: sum
 		sourceColumn: payment_count
+
+		annotation SummarizationSetBy = Automatic
 
 	column max_installments
 		dataType: double
+		lineageTag: 71079ace-a20a-4f17-8f44-fc6ae44c6d54
+		summarizeBy: sum
 		sourceColumn: max_installments
+
+		annotation SummarizationSetBy = Automatic
 
 	column review_score
 		dataType: double
 		formatString: 0.00
+		lineageTag: fee1eb33-9bb0-473b-a766-bd5c4c9c696d
+		summarizeBy: sum
 		sourceColumn: review_score
+
+		annotation SummarizationSetBy = Automatic
 
 	column review_creation_date
 		dataType: dateTime
 		formatString: yyyy-MM-dd
+		lineageTag: 447d0d15-b416-4094-a83d-ce542e9379d5
+		summarizeBy: none
 		sourceColumn: review_creation_date
+
+		variation Variation
+			isDefault
+			relationship: c0baf1a5-fa5b-4ac3-95ec-e203da5d0998
+			defaultHierarchy: LocalDateTable_89a6bc53-cf36-42ef-89a2-b53540713efc.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
 
 	column review_answer_timestamp
 		dataType: dateTime
 		formatString: yyyy-MM-dd
+		lineageTag: 17a9842e-90ad-425d-b3c0-d5ba2acd3da3
+		summarizeBy: none
 		sourceColumn: review_answer_timestamp
+
+		variation Variation
+			isDefault
+			relationship: 498f79eb-5f43-4fae-9a4e-92b91be7ae5b
+			defaultHierarchy: LocalDateTable_9a1295c8-df4a-41f4-b281-d0983834e0ab.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
 
 	column review_before_purchase
 		dataType: boolean
+		lineageTag: c1fe6a29-9fb4-49f2-961e-13268733704f
+		summarizeBy: none
 		sourceColumn: review_before_purchase
+
+		annotation SummarizationSetBy = Automatic
 
 	column PurchaseDate
 		dataType: dateTime
 		formatString: yyyy-MM-dd
+		lineageTag: e576e919-1354-46a2-9480-727efd703880
+		summarizeBy: none
 		sourceColumn: PurchaseDate
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	partition order_level = m
 		mode: import

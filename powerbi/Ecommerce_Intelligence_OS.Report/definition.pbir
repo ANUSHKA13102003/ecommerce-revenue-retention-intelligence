@@ -1,9 +1,8 @@
 {
-    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/1.0.0/schema.json",
-    "datasetReference":  {
-                             "byPath":  {
-                                            "path":  "../Ecommerce_Intelligence_OS.SemanticModel"
-                                        }
-                         },
-    "version":  "4.0"
+  "version": "4.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../Ecommerce_Intelligence_OS.SemanticModel"
+    }
+  }
 }

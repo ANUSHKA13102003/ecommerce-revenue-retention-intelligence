@@ -1,65 +1,80 @@
 table pbi_seller_performance
+	lineageTag: fa8abef7-8b48-4af4-92a8-212664141efd
 
 	measure 'Summary Seller Weighted Late Rate %' = DIVIDE(SUMX(pbi_seller_performance, (pbi_seller_performance[late_delivery_rate_pct] / 100.0) * pbi_seller_performance[delivered_orders]), SUM(pbi_seller_performance[delivered_orders]), 0)
 		formatString: 0.00%
 		displayFolder: 03 Product & Seller
+		lineageTag: efb3b7e8-41d6-46f6-b03f-0410be58f384
 
 	measure 'Summary Seller Weighted Review Score' = DIVIDE(SUMX(pbi_seller_performance, pbi_seller_performance[avg_review_score] * pbi_seller_performance[delivered_orders]), SUM(pbi_seller_performance[delivered_orders]), 0)
 		formatString: 0.00
 		displayFolder: 03 Product & Seller
+		lineageTag: 4e52f3d7-80fa-4866-bbf7-2181bf715d9e
 
 	column seller_id
 		dataType: string
+		lineageTag: 67b6e771-76fd-4fc9-a72d-eb13d8284784
 		sourceColumn: seller_id
 
 	column seller_state
 		dataType: string
+		lineageTag: c55dc9b9-b5c6-47e4-abb7-a616ac6d970c
 		sourceColumn: seller_state
 
 	column seller_city
 		dataType: string
+		lineageTag: 35199062-14e6-4222-8c45-9aa21b0b3e3b
 		sourceColumn: seller_city
 
 	column delivered_orders
 		dataType: int64
+		lineageTag: 5fb50896-3a27-4877-9e25-a463aa1b9113
 		sourceColumn: delivered_orders
 
 	column items_sold
 		dataType: int64
+		lineageTag: 4790cad3-4378-4143-8efc-b19621abce79
 		sourceColumn: items_sold
 
 	column distinct_products
 		dataType: int64
+		lineageTag: 9bb04b91-11da-4550-81ac-477eb6ab5c56
 		sourceColumn: distinct_products
 
 	column item_revenue_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: b4d1ee2c-bfb3-45a7-b8e4-b9c36b28cac4
 		sourceColumn: item_revenue_brl
 
 	column freight_value_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 6c3122a5-bf30-4b54-88e0-38b63092313d
 		sourceColumn: freight_value_brl
 
 	column avg_item_price_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 6b7c7be2-b209-408b-92b1-3668b31f0393
 		sourceColumn: avg_item_price_brl
 
 	column avg_delivery_days
 		dataType: double
 		formatString: 0.00
+		lineageTag: 44edb076-4963-4219-8848-b49cddbdda55
 		sourceColumn: avg_delivery_days
 
 	column late_delivery_rate_pct
 		dataType: double
 		formatString: 0.00"%"
+		lineageTag: 69110711-23b7-4f2c-824b-f18b3d3ec71f
 		sourceColumn: late_delivery_rate_pct
 
 	column avg_review_score
 		dataType: double
 		formatString: 0.00
+		lineageTag: 95944f5b-3d89-4b6d-a581-f0e44199e77c
 		sourceColumn: avg_review_score
 
 	partition pbi_seller_performance = m

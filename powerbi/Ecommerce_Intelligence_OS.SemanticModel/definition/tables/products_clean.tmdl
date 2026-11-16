@@ -1,56 +1,70 @@
 table products_clean
+	lineageTag: b14c1475-883d-4014-a644-918ad6aff9b4
 
 	column product_id
 		dataType: string
 		isKey
+		lineageTag: 1597af67-f090-4688-b180-925f3ad848a5
 		sourceColumn: product_id
 
 	column product_category_name
 		dataType: string
+		lineageTag: 545c6560-a1e1-4296-8ea1-a23ea2f06aa5
 		sourceColumn: product_category_name
 
 	column product_name_lenght
 		dataType: double
+		lineageTag: 7befb918-ad8e-4297-9d7d-d198949820d7
 		sourceColumn: product_name_lenght
 
 	column product_description_lenght
 		dataType: double
+		lineageTag: fe1df523-abcf-472f-9d84-f7e600a83936
 		sourceColumn: product_description_lenght
 
 	column product_photos_qty
 		dataType: double
+		lineageTag: 78075190-c43f-4e16-8b8b-367437d783d0
 		sourceColumn: product_photos_qty
 
 	column product_weight_g
 		dataType: double
+		lineageTag: b51ef311-5afd-46cb-80fb-1f817dc50685
 		sourceColumn: product_weight_g
 
 	column product_length_cm
 		dataType: double
+		lineageTag: 8c46d7fa-2021-4da9-8218-b04a2f5d7c94
 		sourceColumn: product_length_cm
 
 	column product_height_cm
 		dataType: double
+		lineageTag: 8c598061-5565-40f7-bdb0-6d925ccfd01f
 		sourceColumn: product_height_cm
 
 	column product_width_cm
 		dataType: double
+		lineageTag: c1622343-bb78-4e8a-a4ac-18c1ab18d050
 		sourceColumn: product_width_cm
 
 	column product_category_name_english
 		dataType: string
+		lineageTag: 4d63d9a6-f0b7-411a-97c8-88ee9502ab0b
 		sourceColumn: product_category_name_english
 
 	column category_name_en
 		dataType: string
+		lineageTag: b929dfa8-14dd-4fcc-b797-2dbbaaf4fc57
 		sourceColumn: category_name_en
 
 	column missing_dimensions
 		dataType: boolean
+		lineageTag: 9517060a-6ae2-4986-9ee1-30d9353ee439
 		sourceColumn: missing_dimensions
 
 	column zero_weight
 		dataType: boolean
+		lineageTag: a747c8d6-602b-486e-b53f-b0759067f863
 		sourceColumn: zero_weight
 
 	partition products_clean = m

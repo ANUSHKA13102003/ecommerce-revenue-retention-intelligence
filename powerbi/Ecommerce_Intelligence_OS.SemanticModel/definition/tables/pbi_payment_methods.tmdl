@@ -1,30 +1,37 @@
 table pbi_payment_methods
+	lineageTag: 9358c140-555c-45c6-8f33-e18546e8b955
 
 	column payment_type
 		dataType: string
+		lineageTag: 36d240fd-96ab-49bc-b4e6-b23173b628b4
 		sourceColumn: payment_type
 
 	column transaction_count
 		dataType: int64
+		lineageTag: 46aacc76-72c4-4e75-abd7-5cb80fb43183
 		sourceColumn: transaction_count
 
 	column delivered_orders
 		dataType: int64
+		lineageTag: ec9e165d-0072-4ae8-82b9-577c6f4f1380
 		sourceColumn: delivered_orders
 
 	column total_payment_value_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 51be2a72-f97a-4749-bd5b-4eb916c47ecf
 		sourceColumn: total_payment_value_brl
 
 	column avg_transaction_value_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 3364a091-f790-4021-90ca-6f51c4fa5312
 		sourceColumn: avg_transaction_value_brl
 
 	column avg_installments
 		dataType: double
 		formatString: 0.00
+		lineageTag: a98d2770-d298-4114-affe-7998ffd0305b
 		sourceColumn: avg_installments
 
 	partition pbi_payment_methods = m

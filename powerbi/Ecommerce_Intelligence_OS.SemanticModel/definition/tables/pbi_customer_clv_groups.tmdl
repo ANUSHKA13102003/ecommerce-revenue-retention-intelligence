@@ -1,56 +1,69 @@
 table pbi_customer_clv_groups
+	lineageTag: 2221693b-ac1a-4bf0-b10c-33cf8197a5fd
 
 	measure 'CLV Weighted Avg Order Value Proxy (BRL)' = DIVIDE(SUM(pbi_customer_clv_groups[total_historical_clv_brl]), SUM(pbi_customer_clv_groups[customer_count]), 0)
 		formatString: "R$" #,##0.00
 		displayFolder: 02 Customer & Retention
+		lineageTag: b58badef-91b3-497a-abad-de4ad712b299
 
 	measure 'CLV Weighted Avg Delivered Orders' = DIVIDE(SUM(pbi_customer_clv_groups[total_delivered_orders]), SUM(pbi_customer_clv_groups[customer_count]), 0)
 		formatString: 0.00
 		displayFolder: 02 Customer & Retention
+		lineageTag: e841393c-4f25-44bc-9b16-7f9436c295cf
 
 	column customer_behaviour_group
 		dataType: string
+		lineageTag: bc9a8666-141e-477a-9d1f-31e719c005a3
 		sourceColumn: customer_behaviour_group
 
 	column customer_count
 		dataType: int64
+		lineageTag: 7aef1278-15c1-4ee2-8457-9ca611ba791e
 		sourceColumn: customer_count
 
 	column customer_share_pct
 		dataType: double
 		formatString: 0.00"%"
+		lineageTag: 5beddfa8-be24-4097-bc11-782e2928d621
 		sourceColumn: customer_share_pct
 
 	column total_delivered_orders
 		dataType: double
+		lineageTag: 802fdc19-9554-4f91-af6e-3859ec20fbe7
 		sourceColumn: total_delivered_orders
 
 	column avg_delivered_orders
 		dataType: double
+		lineageTag: 82b01130-6b51-4ad5-b747-824e8d1d4b2d
 		sourceColumn: avg_delivered_orders
 
 	column avg_lifespan_days
 		dataType: double
+		lineageTag: deaf575c-95c8-45ef-8144-76659339170f
 		sourceColumn: avg_lifespan_days
 
 	column total_historical_clv_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: d1d7b0a1-f921-440b-bae7-8190026161ba
 		sourceColumn: total_historical_clv_brl
 
 	column clv_share_pct
 		dataType: double
 		formatString: 0.00"%"
+		lineageTag: 4f898183-18e7-45d1-8349-92e597fbf871
 		sourceColumn: clv_share_pct
 
 	column avg_historical_clv_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 085589db-a8bb-436c-8e88-923d0ca231a0
 		sourceColumn: avg_historical_clv_brl
 
 	column avg_order_value_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 2769ac73-1511-47be-a987-e47cbde3bac7
 		sourceColumn: avg_order_value_brl
 
 	partition pbi_customer_clv_groups = m

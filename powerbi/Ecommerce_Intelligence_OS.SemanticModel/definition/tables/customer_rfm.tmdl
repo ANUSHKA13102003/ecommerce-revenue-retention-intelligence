@@ -1,41 +1,51 @@
 table customer_rfm
+	lineageTag: 1c65fc60-d909-4e5c-afa3-b83aad0c819b
 
 	column customer_unique_id
 		dataType: string
 		isKey
+		lineageTag: cf17c816-2cb4-439a-9c5f-ba9f500d290e
 		sourceColumn: customer_unique_id
 
 	column recency
 		dataType: int64
+		lineageTag: 5ac41134-06e6-4d0a-9918-c1cf531b2133
 		sourceColumn: recency
 
 	column frequency
 		dataType: int64
+		lineageTag: 801a6c8c-4a6a-4bda-bce3-ca72ec15e436
 		sourceColumn: frequency
 
 	column monetary
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 4f64c013-f92f-44b2-9230-94f823e7956c
 		sourceColumn: monetary
 
 	column r_score
 		dataType: int64
+		lineageTag: a5e55605-938e-4bfd-8bb7-a4979733639f
 		sourceColumn: r_score
 
 	column f_score
 		dataType: int64
+		lineageTag: b948a151-0aad-4763-96b3-d3dca7e3fb50
 		sourceColumn: f_score
 
 	column m_score
 		dataType: int64
+		lineageTag: 6a8ea338-8c68-460e-95c5-160cb590e493
 		sourceColumn: m_score
 
 	column rfm_score
 		dataType: string
+		lineageTag: ff75b087-617f-4b77-8648-677146a549d2
 		sourceColumn: rfm_score
 
 	column customer_segment
 		dataType: string
+		lineageTag: 203be137-e223-40cc-8816-5a932a4f2448
 		sourceColumn: customer_segment
 
 	partition customer_rfm = m

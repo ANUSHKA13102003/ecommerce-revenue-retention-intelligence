@@ -1,61 +1,75 @@
 table pbi_category_performance
+	lineageTag: b683dd9b-6dc5-4e0f-8066-56b5be9197f5
 
 	measure 'Summary Category Weighted Review Score' = DIVIDE(SUMX(pbi_category_performance, pbi_category_performance[avg_review_score] * pbi_category_performance[delivered_orders]), SUM(pbi_category_performance[delivered_orders]), 0)
 		formatString: 0.00
 		displayFolder: 03 Product & Seller
+		lineageTag: a9564928-d67c-4110-9e46-932b120a072e
 
 	column category_name_en
 		dataType: string
+		lineageTag: 1d769e11-ad28-4568-9b5e-0be15cff4339
 		sourceColumn: category_name_en
 
 	column category_name_pt
 		dataType: string
+		lineageTag: a68fcef3-28f3-4b86-abb7-66c00d89c6cc
 		sourceColumn: category_name_pt
 
 	column delivered_orders
 		dataType: int64
+		lineageTag: c92dc05c-9b3f-4e9e-aac4-077dc2f3b6e7
 		sourceColumn: delivered_orders
 
 	column items_sold
 		dataType: int64
+		lineageTag: 8ad5e7ae-d786-4fec-89d4-857a0be67e35
 		sourceColumn: items_sold
 
 	column distinct_products
 		dataType: int64
+		lineageTag: beb8e5cf-f709-460e-b7a7-c8b91d59291c
 		sourceColumn: distinct_products
 
 	column distinct_sellers
 		dataType: int64
+		lineageTag: af4b4d93-7d5f-4251-b276-4a686caeae21
 		sourceColumn: distinct_sellers
 
 	column item_revenue_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 0f7d2939-729f-4860-90ce-9e6fd7abe785
 		sourceColumn: item_revenue_brl
 
 	column freight_value_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 41051cb0-6bf3-4238-ad57-5582e5f5f010
 		sourceColumn: freight_value_brl
 
 	column avg_item_price_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 842f8fe4-f69f-4e68-b498-9c37233d5b29
 		sourceColumn: avg_item_price_brl
 
 	column avg_delivery_days
 		dataType: double
 		formatString: 0.00
+		lineageTag: 777aed90-cf77-45a6-8817-9d2c3693bb1b
 		sourceColumn: avg_delivery_days
 
 	column late_delivery_rate_pct
 		dataType: double
 		formatString: 0.00"%"
+		lineageTag: fbe0cd70-a1a9-4a56-8a71-0d0e73cabc69
 		sourceColumn: late_delivery_rate_pct
 
 	column avg_review_score
 		dataType: double
 		formatString: 0.00
+		lineageTag: 0659ba4e-7a96-4813-8431-25408f3b4b12
 		sourceColumn: avg_review_score
 
 	partition pbi_category_performance = m

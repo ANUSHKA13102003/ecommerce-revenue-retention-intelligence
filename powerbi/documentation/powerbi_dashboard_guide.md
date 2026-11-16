@@ -4,8 +4,8 @@
 **Currency:** Brazilian Real (`BRL` — Format String: `"R$" #,##0.00`)  
 **Source Options:** MySQL 8.0 (`ecommerce_analytics`) OR Pre-Reconciled CSV Exports (`powerbi/data_exports/` & `data/processed/`)
 
-> **Engineering Integrity Disclosure:**  
-> Microsoft Power BI `.pbix` files are proprietary binary archives compiled interactively inside the Windows Power BI Desktop application. Per project engineering rules, no fabricated `.pbix` binary or synthetic Power BI screenshots are claimed. Instead, all star-schema data exports (`powerbi/data_exports/`), MySQL views (`sql/05_views/01_analytical_views.sql`), the Calendar Date table (`powerbi/data_exports/dim_date.csv`), relationship manifest (`powerbi/data_exports/star_schema_relationships.json`), and production DAX library (`powerbi/dax/olist_dax_measures.dax`) have been generated and reconciled to the cent against SQL and Python outputs.
+> **Compiled Workbook & Verification Note:**  
+> The compiled workbook [`powerbi/Ecommerce_Intelligence_OS.pbix`](../Ecommerce_Intelligence_OS.pbix) (`34.89 MB`) and its PBIP source [`powerbi/Ecommerce_Intelligence_OS.pbip`](../Ecommerce_Intelligence_OS.pbip) are both included, built from `19` tables (`dim_date`, `7` granular tables including `payments_clean`, `11` analytical summary marts), `10` single-direction relationships, `39` weighted DAX measures (`powerbi/dax/olist_dax_measures.dax`), and `5` pages (`Executive Overview`, `Revenue Intelligence`, `Customer Intelligence`, `Product and Seller Performance`, `Retention Analysis`) with synced dropdown slicers (`Year`, `Analysis Window`, `Customer State`, `Product Category`, plus `Payment Method` on Page 2).
 
 ---
 

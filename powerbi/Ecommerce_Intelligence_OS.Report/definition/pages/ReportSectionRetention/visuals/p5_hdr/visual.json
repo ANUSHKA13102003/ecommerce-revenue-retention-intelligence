@@ -1,0 +1,44 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "p5_hdr",
+  "position": {
+    "x": 12,
+    "y": 8,
+    "z": 0,
+    "height": 48,
+    "width": 1256,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "CommerceLens AI — Cohort Retention Analysis   ",
+                    "textStyle": {
+                      "color": "#0F172A",
+                      "fontWeight": "bold",
+                      "fontSize": "13pt"
+                    }
+                  },
+                  {
+                    "value": "Rule D-2 Cohort Window | Weighted Cohort Retention % (M0=100.00%, M1=0.18%-0.72%) | D-5 Repeat: 2.16%",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#475569"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,53 +1,65 @@
 table pbi_rfm_segments_summary
+	lineageTag: 9f6251b1-ba2a-4045-8631-929f22c73f5c
 
 	measure 'RFM Customers Count' = SUM(pbi_rfm_segments_summary[customer_count])
 		formatString: #,##0
 		displayFolder: 02 Customer & Retention
+		lineageTag: 42598c3b-9699-4210-9cb0-00420f3207c7
 
 	measure 'RFM Total Order Value Proxy (BRL)' = SUM(pbi_rfm_segments_summary[total_order_value_brl])
 		formatString: "R$" #,##0.00
 		displayFolder: 02 Customer & Retention
+		lineageTag: f935fc0c-7bb4-4767-ae94-4224915e5fe7
 
 	measure 'RFM Weighted Avg Monetary (BRL)' = DIVIDE(SUM(pbi_rfm_segments_summary[total_order_value_brl]), SUM(pbi_rfm_segments_summary[customer_count]), 0)
 		formatString: "R$" #,##0.00
 		displayFolder: 02 Customer & Retention
+		lineageTag: 6b66e9fe-cf1e-4f6a-9848-53361f992e8c
 
 	column customer_segment
 		dataType: string
+		lineageTag: d777cb17-5662-42ec-8aeb-5f4a7d195360
 		sourceColumn: customer_segment
 
 	column customer_count
 		dataType: int64
+		lineageTag: 1b5d63d7-2c4a-4f63-93da-95942f87a0f9
 		sourceColumn: customer_count
 
 	column customer_share_pct
 		dataType: double
 		formatString: 0.00"%"
+		lineageTag: 01aba473-6c4e-4c72-9b7f-232d36d916f7
 		sourceColumn: customer_share_pct
 
 	column avg_recency_days
 		dataType: double
 		formatString: 0.00
+		lineageTag: bbba66d3-557b-415c-930c-2f25d6453773
 		sourceColumn: avg_recency_days
 
 	column avg_purchase_days
 		dataType: double
 		formatString: 0.00
+		lineageTag: 56df871b-6045-40c8-a4fd-0187d98259c9
 		sourceColumn: avg_purchase_days
 
 	column avg_monetary_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: eebaf081-d068-470d-8b12-0891d13fd0f5
 		sourceColumn: avg_monetary_brl
 
 	column total_order_value_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 0a1c4784-fdbe-452d-9dcc-17d0d4b314a6
 		sourceColumn: total_order_value_brl
 
 	column revenue_share_pct
 		dataType: double
 		formatString: 0.00"%"
+		lineageTag: 322c942e-b357-4b34-a40d-a64ae89d0c2c
 		sourceColumn: revenue_share_pct
 
 	partition pbi_rfm_segments_summary = m

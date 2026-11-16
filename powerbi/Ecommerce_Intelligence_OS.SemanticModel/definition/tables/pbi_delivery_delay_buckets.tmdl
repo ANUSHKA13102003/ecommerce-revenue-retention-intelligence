@@ -1,50 +1,61 @@
 table pbi_delivery_delay_buckets
+	lineageTag: 8176fa64-82f2-4cb5-a766-8799fcdd0eba
 
 	measure 'Delay Bucket Weighted Review Score' = DIVIDE(SUMX(pbi_delivery_delay_buckets, pbi_delivery_delay_buckets[avg_review_score] * pbi_delivery_delay_buckets[delivered_orders]), SUM(pbi_delivery_delay_buckets[delivered_orders]), 0)
 		formatString: 0.00
 		displayFolder: 04 Delivery & CX
+		lineageTag: 35907e2f-0a9a-45aa-9cf9-13147709d76f
 
 	column delivery_timing_bucket
 		dataType: string
+		lineageTag: f805c915-2a24-4407-91c4-d67de7732ac0
 		sourceColumn: delivery_timing_bucket
 
 	column delivered_orders
 		dataType: int64
+		lineageTag: 84a9d61a-ba67-4ab0-9d5e-1c18b883262c
 		sourceColumn: delivered_orders
 
 	column order_share_pct
 		dataType: double
 		formatString: 0.00"%"
+		lineageTag: 55f1bd75-6c23-404f-9752-d9a75ae1cdbc
 		sourceColumn: order_share_pct
 
 	column avg_actual_delivery_days
 		dataType: double
 		formatString: 0.00
+		lineageTag: cac19bdb-d386-463b-9b52-897da10827fb
 		sourceColumn: avg_actual_delivery_days
 
 	column avg_days_vs_estimate
 		dataType: double
 		formatString: 0.00
+		lineageTag: 92a3af9a-e044-4706-b402-d9bad3bf2dd4
 		sourceColumn: avg_days_vs_estimate
 
 	column avg_review_score
 		dataType: double
 		formatString: 0.00
+		lineageTag: 9c275b8d-f68b-45c4-aadf-0ef65e913318
 		sourceColumn: avg_review_score
 
 	column one_star_share_pct
 		dataType: double
 		formatString: 0.00"%"
+		lineageTag: 3f4b06a3-a581-4b8e-8fa6-677e086feb09
 		sourceColumn: one_star_share_pct
 
 	column five_star_share_pct
 		dataType: double
 		formatString: 0.00"%"
+		lineageTag: 958e4d16-6fbd-48f9-a288-4740a4a2805b
 		sourceColumn: five_star_share_pct
 
 	column order_value_proxy_brl
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: dcf24a47-e139-45f9-847d-55a3752c1118
 		sourceColumn: order_value_proxy_brl
 
 	partition pbi_delivery_delay_buckets = m

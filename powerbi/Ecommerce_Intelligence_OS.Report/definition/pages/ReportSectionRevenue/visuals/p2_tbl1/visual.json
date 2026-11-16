@@ -1,0 +1,128 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "p2_tbl1",
+  "position": {
+    "x": 12,
+    "y": 480,
+    "z": 12000,
+    "height": 228,
+    "width": 748,
+    "tabOrder": 12000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "products_clean"
+                    }
+                  },
+                  "Property": "category_name_en"
+                }
+              },
+              "queryRef": "products_clean.category_name_en"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "order_items_clean"
+                    }
+                  },
+                  "Property": "Delivered Item Revenue (BRL)"
+                }
+              },
+              "queryRef": "order_items_clean.Delivered Item Revenue (BRL)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "order_items_clean"
+                    }
+                  },
+                  "Property": "Delivered Freight Value (BRL)"
+                }
+              },
+              "queryRef": "order_items_clean.Delivered Freight Value (BRL)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "order_items_clean"
+                    }
+                  },
+                  "Property": "Category Item Revenue Share %"
+                }
+              },
+              "queryRef": "order_items_clean.Category Item Revenue Share %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "order_items_clean"
+                    }
+                  },
+                  "Property": "Active Delivered Sellers"
+                }
+              },
+              "queryRef": "order_items_clean.Active Delivered Sellers"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "order_items_clean"
+                  }
+                },
+                "Property": "Delivered Item Revenue (BRL)"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Category Grain Leaderboard (Item Revenue, Freight, Active Sellers & Share)'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

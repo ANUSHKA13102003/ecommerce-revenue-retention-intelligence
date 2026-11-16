@@ -1,81 +1,103 @@
 table pbi_cohort_retention_matrix
+	lineageTag: 865e1bba-ca1d-42c0-ab42-131b5861c9a5
 
 	column cohort_month
 		dataType: string
+		lineageTag: 4667d368-ed48-4d05-aa44-81d94a461575
 		sourceColumn: cohort_month
 
 	column cohort_start_date
 		dataType: dateTime
 		formatString: yyyy-MM-dd
+		lineageTag: 56457d4c-ec64-4a30-9f9b-925e74f2959c
+		summarizeBy: none
 		sourceColumn: cohort_start_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
 
 	column cohort_size
 		dataType: int64
+		lineageTag: 8a32b5f4-884f-4230-a183-9d64c4b1deb8
 		sourceColumn: cohort_size
 
 	column m0_pct
 		dataType: double
 		formatString: 0.000"%"
+		lineageTag: dd2d73b5-c69d-4d72-8d35-227f96ad9232
 		sourceColumn: m0_pct
 
 	column m1_pct
 		dataType: double
 		formatString: 0.000"%"
+		lineageTag: 6a0ccab2-bc00-447f-b405-1beaf207c73d
 		sourceColumn: m1_pct
 
 	column m2_pct
 		dataType: double
 		formatString: 0.000"%"
+		lineageTag: 92e8a884-4863-4dc8-987d-e3b3d14145ca
 		sourceColumn: m2_pct
 
 	column m3_pct
 		dataType: double
 		formatString: 0.000"%"
+		lineageTag: da808698-62e1-462f-8845-1877600f843c
 		sourceColumn: m3_pct
 
 	column m4_pct
 		dataType: double
 		formatString: 0.000"%"
+		lineageTag: 2f3a1a22-2a1b-4a34-ba02-9dbb75593119
 		sourceColumn: m4_pct
 
 	column m5_pct
 		dataType: double
 		formatString: 0.000"%"
+		lineageTag: 5d1fe367-53c7-40f8-872d-499a2ca8b780
 		sourceColumn: m5_pct
 
 	column m6_pct
 		dataType: double
 		formatString: 0.000"%"
+		lineageTag: 6df0ab3e-6099-4a92-a527-d9b91da7e646
 		sourceColumn: m6_pct
 
 	column m7_pct
 		dataType: double
 		formatString: 0.000"%"
+		lineageTag: 62738097-ab6d-4127-bb6b-25d52e85cb5c
 		sourceColumn: m7_pct
 
 	column m8_pct
 		dataType: double
 		formatString: 0.000"%"
+		lineageTag: f85306dd-1aa2-415e-9dc7-9da68e1ef2b1
 		sourceColumn: m8_pct
 
 	column m9_pct
 		dataType: double
 		formatString: 0.000"%"
+		lineageTag: ea98c2ed-9847-4dfc-82a7-c1e564ea6e7f
 		sourceColumn: m9_pct
 
 	column m10_pct
 		dataType: double
 		formatString: 0.000"%"
+		lineageTag: d2fe7f49-1869-4d31-8880-97912b0a240e
 		sourceColumn: m10_pct
 
 	column m11_pct
 		dataType: double
 		formatString: 0.000"%"
+		lineageTag: ac1c0ce1-1015-41e6-bd4e-d3e30004f463
 		sourceColumn: m11_pct
 
 	column m12_pct
 		dataType: double
 		formatString: 0.000"%"
+		lineageTag: 284ffa1b-2d31-4a51-8b87-eda4e0fa23b2
 		sourceColumn: m12_pct
 
 	partition pbi_cohort_retention_matrix = m

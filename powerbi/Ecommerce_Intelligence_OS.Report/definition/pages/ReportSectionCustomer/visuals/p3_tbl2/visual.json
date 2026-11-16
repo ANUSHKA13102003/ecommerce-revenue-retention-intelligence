@@ -1,0 +1,121 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "p3_tbl2",
+  "position": {
+    "x": 644,
+    "y": 480,
+    "z": 13000,
+    "height": 228,
+    "width": 624,
+    "tabOrder": 13000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "pbi_customer_clv_groups"
+                    }
+                  },
+                  "Property": "customer_behaviour_group"
+                }
+              },
+              "queryRef": "pbi_customer_clv_groups.customer_behaviour_group"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "pbi_customer_clv_groups"
+                        }
+                      },
+                      "Property": "customer_count"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(pbi_customer_clv_groups.customer_count)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "pbi_customer_clv_groups"
+                    }
+                  },
+                  "Property": "CLV Weighted Avg Delivered Orders"
+                }
+              },
+              "queryRef": "pbi_customer_clv_groups.CLV Weighted Avg Delivered Orders"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "pbi_customer_clv_groups"
+                    }
+                  },
+                  "Property": "CLV Weighted Avg Order Value Proxy (BRL)"
+                }
+              },
+              "queryRef": "pbi_customer_clv_groups.CLV Weighted Avg Order Value Proxy (BRL)"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "pbi_customer_clv_groups"
+                        }
+                      },
+                      "Property": "total_historical_clv_brl"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(pbi_customer_clv_groups.total_historical_clv_brl)"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Repeat Behaviour CLV Groups (2,015 D-5 vs 786 Same-Day vs 90,557 Single)'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

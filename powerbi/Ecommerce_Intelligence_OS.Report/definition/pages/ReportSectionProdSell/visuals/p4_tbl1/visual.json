@@ -1,0 +1,156 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "p4_tbl1",
+  "position": {
+    "x": 12,
+    "y": 480,
+    "z": 11000,
+    "height": 228,
+    "width": 620,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "pbi_state_performance"
+                    }
+                  },
+                  "Property": "customer_state"
+                }
+              },
+              "queryRef": "pbi_state_performance.customer_state"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "pbi_state_performance"
+                        }
+                      },
+                      "Property": "delivered_orders"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(pbi_state_performance.delivered_orders)"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "pbi_state_performance"
+                        }
+                      },
+                      "Property": "order_value_proxy_brl"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(pbi_state_performance.order_value_proxy_brl)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "pbi_state_performance"
+                    }
+                  },
+                  "Property": "Summary State Weighted Delivery Days"
+                }
+              },
+              "queryRef": "pbi_state_performance.Summary State Weighted Delivery Days"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "pbi_state_performance"
+                    }
+                  },
+                  "Property": "Summary State Weighted Late Rate %"
+                }
+              },
+              "queryRef": "pbi_state_performance.Summary State Weighted Late Rate %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "pbi_state_performance"
+                    }
+                  },
+                  "Property": "Summary State Weighted Review Score"
+                }
+              },
+              "queryRef": "pbi_state_performance.Summary State Weighted Review Score"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "pbi_state_performance"
+                      }
+                    },
+                    "Property": "delivered_orders"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'State Logistics SLA Scorecard (Weighted Delivery Days, Late % & Score)'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

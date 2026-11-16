@@ -1,64 +1,111 @@
 table order_items_clean
+	lineageTag: 36ab3911-dcfc-4a58-8fc2-e9cdb8582cc0
 
 	/// Approved Rule D-1: SUM(price) for product, category, and seller performance.
 	measure 'Delivered Item Revenue (BRL)' = CALCULATE(SUM(order_items_clean[price]), order_level[is_delivered] = TRUE())
 		formatString: "R$" #,##0.00
 		displayFolder: 01 Revenue & Orders
+		lineageTag: 3253d69c-36cb-4fec-9821-97b0dfe3edc8
 
 	measure 'Delivered Freight Value (BRL)' = CALCULATE(SUM(order_items_clean[freight_value]), order_level[is_delivered] = TRUE())
 		formatString: "R$" #,##0.00
 		displayFolder: 01 Revenue & Orders
+		lineageTag: 5e8d074c-34ff-47b3-b40f-7b6ae02894e6
 
 	measure 'Category Item Revenue Share %' = DIVIDE([Delivered Item Revenue (BRL)], CALCULATE([Delivered Item Revenue (BRL)], ALL(products_clean[category_name_en])), 0)
 		formatString: 0.00%
 		displayFolder: 03 Product & Seller
+		lineageTag: c2ced58a-5664-4a01-b851-76df49645881
 
 	measure 'Active Delivered Sellers' = CALCULATE(DISTINCTCOUNT(order_items_clean[seller_id]), order_level[is_delivered] = TRUE())
 		formatString: #,##0
 		displayFolder: 03 Product & Seller
+		lineageTag: c582bb11-fab2-4feb-9e3d-3a418cce0bc8
 
 	measure 'Revenue per Active Seller (BRL)' = DIVIDE([Delivered Item Revenue (BRL)], [Active Delivered Sellers], 0)
 		formatString: "R$" #,##0.00
 		displayFolder: 03 Product & Seller
+		lineageTag: bcc65377-7f8d-48e4-ae87-1579121b5987
 
 	column order_id
 		dataType: string
+		lineageTag: 7acc9f57-6578-4992-9baa-45f8b9a8a07c
+		summarizeBy: none
 		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
 
 	column order_item_id
 		dataType: int64
+		lineageTag: c938094a-7586-480e-ad78-6bb04041b36b
+		summarizeBy: sum
 		sourceColumn: order_item_id
+
+		annotation SummarizationSetBy = Automatic
 
 	column product_id
 		dataType: string
+		lineageTag: 48cf91ea-8b33-4a7f-adaa-62174727d8fa
+		summarizeBy: none
 		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
 
 	column seller_id
 		dataType: string
+		lineageTag: be444c4a-f3a0-47c6-8cb4-2251ee993356
+		summarizeBy: none
 		sourceColumn: seller_id
+
+		annotation SummarizationSetBy = Automatic
 
 	column shipping_limit_date
 		dataType: dateTime
 		formatString: yyyy-MM-dd
+		lineageTag: 30a1bbb6-9b51-4281-8f86-3380faf2c5bc
+		summarizeBy: none
 		sourceColumn: shipping_limit_date
+
+		variation Variation
+			isDefault
+			relationship: c1e0a16e-1194-44a2-b111-53c956cf763e
+			defaultHierarchy: LocalDateTable_38d7e177-28d8-45cf-a3bc-65e777f0ecee.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
 
 	column price
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 29fc237f-ba72-44de-9934-bbd35edc284b
+		summarizeBy: sum
 		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
 
 	column freight_value
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 9ec690bc-1386-41c5-bdc3-dd1a6cae2ac2
+		summarizeBy: sum
 		sourceColumn: freight_value
+
+		annotation SummarizationSetBy = Automatic
 
 	column shipping_limit_outlier
 		dataType: boolean
+		lineageTag: b3167519-14d5-44de-9354-41e8a00a3ba6
+		summarizeBy: none
 		sourceColumn: shipping_limit_outlier
+
+		annotation SummarizationSetBy = Automatic
 
 	column missing_category
 		dataType: boolean
+		lineageTag: 763f4d28-824f-49cc-bd2f-9f64ef399c58
+		summarizeBy: none
 		sourceColumn: missing_category
+
+		annotation SummarizationSetBy = Automatic
 
 	partition order_items_clean = m
 		mode: import

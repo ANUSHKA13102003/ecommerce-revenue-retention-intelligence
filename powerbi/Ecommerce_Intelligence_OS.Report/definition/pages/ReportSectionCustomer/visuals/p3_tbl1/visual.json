@@ -1,0 +1,116 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "p3_tbl1",
+  "position": {
+    "x": 12,
+    "y": 480,
+    "z": 12000,
+    "height": 228,
+    "width": 620,
+    "tabOrder": 12000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "pbi_rfm_segments_summary"
+                    }
+                  },
+                  "Property": "customer_segment"
+                }
+              },
+              "queryRef": "pbi_rfm_segments_summary.customer_segment"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "pbi_rfm_segments_summary"
+                    }
+                  },
+                  "Property": "RFM Customers Count"
+                }
+              },
+              "queryRef": "pbi_rfm_segments_summary.RFM Customers Count"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "pbi_rfm_segments_summary"
+                        }
+                      },
+                      "Property": "customer_share_pct"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(pbi_rfm_segments_summary.customer_share_pct)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "pbi_rfm_segments_summary"
+                    }
+                  },
+                  "Property": "RFM Weighted Avg Monetary (BRL)"
+                }
+              },
+              "queryRef": "pbi_rfm_segments_summary.RFM Weighted Avg Monetary (BRL)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "pbi_rfm_segments_summary"
+                    }
+                  },
+                  "Property": "RFM Total Order Value Proxy (BRL)"
+                }
+              },
+              "queryRef": "pbi_rfm_segments_summary.RFM Total Order Value Proxy (BRL)"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'RFM Segment Economics (Weighted Avg Monetary & Order Value Totals)'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

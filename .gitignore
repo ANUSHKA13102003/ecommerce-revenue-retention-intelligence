@@ -53,9 +53,12 @@ project_inventory.txt
 *.dump
 *.sql.bak
 
-# ----- Power BI working files -----
-powerbi/*.pbix
+# ----- Power BI files -----
+# Keep compiled portfolio PBIX (34.89 MB, CC BY-NC-SA 4.0 non-commercial attribution)
+!powerbi/Ecommerce_Intelligence_OS.pbix
 powerbi/*.pbit
+**/.pbi/
+**/.pbi/localSettings.json
 
 # ----- OS files -----
 .DS_Store

@@ -1,32 +1,40 @@
 table payments_clean
+	lineageTag: 46f9d669-da7e-4616-91ca-fcadf2c230cb
 
 	measure 'Payment Transaction Value (BRL)' = CALCULATE(SUM(payments_clean[payment_value]), order_level[is_delivered] = TRUE())
 		formatString: "R$" #,##0.00
 		displayFolder: 01 Revenue & Orders
+		lineageTag: 34984604-1e1a-413f-be27-dda34f016a7b
 
 	column order_id
 		dataType: string
+		lineageTag: fbb1ff78-b366-48e8-845a-fc2e730bdc03
 		sourceColumn: order_id
 
 	column payment_sequential
 		dataType: int64
+		lineageTag: ea347810-9ed0-4700-ad84-cab58bc6019c
 		sourceColumn: payment_sequential
 
 	column payment_type
 		dataType: string
+		lineageTag: b66a2b9f-8597-4b1a-bae8-d6acd2229627
 		sourceColumn: payment_type
 
 	column payment_installments
 		dataType: int64
+		lineageTag: 43e0ef32-f504-4113-adde-0d07e0563d7a
 		sourceColumn: payment_installments
 
 	column payment_value
 		dataType: double
 		formatString: "R$" #,##0.00
+		lineageTag: 5801dde2-ee1f-4e20-8813-5990da73f9eb
 		sourceColumn: payment_value
 
 	column installments_invalid
 		dataType: boolean
+		lineageTag: 4e640f52-cb95-496c-a296-d13f2fcde0fc
 		sourceColumn: installments_invalid
 
 	partition payments_clean = m

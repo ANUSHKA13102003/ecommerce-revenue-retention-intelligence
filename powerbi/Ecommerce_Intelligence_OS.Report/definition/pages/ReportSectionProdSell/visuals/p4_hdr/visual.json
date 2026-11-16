@@ -1,0 +1,44 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "p4_hdr",
+  "position": {
+    "x": 12,
+    "y": 8,
+    "z": 0,
+    "height": 48,
+    "width": 1256,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "CommerceLens AI — Product, Seller & Logistics SLA   ",
+                    "textStyle": {
+                      "color": "#0F172A",
+                      "fontWeight": "bold",
+                      "fontSize": "13pt"
+                    }
+                  },
+                  {
+                    "value": "Seller Item Revenue (SUM Price) vs State Order Value & Delivery Delay Penalty (-1.72 Stars)",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#475569"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

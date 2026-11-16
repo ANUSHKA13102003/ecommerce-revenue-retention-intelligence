@@ -1,6 +1,16 @@
 model Model
 	culture: en-US
 	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["dim_date","order_level","order_items_clean","payments_clean","products_clean","sellers_clean","customers_clean","customer_rfm","pbi_monthly_kpis","pbi_category_performance","pbi_seller_performance","pbi_rfm_segments_summary","pbi_state_performance","pbi_payment_methods","pbi_order_status_summary","pbi_cohort_retention_long","pbi_cohort_retention_matrix","pbi_delivery_delay_buckets","pbi_customer_clv_groups"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
 
 ref table dim_date
 ref table order_level
@@ -21,4 +31,13 @@ ref table pbi_cohort_retention_long
 ref table pbi_cohort_retention_matrix
 ref table pbi_delivery_delay_buckets
 ref table pbi_customer_clv_groups
+ref table DateTableTemplate_defd230b-5e6f-42b9-aceb-156d5cb4ecac
+ref table LocalDateTable_c0330da5-8f66-4727-bb49-09af6305560a
+ref table LocalDateTable_43c2abae-2770-4586-9234-275e863b965d
+ref table LocalDateTable_944d98f5-7baf-4024-a709-c58945bd6eea
+ref table LocalDateTable_70b4fa02-938c-4503-9770-12e83d95e927
+ref table LocalDateTable_5027b898-a465-47a7-83aa-7224b4c5f29f
+ref table LocalDateTable_89a6bc53-cf36-42ef-89a2-b53540713efc
+ref table LocalDateTable_9a1295c8-df4a-41f4-b281-d0983834e0ab
+ref table LocalDateTable_38d7e177-28d8-45cf-a3bc-65e777f0ecee
 
