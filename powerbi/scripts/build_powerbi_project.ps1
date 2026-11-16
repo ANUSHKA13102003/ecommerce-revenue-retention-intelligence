@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Builds and validates the complete Power BI Project (.pbip + TMDL Semantic Model + 5-page Report)
     for E-Commerce Intelligence OS using Power BI Desktop SDK assemblies.
@@ -173,31 +173,42 @@ in
 }
 
 # --- 1A. dim_date (Marked as Date Table) ---
+$dimDateExtraM = @'
+WithYearLabel = Table.AddColumn(Typed, "year_label", each Text.From([year]), type text),
+    FinalStep = Table.AddColumn(WithYearLabel, "analysis_window_label", each if [in_analysis_window] = true then "Jan 2017 - Aug 2018 (D-2 Window)" else "Boundary Months (2016 / Sep-Oct 2018)", type text)
+'@
 $tblDimDate = Add-CsvTable -TableName 'dim_date' `
     -CsvPath (Join-Path $ExportsDir 'dim_date.csv') `
     -DataCategory 'Time' -KeyColumn 'date_key' `
+    -ExtraMStep $dimDateExtraM `
     -Columns @(
-        @('date_key',           'DateTime', 'type date'),
-        @('year',               'Int64',    'Int64.Type'),
-        @('quarter_num',        'Int64',    'Int64.Type'),
-        @('quarter_label',      'String',   'type text'),
-        @('month_num',          'Int64',    'Int64.Type'),
-        @('year_month',         'String',   'type text'),
-        @('month_start_date',   'DateTime', 'type date'),
-        @('month_name',         'String',   'type text'),
-        @('month_short',        'String',   'type text'),
-        @('day_of_month',       'Int64',    'Int64.Type'),
-        @('day_of_week_num',    'Int64',    'Int64.Type'),
-        @('day_name',           'String',   'type text'),
-        @('is_weekend',         'Boolean',  'type logical'),
-        @('in_analysis_window', 'Boolean',  'type logical')
+        @('date_key',              'DateTime', 'type date'),
+        @('year',                  'Int64',    'Int64.Type'),
+        @('quarter_num',           'Int64',    'Int64.Type'),
+        @('quarter_label',         'String',   'type text'),
+        @('month_num',             'Int64',    'Int64.Type'),
+        @('year_month',            'String',   'type text'),
+        @('month_start_date',      'DateTime', 'type date'),
+        @('month_name',            'String',   'type text'),
+        @('month_short',           'String',   'type text'),
+        @('day_of_month',          'Int64',    'Int64.Type'),
+        @('day_of_week_num',       'Int64',    'Int64.Type'),
+        @('day_name',              'String',   'type text'),
+        @('is_weekend',            'Boolean',  'type logical'),
+        @('in_analysis_window',    'Boolean',  'type logical'),
+        @('year_label',            'String',   'type text', 'derived'),
+        @('analysis_window_label', 'String',   'type text', 'derived')
     ) `
     -SortByOverrides @{
+        'year_label'  = 'year'
         'year_month'  = 'month_start_date'
         'month_name'  = 'month_num'
         'month_short' = 'month_start_date'
         'day_name'    = 'day_of_week_num'
     }
+foreach ($nonAgg in @('year','quarter_num','month_num','day_of_month','day_of_week_num')) {
+    $tblDimDate.Columns[$nonAgg].SummarizeBy = [Microsoft.AnalysisServices.Tabular.AggregateFunction]::None
+}
 
 # --- 1B. Granular Star Schema Tables (data/processed/) ---
 $tblOrderLevel = Add-CsvTable -TableName 'order_level' `
@@ -790,7 +801,7 @@ function New-VisualContainer {
         [string]$Id, [int]$X, [int]$Y, [int]$W, [int]$H, [int]$Z,
         [string]$VisualType, [string]$Title, [hashtable]$Projections,
         [array]$From, [array]$Select, [array]$OrderBy = @(), [hashtable]$Objects = @{},
-        [hashtable]$SyncGroup = $null
+        [hashtable]$SyncGroup = $null, [bool]$ShowTitle = $true, [hashtable]$ExtraVcObjects = @{}
     )
     $proto = @{
         Version = 2
@@ -799,15 +810,30 @@ function New-VisualContainer {
     }
     if ($OrderBy.Count -gt 0) { $proto.OrderBy = $OrderBy }
 
-    $vcObjs = @{
-        title = @(
-            @{
-                properties = @{
-                    show = @{ expr = @{ Literal = @{ Value = 'true' } } }
-                    text = @{ expr = @{ Literal = @{ Value = "'$Title'" } } }
+    if ($ShowTitle) {
+        $vcObjs = @{
+            title = @(
+                @{
+                    properties = @{
+                        show = @{ expr = @{ Literal = @{ Value = 'true' } } }
+                        text = @{ expr = @{ Literal = @{ Value = "'$Title'" } } }
+                    }
                 }
-            }
-        )
+            )
+        }
+    } else {
+        $vcObjs = @{
+            title = @(
+                @{
+                    properties = @{
+                        show = @{ expr = @{ Literal = @{ Value = 'false' } } }
+                    }
+                }
+            )
+        }
+    }
+    foreach ($kv in $ExtraVcObjects.GetEnumerator()) {
+        $vcObjs[$kv.Key] = $kv.Value
     }
 
     $singleVisual = @{
@@ -852,12 +878,8 @@ function New-BannerVisual {
                             paragraphs = @(
                                 @{
                                     textRuns = @(
-                                        @{ value = $Heading; textStyle = @{ fontWeight = 'bold'; fontSize = '13pt'; color = '#0F172A' } }
-                                    )
-                                },
-                                @{
-                                    textRuns = @(
-                                        @{ value = $Subtitle; textStyle = @{ fontSize = '8.5pt'; color = '#475569' } }
+                                        @{ value = "$Heading   "; textStyle = @{ fontWeight = 'bold'; fontSize = '13pt'; color = '#0F172A' } },
+                                        @{ value = $Subtitle; textStyle = @{ fontSize = '9pt'; color = '#475569' } }
                                     )
                                 }
                             )
@@ -892,13 +914,70 @@ function New-SyncedSlicerVisual {
         [string]$Title, [string]$Entity, [string]$ColName, [string]$SyncGroupName
     )
     $sg = @{ groupName = $SyncGroupName; fieldChanges = $true; filterChanges = $true }
+    $slicerObjects = @{
+        data = @(
+            @{
+                properties = @{
+                    mode = @{ expr = @{ Literal = @{ Value = "'Dropdown'" } } }
+                }
+            }
+        )
+        general = @(
+            @{
+                properties = @{
+                    orientation = @{ expr = @{ Literal = @{ Value = '0D' } } }
+                    responsive  = @{ expr = @{ Literal = @{ Value = 'false' } } }
+                }
+            }
+        )
+        header = @(
+            @{
+                properties = @{
+                    show       = @{ expr = @{ Literal = @{ Value = 'true' } } }
+                    text       = @{ expr = @{ Literal = @{ Value = "'$Title'" } } }
+                    fontColor  = @{ solid = @{ color = @{ expr = @{ Literal = @{ Value = "'#0F172A'" } } } } }
+                    fontFamily = @{ expr = @{ Literal = @{ Value = "'Segoe UI Semibold'" } } }
+                    textSize   = @{ expr = @{ Literal = @{ Value = '10D' } } }
+                    bold       = @{ expr = @{ Literal = @{ Value = 'true' } } }
+                }
+            }
+        )
+        items = @(
+            @{
+                properties = @{
+                    fontColor  = @{ solid = @{ color = @{ expr = @{ Literal = @{ Value = "'#0F172A'" } } } } }
+                    fontFamily = @{ expr = @{ Literal = @{ Value = "'Segoe UI'" } } }
+                    textSize   = @{ expr = @{ Literal = @{ Value = '10D' } } }
+                }
+            }
+        )
+        selection = @(
+            @{
+                properties = @{
+                    selectAllCheckboxEnabled = @{ expr = @{ Literal = @{ Value = 'true' } } }
+                    singleSelect             = @{ expr = @{ Literal = @{ Value = 'false' } } }
+                }
+            }
+        )
+    }
+    $extraVc = @{
+        padding = @(
+            @{
+                properties = @{
+                    top    = @{ expr = @{ Literal = @{ Value = '2D' } } }
+                    bottom = @{ expr = @{ Literal = @{ Value = '2D' } } }
+                    left   = @{ expr = @{ Literal = @{ Value = '6D' } } }
+                    right  = @{ expr = @{ Literal = @{ Value = '6D' } } }
+                }
+            }
+        )
+    }
     return New-VisualContainer -Id $Id -X $X -Y $Y -W $W -H $H -Z $Z -VisualType 'slicer' -Title $Title `
-        -Projections @{ Values = @(@{ queryRef = "$Entity.$ColName"; active = $true }) } `
+        -ShowTitle $false -ExtraVcObjects $extraVc `
+        -Projections @{ Values = @(@{ queryRef = "$Entity.$ColName"; active = $true; displayName = $Title }) } `
         -From @(@{ Name = 't'; Entity = $Entity; Type = 0 }) `
         -Select @((New-ColExpr $Entity $ColName 't')) `
-        -Objects @{
-            data = @(@{ properties = @{ mode = @{ expr = @{ Literal = @{ Value = "'Dropdown'" } } } } })
-        } `
+        -Objects $slicerObjects `
         -SyncGroup $sg
 }
 
@@ -906,34 +985,34 @@ function New-StandardSlicerBar {
     param([string]$Prefix, [bool]$IncludePayment = $false)
     if ($IncludePayment) {
         return @(
-            (New-SyncedSlicerVisual -Id "${Prefix}_sl_yr"  -X 518  -Y 10 -W 120 -H 60 -Z 2 -Title 'Year'             -Entity 'dim_date'        -ColName 'year'               -SyncGroupName 'Sync_Date_Year'),
-            (New-SyncedSlicerVisual -Id "${Prefix}_sl_win" -X 646  -Y 10 -W 144 -H 60 -Z 3 -Title 'Window (D-2)'     -Entity 'dim_date'        -ColName 'in_analysis_window' -SyncGroupName 'Sync_Window_D2'),
-            (New-SyncedSlicerVisual -Id "${Prefix}_sl_st"  -X 798  -Y 10 -W 136 -H 60 -Z 4 -Title 'Customer State'   -Entity 'customers_clean' -ColName 'customer_state'     -SyncGroupName 'Sync_Customer_State'),
-            (New-SyncedSlicerVisual -Id "${Prefix}_sl_cat" -X 942  -Y 10 -W 172 -H 60 -Z 5 -Title 'Product Category' -Entity 'products_clean'  -ColName 'category_name_en'   -SyncGroupName 'Sync_Product_Category'),
-            (New-SyncedSlicerVisual -Id "${Prefix}_sl_pay" -X 1122 -Y 10 -W 146 -H 60 -Z 6 -Title 'Payment Method'   -Entity 'payments_clean'  -ColName 'payment_type'       -SyncGroupName 'Sync_Payment_Method')
+            (New-SyncedSlicerVisual -Id "${Prefix}_sl_yr"  -X 12   -Y 62 -W 152 -H 80 -Z 2 -Title 'Year'             -Entity 'dim_date'        -ColName 'year_label'            -SyncGroupName 'Sync_Date_Year'),
+            (New-SyncedSlicerVisual -Id "${Prefix}_sl_win" -X 174  -Y 62 -W 300 -H 80 -Z 3 -Title 'Analysis Window'  -Entity 'dim_date'        -ColName 'analysis_window_label' -SyncGroupName 'Sync_Window_D2'),
+            (New-SyncedSlicerVisual -Id "${Prefix}_sl_st"  -X 484  -Y 62 -W 216 -H 80 -Z 4 -Title 'Customer State'   -Entity 'customers_clean' -ColName 'customer_state'        -SyncGroupName 'Sync_Customer_State'),
+            (New-SyncedSlicerVisual -Id "${Prefix}_sl_cat" -X 710  -Y 62 -W 310 -H 80 -Z 5 -Title 'Product Category' -Entity 'products_clean'  -ColName 'category_name_en'      -SyncGroupName 'Sync_Product_Category'),
+            (New-SyncedSlicerVisual -Id "${Prefix}_sl_pay" -X 1030 -Y 62 -W 238 -H 80 -Z 6 -Title 'Payment Method'   -Entity 'payments_clean'  -ColName 'payment_type'          -SyncGroupName 'Sync_Payment_Method')
         )
     } else {
         return @(
-            (New-SyncedSlicerVisual -Id "${Prefix}_sl_yr"  -X 580  -Y 10 -W 132 -H 60 -Z 2 -Title 'Year'             -Entity 'dim_date'        -ColName 'year'               -SyncGroupName 'Sync_Date_Year'),
-            (New-SyncedSlicerVisual -Id "${Prefix}_sl_win" -X 720  -Y 10 -W 154 -H 60 -Z 3 -Title 'Window (D-2)'     -Entity 'dim_date'        -ColName 'in_analysis_window' -SyncGroupName 'Sync_Window_D2'),
-            (New-SyncedSlicerVisual -Id "${Prefix}_sl_st"  -X 882  -Y 10 -W 154 -H 60 -Z 4 -Title 'Customer State'   -Entity 'customers_clean' -ColName 'customer_state'     -SyncGroupName 'Sync_Customer_State'),
-            (New-SyncedSlicerVisual -Id "${Prefix}_sl_cat" -X 1044 -Y 10 -W 224 -H 60 -Z 5 -Title 'Product Category' -Entity 'products_clean'  -ColName 'category_name_en'   -SyncGroupName 'Sync_Product_Category')
+            (New-SyncedSlicerVisual -Id "${Prefix}_sl_yr"  -X 12  -Y 62 -W 176 -H 80 -Z 2 -Title 'Year'             -Entity 'dim_date'        -ColName 'year_label'            -SyncGroupName 'Sync_Date_Year'),
+            (New-SyncedSlicerVisual -Id "${Prefix}_sl_win" -X 198 -Y 62 -W 366 -H 80 -Z 3 -Title 'Analysis Window'  -Entity 'dim_date'        -ColName 'analysis_window_label' -SyncGroupName 'Sync_Window_D2'),
+            (New-SyncedSlicerVisual -Id "${Prefix}_sl_st"  -X 574 -Y 62 -W 264 -H 80 -Z 4 -Title 'Customer State'   -Entity 'customers_clean' -ColName 'customer_state'        -SyncGroupName 'Sync_Customer_State'),
+            (New-SyncedSlicerVisual -Id "${Prefix}_sl_cat" -X 848 -Y 62 -W 420 -H 80 -Z 5 -Title 'Product Category' -Entity 'products_clean'  -ColName 'category_name_en'      -SyncGroupName 'Sync_Product_Category')
         )
     }
 }
 
 # --- PAGE 1: Executive Overview ---
 $p1Visuals = @(
-    (New-BannerVisual -Id 'p1_hdr' -X 12 -Y 10 -W 560 -H 60 -Z 1 `
+    (New-BannerVisual -Id 'p1_hdr' -X 12 -Y 8 -W 1256 -H 48 -Z 1 `
         -Heading 'CommerceLens AI — Executive Overview' `
-        -Subtitle 'All Dates Default (Use Window D-2 Slicer for Jan 2017 - Aug 2018) | D-5 Repeat: 2.16% (2,015)')
+        -Subtitle 'All Dates Default (Use Analysis Window Slicer for Jan 2017 - Aug 2018) | Rule D-5 Repeat: 2.16% (2,015)')
 ) + (New-StandardSlicerBar -Prefix 'p1') + @(
-    (New-KpiCardVisual -Id 'p1_kpi1' -X 12  -Y 80 -W 242 -H 104 -Z 10 -Title 'Delivered Orders'             -Entity 'order_level'       -MeasureName 'Delivered Orders'),
-    (New-KpiCardVisual -Id 'p1_kpi2' -X 264 -Y 80 -W 242 -H 104 -Z 11 -Title 'Delivered Order Value Proxy'  -Entity 'order_level'       -MeasureName 'Delivered Order Value Proxy (BRL)'),
-    (New-KpiCardVisual -Id 'p1_kpi3' -X 516 -Y 80 -W 242 -H 104 -Z 12 -Title 'Delivered Item Revenue'       -Entity 'order_items_clean' -MeasureName 'Delivered Item Revenue (BRL)'),
-    (New-KpiCardVisual -Id 'p1_kpi4' -X 768 -Y 80 -W 242 -H 104 -Z 13 -Title 'Repeat Rate (D-5: 2.16%)'   -Entity 'order_level'       -MeasureName 'Repeat Customer Rate %'),
-    (New-KpiCardVisual -Id 'p1_kpi5' -X 1020 -Y 80 -W 248 -H 104 -Z 14 -Title 'Avg Review Score (D-3)'      -Entity 'order_level'       -MeasureName 'Average Review Score'),
-    (New-VisualContainer -Id 'p1_ch1' -X 12 -Y 194 -W 620 -H 514 -Z 15 -VisualType 'lineClusteredColumnComboChart' `
+    (New-KpiCardVisual -Id 'p1_kpi1' -X 12   -Y 148 -W 242 -H 88 -Z 10 -Title 'Delivered Orders'             -Entity 'order_level'       -MeasureName 'Delivered Orders'),
+    (New-KpiCardVisual -Id 'p1_kpi2' -X 264  -Y 148 -W 242 -H 88 -Z 11 -Title 'Delivered Order Value Proxy'  -Entity 'order_level'       -MeasureName 'Delivered Order Value Proxy (BRL)'),
+    (New-KpiCardVisual -Id 'p1_kpi3' -X 516  -Y 148 -W 242 -H 88 -Z 12 -Title 'Delivered Item Revenue'       -Entity 'order_items_clean' -MeasureName 'Delivered Item Revenue (BRL)'),
+    (New-KpiCardVisual -Id 'p1_kpi4' -X 768  -Y 148 -W 242 -H 88 -Z 13 -Title 'Repeat Rate (D-5: 2.16%)'   -Entity 'order_level'       -MeasureName 'Repeat Customer Rate %'),
+    (New-KpiCardVisual -Id 'p1_kpi5' -X 1020 -Y 148 -W 248 -H 88 -Z 14 -Title 'Avg Review Score (D-3)'      -Entity 'order_level'       -MeasureName 'Average Review Score'),
+    (New-VisualContainer -Id 'p1_ch1' -X 12 -Y 244 -W 620 -H 464 -Z 15 -VisualType 'lineClusteredColumnComboChart' `
         -Title 'Monthly Order Value Proxy (BRL) vs Delivered Orders' `
         -Projections @{
             Category = @(@{ queryRef = 'dim_date.year_month'; active = $true })
@@ -947,7 +1026,7 @@ $p1Visuals = @(
             (New-MeasureExpr 'order_level' 'Delivered Orders' 'o')
         ) `
         -OrderBy @(@{ Direction = 1; Expression = @{ Column = @{ Expression = @{ SourceRef = @{ Source = 'd' } }; Property = 'year_month' } } })),
-    (New-VisualContainer -Id 'p1_ch2' -X 644 -Y 194 -W 624 -H 252 -Z 16 -VisualType 'clusteredBarChart' `
+    (New-VisualContainer -Id 'p1_ch2' -X 644 -Y 244 -W 624 -H 226 -Z 16 -VisualType 'clusteredBarChart' `
         -Title 'Delivered Item Revenue by Product Category (SUM Price)' `
         -Projections @{
             Category = @(@{ queryRef = 'products_clean.category_name_en'; active = $true })
@@ -959,7 +1038,7 @@ $p1Visuals = @(
             (New-MeasureExpr 'order_items_clean' 'Delivered Item Revenue (BRL)' 'oi')
         ) `
         -OrderBy @(@{ Direction = 2; Expression = @{ Measure = @{ Expression = @{ SourceRef = @{ Source = 'oi' } }; Property = 'Delivered Item Revenue (BRL)' } } })),
-    (New-VisualContainer -Id 'p1_ch3' -X 644 -Y 456 -W 624 -H 252 -Z 17 -VisualType 'clusteredBarChart' `
+    (New-VisualContainer -Id 'p1_ch3' -X 644 -Y 480 -W 624 -H 228 -Z 17 -VisualType 'clusteredBarChart' `
         -Title 'Unique Delivered Customers by RFM Segment' `
         -Projections @{
             Category = @(@{ queryRef = 'customer_rfm.customer_segment'; active = $true })
@@ -975,15 +1054,15 @@ $p1Visuals = @(
 
 # --- PAGE 2: Revenue Intelligence ---
 $p2Visuals = @(
-    (New-BannerVisual -Id 'p2_hdr' -X 12 -Y 10 -W 498 -H 60 -Z 1 `
+    (New-BannerVisual -Id 'p2_hdr' -X 12 -Y 8 -W 1256 -H 48 -Z 1 `
         -Heading 'CommerceLens AI — Revenue Intelligence' `
-        -Subtitle 'Rule D-1: Order Value Proxy vs Item Price Revenue vs Freight Cost')
+        -Subtitle 'Rule D-1: Delivered Order Value Proxy vs Merchandise Revenue (SUM Price) vs Freight & Payment Mix')
 ) + (New-StandardSlicerBar -Prefix 'p2' -IncludePayment $true) + @(
-    (New-KpiCardVisual -Id 'p2_kpi1' -X 12  -Y 80 -W 304 -H 104 -Z 10 -Title 'Delivered Order Value Proxy'     -Entity 'order_level'       -MeasureName 'Delivered Order Value Proxy (BRL)'),
-    (New-KpiCardVisual -Id 'p2_kpi2' -X 328 -Y 80 -W 304 -H 104 -Z 11 -Title 'Delivered Item Revenue (Price)'  -Entity 'order_items_clean' -MeasureName 'Delivered Item Revenue (BRL)'),
-    (New-KpiCardVisual -Id 'p2_kpi3' -X 644 -Y 80 -W 304 -H 104 -Z 12 -Title 'Delivered Freight Value'         -Entity 'order_items_clean' -MeasureName 'Delivered Freight Value (BRL)'),
-    (New-KpiCardVisual -Id 'p2_kpi4' -X 960 -Y 80 -W 308 -H 104 -Z 13 -Title 'Payment Transaction Value (BRL)' -Entity 'payments_clean'    -MeasureName 'Payment Transaction Value (BRL)'),
-    (New-VisualContainer -Id 'p2_ch1' -X 12 -Y 194 -W 748 -H 252 -Z 14 -VisualType 'clusteredColumnChart' `
+    (New-KpiCardVisual -Id 'p2_kpi1' -X 12  -Y 148 -W 304 -H 88 -Z 10 -Title 'Delivered Order Value Proxy'     -Entity 'order_level'       -MeasureName 'Delivered Order Value Proxy (BRL)'),
+    (New-KpiCardVisual -Id 'p2_kpi2' -X 328 -Y 148 -W 304 -H 88 -Z 11 -Title 'Delivered Item Revenue (Price)'  -Entity 'order_items_clean' -MeasureName 'Delivered Item Revenue (BRL)'),
+    (New-KpiCardVisual -Id 'p2_kpi3' -X 644 -Y 148 -W 304 -H 88 -Z 12 -Title 'Delivered Freight Value'         -Entity 'order_items_clean' -MeasureName 'Delivered Freight Value (BRL)'),
+    (New-KpiCardVisual -Id 'p2_kpi4' -X 960 -Y 148 -W 308 -H 88 -Z 13 -Title 'Payment Transaction Value (BRL)' -Entity 'payments_clean'    -MeasureName 'Payment Transaction Value (BRL)'),
+    (New-VisualContainer -Id 'p2_ch1' -X 12 -Y 244 -W 748 -H 226 -Z 14 -VisualType 'clusteredColumnChart' `
         -Title 'Monthly Item Revenue vs Freight Value (Responsive to All Slicers)' `
         -Projections @{
             Category = @(@{ queryRef = 'dim_date.year_month'; active = $true })
@@ -996,7 +1075,7 @@ $p2Visuals = @(
             (New-MeasureExpr 'order_items_clean' 'Delivered Freight Value (BRL)' 'oi')
         ) `
         -OrderBy @(@{ Direction = 1; Expression = @{ Column = @{ Expression = @{ SourceRef = @{ Source = 'd' } }; Property = 'year_month' } } })),
-    (New-VisualContainer -Id 'p2_ch2' -X 772 -Y 194 -W 496 -H 252 -Z 15 -VisualType 'donutChart' `
+    (New-VisualContainer -Id 'p2_ch2' -X 772 -Y 244 -W 496 -H 226 -Z 15 -VisualType 'donutChart' `
         -Title 'Delivered Payment Mix by Payment Method (BRL)' `
         -Projections @{
             Category = @(@{ queryRef = 'payments_clean.payment_type'; active = $true })
@@ -1007,7 +1086,7 @@ $p2Visuals = @(
             (New-ColExpr 'payments_clean' 'payment_type' 'pm'),
             (New-MeasureExpr 'payments_clean' 'Payment Transaction Value (BRL)' 'pm')
         )),
-    (New-VisualContainer -Id 'p2_tbl1' -X 12 -Y 456 -W 748 -H 252 -Z 16 -VisualType 'tableEx' `
+    (New-VisualContainer -Id 'p2_tbl1' -X 12 -Y 480 -W 748 -H 228 -Z 16 -VisualType 'tableEx' `
         -Title 'Category Grain Leaderboard (Item Revenue, Freight, Active Sellers & Share)' `
         -Projections @{
             Values = @(
@@ -1027,7 +1106,7 @@ $p2Visuals = @(
             (New-MeasureExpr 'order_items_clean' 'Active Delivered Sellers' 'oi')
         ) `
         -OrderBy @(@{ Direction = 2; Expression = @{ Measure = @{ Expression = @{ SourceRef = @{ Source = 'oi' } }; Property = 'Delivered Item Revenue (BRL)' } } })),
-    (New-VisualContainer -Id 'p2_ch3' -X 772 -Y 456 -W 496 -H 252 -Z 17 -VisualType 'clusteredBarChart' `
+    (New-VisualContainer -Id 'p2_ch3' -X 772 -Y 480 -W 496 -H 228 -Z 17 -VisualType 'clusteredBarChart' `
         -Title 'Order Lifecycle Volume by Status (All 99,441 Orders)' `
         -Projections @{
             Category = @(@{ queryRef = 'order_level.order_status'; active = $true })
@@ -1043,16 +1122,16 @@ $p2Visuals = @(
 
 # --- PAGE 3: Customer Intelligence ---
 $p3Visuals = @(
-    (New-BannerVisual -Id 'p3_hdr' -X 12 -Y 10 -W 560 -H 60 -Z 1 `
+    (New-BannerVisual -Id 'p3_hdr' -X 12 -Y 8 -W 1256 -H 48 -Z 1 `
         -Heading 'CommerceLens AI — Customer Intelligence (RFM & CLV)' `
         -Subtitle 'Rule D-5: 2,015 True Repeat (2.16%) | 786 Same-Day Split-Basket (0.84%) | 93,358 Customers')
 ) + (New-StandardSlicerBar -Prefix 'p3') + @(
-    (New-KpiCardVisual -Id 'p3_kpi1' -X 12   -Y 80 -W 242 -H 104 -Z 10 -Title 'Unique Delivered Customers'   -Entity 'order_level' -MeasureName 'Unique Delivered Customers'),
-    (New-KpiCardVisual -Id 'p3_kpi2' -X 264  -Y 80 -W 242 -H 104 -Z 11 -Title 'True Repeat (D-5 Distinct Days)' -Entity 'order_level' -MeasureName 'Repeat Customers (D-5 Distinct Days)'),
-    (New-KpiCardVisual -Id 'p3_kpi3' -X 516  -Y 80 -W 242 -H 104 -Z 12 -Title 'Same-Day Split-Basket Buyers' -Entity 'order_level' -MeasureName 'Same-Day Multi-Order Customers'),
-    (New-KpiCardVisual -Id 'p3_kpi4' -X 768  -Y 80 -W 242 -H 104 -Z 13 -Title 'Repeat Rate (D-5: 2.16%)'   -Entity 'order_level' -MeasureName 'Repeat Customer Rate %'),
-    (New-KpiCardVisual -Id 'p3_kpi5' -X 1020 -Y 80 -W 248 -H 104 -Z 14 -Title 'Historical CLV Proxy / Cust'  -Entity 'order_level' -MeasureName 'Historical CLV Proxy per Customer (BRL)'),
-    (New-VisualContainer -Id 'p3_ch1' -X 12 -Y 194 -W 620 -H 252 -Z 15 -VisualType 'clusteredBarChart' `
+    (New-KpiCardVisual -Id 'p3_kpi1' -X 12   -Y 148 -W 242 -H 88 -Z 10 -Title 'Unique Delivered Customers'   -Entity 'order_level' -MeasureName 'Unique Delivered Customers'),
+    (New-KpiCardVisual -Id 'p3_kpi2' -X 264  -Y 148 -W 242 -H 88 -Z 11 -Title 'True Repeat (D-5 Distinct Days)' -Entity 'order_level' -MeasureName 'Repeat Customers (D-5 Distinct Days)'),
+    (New-KpiCardVisual -Id 'p3_kpi3' -X 516  -Y 148 -W 242 -H 88 -Z 12 -Title 'Same-Day Split-Basket Buyers' -Entity 'order_level' -MeasureName 'Same-Day Multi-Order Customers'),
+    (New-KpiCardVisual -Id 'p3_kpi4' -X 768  -Y 148 -W 242 -H 88 -Z 13 -Title 'Repeat Rate (D-5: 2.16%)'   -Entity 'order_level' -MeasureName 'Repeat Customer Rate %'),
+    (New-KpiCardVisual -Id 'p3_kpi5' -X 1020 -Y 148 -W 248 -H 88 -Z 14 -Title 'Historical CLV Proxy / Cust'  -Entity 'order_level' -MeasureName 'Historical CLV Proxy per Customer (BRL)'),
+    (New-VisualContainer -Id 'p3_ch1' -X 12 -Y 244 -W 620 -H 226 -Z 15 -VisualType 'clusteredBarChart' `
         -Title 'RFM Segment Order Value Proxy (BRL, Filter-Responsive)' `
         -Projections @{
             Category = @(@{ queryRef = 'customer_rfm.customer_segment'; active = $true })
@@ -1064,7 +1143,7 @@ $p3Visuals = @(
             (New-MeasureExpr 'order_level' 'Delivered Order Value Proxy (BRL)' 'o')
         ) `
         -OrderBy @(@{ Direction = 2; Expression = @{ Measure = @{ Expression = @{ SourceRef = @{ Source = 'o' } }; Property = 'Delivered Order Value Proxy (BRL)' } } })),
-    (New-VisualContainer -Id 'p3_ch2' -X 644 -Y 194 -W 624 -H 252 -Z 16 -VisualType 'clusteredColumnChart' `
+    (New-VisualContainer -Id 'p3_ch2' -X 644 -Y 244 -W 624 -H 226 -Z 16 -VisualType 'clusteredColumnChart' `
         -Title 'Weighted Avg Historical CLV Proxy: D-5 Repeat vs Same-Day vs Single' `
         -Projections @{
             Category = @(@{ queryRef = 'pbi_customer_clv_groups.customer_behaviour_group'; active = $true })
@@ -1075,7 +1154,7 @@ $p3Visuals = @(
             (New-ColExpr 'pbi_customer_clv_groups' 'customer_behaviour_group' 'cg'),
             (New-MeasureExpr 'pbi_customer_clv_groups' 'CLV Weighted Avg Order Value Proxy (BRL)' 'cg')
         )),
-    (New-VisualContainer -Id 'p3_tbl1' -X 12 -Y 456 -W 620 -H 252 -Z 17 -VisualType 'tableEx' `
+    (New-VisualContainer -Id 'p3_tbl1' -X 12 -Y 480 -W 620 -H 228 -Z 17 -VisualType 'tableEx' `
         -Title 'RFM Segment Economics (Weighted Avg Monetary & Order Value Totals)' `
         -Projections @{
             Values = @(
@@ -1094,7 +1173,7 @@ $p3Visuals = @(
             (New-MeasureExpr 'pbi_rfm_segments_summary' 'RFM Weighted Avg Monetary (BRL)' 'r'),
             (New-MeasureExpr 'pbi_rfm_segments_summary' 'RFM Total Order Value Proxy (BRL)' 'r')
         )),
-    (New-VisualContainer -Id 'p3_tbl2' -X 644 -Y 456 -W 624 -H 252 -Z 18 -VisualType 'tableEx' `
+    (New-VisualContainer -Id 'p3_tbl2' -X 644 -Y 480 -W 624 -H 228 -Z 18 -VisualType 'tableEx' `
         -Title 'Repeat Behaviour CLV Groups (2,015 D-5 vs 786 Same-Day vs 90,557 Single)' `
         -Projections @{
             Values = @(
@@ -1117,15 +1196,15 @@ $p3Visuals = @(
 
 # --- PAGE 4: Product and Seller Performance ---
 $p4Visuals = @(
-    (New-BannerVisual -Id 'p4_hdr' -X 12 -Y 10 -W 560 -H 60 -Z 1 `
+    (New-BannerVisual -Id 'p4_hdr' -X 12 -Y 8 -W 1256 -H 48 -Z 1 `
         -Heading 'CommerceLens AI — Product, Seller & Logistics SLA' `
-        -Subtitle 'Seller Item Revenue (SUM(price)) vs State Order Value & Delivery Delay Penalty (-1.72 Stars)')
+        -Subtitle 'Seller Item Revenue (SUM Price) vs State Order Value & Delivery Delay Penalty (-1.72 Stars)')
 ) + (New-StandardSlicerBar -Prefix 'p4') + @(
-    (New-KpiCardVisual -Id 'p4_kpi1' -X 12  -Y 80 -W 304 -H 104 -Z 10 -Title 'Active Delivered Sellers' -Entity 'order_items_clean' -MeasureName 'Active Delivered Sellers'),
-    (New-KpiCardVisual -Id 'p4_kpi2' -X 328 -Y 80 -W 304 -H 104 -Z 11 -Title 'Average Delivery Days'    -Entity 'order_level'       -MeasureName 'Average Delivery Days'),
-    (New-KpiCardVisual -Id 'p4_kpi3' -X 644 -Y 80 -W 304 -H 104 -Z 12 -Title 'Late Delivery Rate %'     -Entity 'order_level'       -MeasureName 'Late Delivery Rate %'),
-    (New-KpiCardVisual -Id 'p4_kpi4' -X 960 -Y 80 -W 308 -H 104 -Z 13 -Title 'On-Time Delivery Rate %'  -Entity 'order_level'       -MeasureName 'On-Time Delivery Rate %'),
-    (New-VisualContainer -Id 'p4_ch1' -X 12 -Y 194 -W 620 -H 252 -Z 14 -VisualType 'lineClusteredColumnComboChart' `
+    (New-KpiCardVisual -Id 'p4_kpi1' -X 12  -Y 148 -W 304 -H 88 -Z 10 -Title 'Active Delivered Sellers' -Entity 'order_items_clean' -MeasureName 'Active Delivered Sellers'),
+    (New-KpiCardVisual -Id 'p4_kpi2' -X 328 -Y 148 -W 304 -H 88 -Z 11 -Title 'Average Delivery Days'    -Entity 'order_level'       -MeasureName 'Average Delivery Days'),
+    (New-KpiCardVisual -Id 'p4_kpi3' -X 644 -Y 148 -W 304 -H 88 -Z 12 -Title 'Late Delivery Rate %'     -Entity 'order_level'       -MeasureName 'Late Delivery Rate %'),
+    (New-KpiCardVisual -Id 'p4_kpi4' -X 960 -Y 148 -W 308 -H 88 -Z 13 -Title 'On-Time Delivery Rate %'  -Entity 'order_level'       -MeasureName 'On-Time Delivery Rate %'),
+    (New-VisualContainer -Id 'p4_ch1' -X 12 -Y 244 -W 620 -H 226 -Z 14 -VisualType 'lineClusteredColumnComboChart' `
         -Title 'Delivery Timing Bucket: Delivered Orders vs Weighted Avg Review Score' `
         -Projections @{
             Category = @(@{ queryRef = 'pbi_delivery_delay_buckets.delivery_timing_bucket'; active = $true })
@@ -1139,7 +1218,7 @@ $p4Visuals = @(
             (New-MeasureExpr 'pbi_delivery_delay_buckets' 'Delay Bucket Weighted Review Score' 'db')
         ) `
         -OrderBy @(@{ Direction = 1; Expression = @{ Column = @{ Expression = @{ SourceRef = @{ Source = 'db' } }; Property = 'delivery_timing_bucket' } } })),
-    (New-VisualContainer -Id 'p4_ch2' -X 644 -Y 194 -W 624 -H 252 -Z 15 -VisualType 'clusteredBarChart' `
+    (New-VisualContainer -Id 'p4_ch2' -X 644 -Y 244 -W 624 -H 226 -Z 15 -VisualType 'clusteredBarChart' `
         -Title 'Delivered Order Value Proxy by Customer State (Responsive)' `
         -Projections @{
             Category = @(@{ queryRef = 'customers_clean.customer_state'; active = $true })
@@ -1151,7 +1230,7 @@ $p4Visuals = @(
             (New-MeasureExpr 'order_level' 'Delivered Order Value Proxy (BRL)' 'o')
         ) `
         -OrderBy @(@{ Direction = 2; Expression = @{ Measure = @{ Expression = @{ SourceRef = @{ Source = 'o' } }; Property = 'Delivered Order Value Proxy (BRL)' } } })),
-    (New-VisualContainer -Id 'p4_tbl1' -X 12 -Y 456 -W 620 -H 252 -Z 16 -VisualType 'tableEx' `
+    (New-VisualContainer -Id 'p4_tbl1' -X 12 -Y 480 -W 620 -H 228 -Z 16 -VisualType 'tableEx' `
         -Title 'State Logistics SLA Scorecard (Weighted Delivery Days, Late % & Score)' `
         -Projections @{
             Values = @(
@@ -1173,7 +1252,7 @@ $p4Visuals = @(
             (New-MeasureExpr 'pbi_state_performance' 'Summary State Weighted Review Score' 'sp')
         ) `
         -OrderBy @(@{ Direction = 2; Expression = @{ Aggregation = @{ Expression = @{ Column = @{ Expression = @{ SourceRef = @{ Source = 'sp' } }; Property = 'delivered_orders' } }; Function = 0 } } })),
-    (New-VisualContainer -Id 'p4_tbl2' -X 644 -Y 456 -W 624 -H 252 -Z 17 -VisualType 'tableEx' `
+    (New-VisualContainer -Id 'p4_tbl2' -X 644 -Y 480 -W 624 -H 228 -Z 17 -VisualType 'tableEx' `
         -Title 'Seller Item Revenue & Delivery Performance (Seller Grain, Filter-Responsive)' `
         -Projections @{
             Values = @(
@@ -1195,15 +1274,15 @@ $p4Visuals = @(
 
 # --- PAGE 5: Retention Analysis ---
 $p5Visuals = @(
-    (New-BannerVisual -Id 'p5_hdr' -X 12 -Y 10 -W 560 -H 60 -Z 1 `
+    (New-BannerVisual -Id 'p5_hdr' -X 12 -Y 8 -W 1256 -H 48 -Z 1 `
         -Heading 'CommerceLens AI — Cohort Retention Analysis' `
         -Subtitle 'Rule D-2 Cohort Window | Weighted Cohort Retention % (M0=100.00%, M1=0.18%-0.72%) | D-5 Repeat: 2.16%')
 ) + (New-StandardSlicerBar -Prefix 'p5') + @(
-    (New-KpiCardVisual -Id 'p5_kpi1' -X 12  -Y 80 -W 304 -H 104 -Z 10 -Title 'Unique Delivered Customers'        -Entity 'order_level' -MeasureName 'Unique Delivered Customers'),
-    (New-KpiCardVisual -Id 'p5_kpi2' -X 328 -Y 80 -W 304 -H 104 -Z 11 -Title 'True Repeat (D-5 Distinct Days)'   -Entity 'order_level' -MeasureName 'Repeat Customers (D-5 Distinct Days)'),
-    (New-KpiCardVisual -Id 'p5_kpi3' -X 644 -Y 80 -W 304 -H 104 -Z 12 -Title 'Same-Day Split-Basket Buyers'      -Entity 'order_level' -MeasureName 'Same-Day Multi-Order Customers'),
-    (New-KpiCardVisual -Id 'p5_kpi4' -X 960 -Y 80 -W 308 -H 104 -Z 13 -Title 'Repeat Rate (D-5: 2.16%)'        -Entity 'order_level' -MeasureName 'Repeat Customer Rate %'),
-    (New-VisualContainer -Id 'p5_mtx' -X 12 -Y 194 -W 748 -H 514 -Z 14 -VisualType 'pivotTable' `
+    (New-KpiCardVisual -Id 'p5_kpi1' -X 12  -Y 148 -W 304 -H 88 -Z 10 -Title 'Unique Delivered Customers'        -Entity 'order_level' -MeasureName 'Unique Delivered Customers'),
+    (New-KpiCardVisual -Id 'p5_kpi2' -X 328 -Y 148 -W 304 -H 88 -Z 11 -Title 'True Repeat (D-5 Distinct Days)'   -Entity 'order_level' -MeasureName 'Repeat Customers (D-5 Distinct Days)'),
+    (New-KpiCardVisual -Id 'p5_kpi3' -X 644 -Y 148 -W 304 -H 88 -Z 12 -Title 'Same-Day Split-Basket Buyers'      -Entity 'order_level' -MeasureName 'Same-Day Multi-Order Customers'),
+    (New-KpiCardVisual -Id 'p5_kpi4' -X 960 -Y 148 -W 308 -H 88 -Z 13 -Title 'Repeat Rate (D-5: 2.16%)'        -Entity 'order_level' -MeasureName 'Repeat Customer Rate %'),
+    (New-VisualContainer -Id 'p5_mtx' -X 12 -Y 244 -W 748 -H 464 -Z 14 -VisualType 'pivotTable' `
         -Title 'Cohort Retention Matrix (% Active = Active Customers / Cohort Size, Weighted %)' `
         -Projections @{
             Rows    = @(@{ queryRef = 'pbi_cohort_retention_long.cohort_month'; active = $true })
@@ -1216,7 +1295,7 @@ $p5Visuals = @(
             (New-ColExpr 'pbi_cohort_retention_long' 'month_index' 'cl'),
             (New-MeasureExpr 'pbi_cohort_retention_long' 'Cohort Retention Rate %' 'cl')
         )),
-    (New-VisualContainer -Id 'p5_ch1' -X 772 -Y 194 -W 496 -H 252 -Z 15 -VisualType 'clusteredColumnChart' `
+    (New-VisualContainer -Id 'p5_ch1' -X 772 -Y 244 -W 496 -H 226 -Z 15 -VisualType 'clusteredColumnChart' `
         -Title 'Acquired Customer Cohort Size by Month (2017-01 to 2018-08)' `
         -Projections @{
             Category = @(@{ queryRef = 'pbi_cohort_retention_matrix.cohort_month'; active = $true })
@@ -1228,7 +1307,7 @@ $p5Visuals = @(
             (New-AggColExpr 'pbi_cohort_retention_matrix' 'cohort_size' 'cm' 0)
         ) `
         -OrderBy @(@{ Direction = 1; Expression = @{ Column = @{ Expression = @{ SourceRef = @{ Source = 'cm' } }; Property = 'cohort_month' } } })),
-    (New-VisualContainer -Id 'p5_ch2' -X 772 -Y 456 -W 496 -H 252 -Z 16 -VisualType 'clusteredBarChart' `
+    (New-VisualContainer -Id 'p5_ch2' -X 772 -Y 480 -W 496 -H 228 -Z 16 -VisualType 'clusteredBarChart' `
         -Title 'Order Value Share % by Repeat Behaviour Group (D-5 vs Same-Day vs Single)' `
         -Projections @{
             Category = @(@{ queryRef = 'pbi_customer_clv_groups.customer_behaviour_group'; active = $true })

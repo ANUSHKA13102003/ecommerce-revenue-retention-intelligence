@@ -156,6 +156,38 @@
           }
         ]
       }
+    },
+    "slicer": {
+      "*": {
+        "general": [
+          {
+            "outlineColor": { "solid": { "color": "#CBD5E1" } },
+            "outlineWeight": 1,
+            "responsive": false
+          }
+        ],
+        "header": [
+          {
+            "show": true,
+            "fontColor": { "solid": { "color": "#0F172A" } },
+            "fontFamily": "Segoe UI Semibold",
+            "textSize": 10
+          }
+        ],
+        "items": [
+          {
+            "fontColor": { "solid": { "color": "#0F172A" } },
+            "fontFamily": "Segoe UI",
+            "textSize": 10
+          }
+        ],
+        "selection": [
+          {
+            "selectAllCheckboxEnabled": true,
+            "singleSelect": false
+          }
+        ]
+      }
     }
   }
 }

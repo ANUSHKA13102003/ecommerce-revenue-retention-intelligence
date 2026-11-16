@@ -9,10 +9,12 @@ table dim_date
 
 	column year
 		dataType: int64
+		summarizeBy: none
 		sourceColumn: year
 
 	column quarter_num
 		dataType: int64
+		summarizeBy: none
 		sourceColumn: quarter_num
 
 	column quarter_label
@@ -21,6 +23,7 @@ table dim_date
 
 	column month_num
 		dataType: int64
+		summarizeBy: none
 		sourceColumn: month_num
 
 	column year_month
@@ -45,10 +48,12 @@ table dim_date
 
 	column day_of_month
 		dataType: int64
+		summarizeBy: none
 		sourceColumn: day_of_month
 
 	column day_of_week_num
 		dataType: int64
+		summarizeBy: none
 		sourceColumn: day_of_week_num
 
 	column day_name
@@ -64,13 +69,24 @@ table dim_date
 		dataType: boolean
 		sourceColumn: in_analysis_window
 
+	column year_label
+		dataType: string
+		sourceColumn: year_label
+		sortByColumn: year
+
+	column analysis_window_label
+		dataType: string
+		sourceColumn: analysis_window_label
+
 	partition dim_date = m
 		mode: import
 		source =
 				let
 				    Source = Csv.Document(File.Contents("C:\Users\Dell\OneDrive\Desktop\Documents\DataAnalyticsPortfolio\ecommerce-revenue-retention-intelligence\powerbi\data_exports\dim_date.csv"),[Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
 				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				    Typed = Table.TransformColumnTypes(Promoted,{{"date_key", type date}, {"year", Int64.Type}, {"quarter_num", Int64.Type}, {"quarter_label", type text}, {"month_num", Int64.Type}, {"year_month", type text}, {"month_start_date", type date}, {"month_name", type text}, {"month_short", type text}, {"day_of_month", Int64.Type}, {"day_of_week_num", Int64.Type}, {"day_name", type text}, {"is_weekend", type logical}, {"in_analysis_window", type logical}}, "en-US")
+				    Typed = Table.TransformColumnTypes(Promoted,{{"date_key", type date}, {"year", Int64.Type}, {"quarter_num", Int64.Type}, {"quarter_label", type text}, {"month_num", Int64.Type}, {"year_month", type text}, {"month_start_date", type date}, {"month_name", type text}, {"month_short", type text}, {"day_of_month", Int64.Type}, {"day_of_week_num", Int64.Type}, {"day_name", type text}, {"is_weekend", type logical}, {"in_analysis_window", type logical}}, "en-US"),
+				    WithYearLabel = Table.AddColumn(Typed, "year_label", each Text.From([year]), type text),
+				    FinalStep = Table.AddColumn(WithYearLabel, "analysis_window_label", each if [in_analysis_window] = true then "Jan 2017 - Aug 2018 (D-2 Window)" else "Boundary Months (2016 / Sep-Oct 2018)", type text)
 				in
-				    Typed
+				    FinalStep
 
