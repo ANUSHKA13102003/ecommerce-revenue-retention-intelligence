@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     Builds and validates the complete Power BI Project (.pbip + TMDL Semantic Model + 5-page Report)
     for E-Commerce Intelligence OS using Power BI Desktop SDK assemblies.
@@ -925,7 +925,7 @@ function New-StandardSlicerBar {
 # --- PAGE 1: Executive Overview ---
 $p1Visuals = @(
     (New-BannerVisual -Id 'p1_hdr' -X 12 -Y 10 -W 560 -H 60 -Z 1 `
-        -Heading 'E-Commerce Intelligence OS — Executive Overview' `
+        -Heading 'CommerceLens AI — Executive Overview' `
         -Subtitle 'All Dates Default (Use Window D-2 Slicer for Jan 2017 - Aug 2018) | D-5 Repeat: 2.16% (2,015)')
 ) + (New-StandardSlicerBar -Prefix 'p1') + @(
     (New-KpiCardVisual -Id 'p1_kpi1' -X 12  -Y 80 -W 242 -H 104 -Z 10 -Title 'Delivered Orders'             -Entity 'order_level'       -MeasureName 'Delivered Orders'),
@@ -976,7 +976,7 @@ $p1Visuals = @(
 # --- PAGE 2: Revenue Intelligence ---
 $p2Visuals = @(
     (New-BannerVisual -Id 'p2_hdr' -X 12 -Y 10 -W 498 -H 60 -Z 1 `
-        -Heading 'Revenue Intelligence — Price, Freight & Payments' `
+        -Heading 'CommerceLens AI — Revenue Intelligence' `
         -Subtitle 'Rule D-1: Order Value Proxy vs Item Price Revenue vs Freight Cost')
 ) + (New-StandardSlicerBar -Prefix 'p2' -IncludePayment $true) + @(
     (New-KpiCardVisual -Id 'p2_kpi1' -X 12  -Y 80 -W 304 -H 104 -Z 10 -Title 'Delivered Order Value Proxy'     -Entity 'order_level'       -MeasureName 'Delivered Order Value Proxy (BRL)'),
@@ -1044,7 +1044,7 @@ $p2Visuals = @(
 # --- PAGE 3: Customer Intelligence ---
 $p3Visuals = @(
     (New-BannerVisual -Id 'p3_hdr' -X 12 -Y 10 -W 560 -H 60 -Z 1 `
-        -Heading 'Customer Intelligence — RFM & CLV Economics' `
+        -Heading 'CommerceLens AI — Customer Intelligence (RFM & CLV)' `
         -Subtitle 'Rule D-5: 2,015 True Repeat (2.16%) | 786 Same-Day Split-Basket (0.84%) | 93,358 Customers')
 ) + (New-StandardSlicerBar -Prefix 'p3') + @(
     (New-KpiCardVisual -Id 'p3_kpi1' -X 12   -Y 80 -W 242 -H 104 -Z 10 -Title 'Unique Delivered Customers'   -Entity 'order_level' -MeasureName 'Unique Delivered Customers'),
@@ -1118,7 +1118,7 @@ $p3Visuals = @(
 # --- PAGE 4: Product and Seller Performance ---
 $p4Visuals = @(
     (New-BannerVisual -Id 'p4_hdr' -X 12 -Y 10 -W 560 -H 60 -Z 1 `
-        -Heading 'Product, Seller & Logistics SLA Performance' `
+        -Heading 'CommerceLens AI — Product, Seller & Logistics SLA' `
         -Subtitle 'Seller Item Revenue (SUM(price)) vs State Order Value & Delivery Delay Penalty (-1.72 Stars)')
 ) + (New-StandardSlicerBar -Prefix 'p4') + @(
     (New-KpiCardVisual -Id 'p4_kpi1' -X 12  -Y 80 -W 304 -H 104 -Z 10 -Title 'Active Delivered Sellers' -Entity 'order_items_clean' -MeasureName 'Active Delivered Sellers'),
@@ -1196,7 +1196,7 @@ $p4Visuals = @(
 # --- PAGE 5: Retention Analysis ---
 $p5Visuals = @(
     (New-BannerVisual -Id 'p5_hdr' -X 12 -Y 10 -W 560 -H 60 -Z 1 `
-        -Heading 'Retention Analysis — Acquisition Cohorts (Jan 2017 - Aug 2018)' `
+        -Heading 'CommerceLens AI — Cohort Retention Analysis' `
         -Subtitle 'Rule D-2 Cohort Window | Weighted Cohort Retention % (M0=100.00%, M1=0.18%-0.72%) | D-5 Repeat: 2.16%')
 ) + (New-StandardSlicerBar -Prefix 'p5') + @(
     (New-KpiCardVisual -Id 'p5_kpi1' -X 12  -Y 80 -W 304 -H 104 -Z 10 -Title 'Unique Delivered Customers'        -Entity 'order_level' -MeasureName 'Unique Delivered Customers'),

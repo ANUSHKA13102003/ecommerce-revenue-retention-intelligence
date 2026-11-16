@@ -1,6 +1,8 @@
-# Portfolio Presentation, Pitch Scripts & Interview Preparation Guide
+# CommerceLens AI — Portfolio Presentation & Interview Guide
 
-**Project:** E-Commerce Revenue & Customer Retention Intelligence  
+**Product:** **CommerceLens AI** — *AI-Powered E-Commerce Intelligence Platform*  
+**Tagline:** *Turning E-Commerce Data into Intelligent Business Decisions.*  
+**Repository:** `ecommerce-revenue-retention-intelligence`  
 **Dataset:** Olist Brazilian E-Commerce Public Dataset (`9` raw CSVs, `1,550,922` rows, `99,441` orders)
 
 ---
@@ -8,13 +10,13 @@
 ## 1. 14-Slide Executive Presentation Deck Outline
 
 ### Slide 1 — Title & Executive Value Proposition
-- **Headline:** E-Commerce Revenue & Customer Retention Intelligence: End-to-End SQL, Python, Power BI & Agentic AI Solution
+- **Headline:** CommerceLens AI: AI-Powered E-Commerce Intelligence Platform (SQL, Python, Power BI, Streamlit & Agentic AI)
 - **Sub-headline:** Transforming `1.55M` raw marketplace records (`99,441` orders, `R$ 15.42M` delivered order value) into audited revenue, retention, and logistics decisions.
 
 ### Slide 2 — Business Context & 6 Governance Rules (D-1 to D-6)
 - **Key Message:** Analytical integrity starts with strict metric definitions before writing a single line of SQL.
 - **Visual:** Governance table showing:
-  - **Rule D-1:** `SUM(payment_value)` (`R$ 15,422,461.77`) = Delivered Order Value Proxy vs. `SUM(price)` (`R$ 13,221,498.11`) = Delivered Item Revenue vs. `SUM(freight_value)` (`R$ 2,198,235.63`).
+  - **Rule D-1:** `SUM(payment_value)` (`R$ 15,422,461.77`) = Delivered Order Value Proxy vs. `SUM(price)` (`R$ 13,221,498.11`) = Delivered Item Revenue vs. `SUM(freight_value)` (`R$ 2,198,275.64`).
   - **Rule D-2:** Primary 20-month window (`Jan 2017 – Aug 2018`, `96,211` delivered orders).
   - **Rule D-5:** True Repeat Customer = `customer_unique_id` with $\ge 2$ delivered orders on $\ge 2$ distinct dates.
 
@@ -36,7 +38,7 @@
 
 ### Slide 7 — Seller Pareto Concentration
 - **Chart:** `reports/charts/08_seller_pareto_concentration.png`
-- **Finding:** Across `2,970` active sellers with delivered orders, the **top `10%` (`297` sellers) generate `67.45%`** (`R$ 8.92M`) of item revenue, and the top `20%` (`594` sellers) generate **`83.31%`**.
+- **Finding:** Across `2,970` active sellers with delivered orders, the **top `10%` (`297` sellers) generate `67.11%`** (`R$ 8.87M`) of item revenue, and the top `20%` (`594` sellers) generate **`82.29%`**.
 
 ### Slide 8 — Customer Retention & The Same-Day Split-Basket Discovery
 - **Key Message:** Why naive SQL overstates repeat buyers by `39%`.
@@ -61,12 +63,12 @@
 ### Slide 13 — AI Multi-Agent System, Interactive Streamlit App & BI Suite
 - **Showcase:**
   - `AnalyticsOrchestrator` (`6` specialized agents + Read-Only SQL Allow-List Gate blocking `DROP`/`DELETE`/multi-statement SQL).
-  - `8`-page Streamlit application (`app/streamlit_app.py`), `8`-tab Executive Excel Workbook (`.xlsx`), and `12` Power BI star-schema exports + `22` DAX measures.
+  - `8`-page Streamlit application (`app/streamlit_app.py`), `10`-tab Executive Excel Workbook (`.xlsx`), `3`-page Executive PDF, and Power BI Project (`powerbi/Ecommerce_Intelligence_OS.pbip`: `19` tables, `10` relationships, `39` DAX measures).
 
 ### Slide 14 — Quantified Strategic Roadmap
-- **Action 1 (Logistics SLA & Regional 3PL):** Cut late rate in RJ & Northeast by `50%` (~`3,913` orders) -> prevent **`~1,468` 1-star reviews** and lift marketplace rating from `4.15 ★` to `4.22 ★`.
+- **Action 1 (Logistics SLA & Regional 3PL):** Cut late rate in RJ & Northeast by `50%` (~`3,913` orders) -> prevent **`~1,468` 1-star reviews** and lift marketplace rating from `4.16 ★` to `4.22 ★`.
 - **Action 2 (30–60 Day Replenishment Trigger):** Convert `+1.84%` of `Recent Customers` into repeat buyers (`2.16% -> 4.00%`) -> generate **`~R$ 275,000+`** in incremental order value.
-- **Action 3 (Top-Decile Seller Governance):** Enforce SLA & packaging standards on the `297` sellers driving `67.45%` (`R$ 8.92M`) of item sales.
+- **Action 3 (Top-Decile Seller Governance):** Enforce SLA & packaging standards on the `297` sellers driving `67.11%` (`R$ 8.87M`) of item sales.
 
 ---
 

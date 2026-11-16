@@ -1,6 +1,7 @@
 # 3-Minute Recruiter & Hiring Manager Live Demonstration Guide
 
-**Product:** **E-COMMERCE INTELLIGENCE OS** — *AI-Powered Business Intelligence & Decision Platform*  
+**Product:** **CommerceLens AI** — *AI-Powered E-Commerce Intelligence Platform*  
+**Tagline:** *Turning E-Commerce Data into Intelligent Business Decisions.*  
 **Dataset:** Olist Brazilian E-Commerce Public Dataset (`99,441` orders, `1,550,922` raw rows, `BRL / R$`)  
 **Launch Command:** `streamlit run app/streamlit_app.py`
 
@@ -10,7 +11,7 @@
 
 1. **Open `Executive Intelligence Dashboard` (Page 1):**
    - **What to say:**
-     > *"I built E-COMMERCE INTELLIGENCE OS to transform 1.55 million raw Brazilian e-commerce records from Olist into an enterprise decision platform. Instead of building disconnected charts, I engineered a single centralized KPI layer (`src/analytics/metric_catalogue.py`) and an automated cross-platform reconciliation engine (`src/analytics/reconciliation_engine.py`) that verifies all 18 headline KPIs match to the cent across MySQL, Python, a 10-sheet Excel workbook, Power BI exports, and this Streamlit UI."*
+     > *"I built CommerceLens AI to transform 1.55 million raw Brazilian e-commerce records from Olist into an enterprise analytics and decision platform. Instead of building disconnected charts, I engineered a single centralized KPI layer (`src/analytics/metric_catalogue.py`) and an automated cross-platform reconciliation engine (`src/analytics/reconciliation_engine.py`) that verifies all 18 headline KPIs match to the cent across MySQL, Python, a 10-sheet Excel workbook, a 3-page PDF report, Power BI, and this Streamlit UI."*
 2. **Highlight the Headline KPIs & Governance Rules (`D-1` to `D-5`):**
    - Point to the top KPI row and status pills (`Scope: Full Dataset / Jan 2017 – Aug 2018`, `Currency: BRL (R$)`, `18/18 KPIs Reconciled`):
      - **Delivered Order Value Proxy (`Rule D-1`):** `R$ 15,422,461.77` across `96,478` delivered orders (`97.02%` completion), strictly separated from **Delivered Item Merchandise Revenue** (`R$ 13,221,498.11`) and **Freight** (`R$ 2,198,275.64`) so multi-item joins never inflate revenue.

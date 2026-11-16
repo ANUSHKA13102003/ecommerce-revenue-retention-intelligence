@@ -895,7 +895,7 @@ def render_top_header(page_title: str, subtitle: str, scope_label: str) -> None:
         f"""
         <div class="os-header-bar">
             <div class="os-header-left">
-                <div class="os-brand-kicker">E-COMMERCE INTELLIGENCE OS • ENTERPRISE DECISION PLATFORM</div>
+                <div class="os-brand-kicker">COMMERCELENS AI • AI-POWERED E-COMMERCE INTELLIGENCE PLATFORM</div>
                 <div class="os-page-title">{page_title}</div>
                 <div class="os-page-subtitle">{subtitle}</div>
             </div>
@@ -1954,7 +1954,7 @@ def render_ai_business_copilot(data: Dict[str, Any], filters: Dict[str, str]) ->
 # ==============================================================================
 def main() -> None:
     st.set_page_config(
-        page_title="E-COMMERCE INTELLIGENCE OS",
+        page_title="CommerceLens AI — E-Commerce Intelligence Platform",
         page_icon="📊",
         layout="wide",
         initial_sidebar_state="expanded",
@@ -1973,9 +1973,9 @@ def main() -> None:
         st.markdown(
             """
             <div style="padding: 4px 4px 10px 4px; border-bottom: 1px solid #CBD5E1; margin-bottom: 8px;">
-                <div style="font-size: 0.66rem; font-weight: 700; color: #1D4ED8; letter-spacing: 0.08em;">ENTERPRISE BI SUITE</div>
-                <div style="font-size: 0.98rem; font-weight: 700; color: #0F172A; line-height: 1.2;">E-Commerce Intelligence OS</div>
-                <div style="font-size: 0.72rem; color: #475569; margin-top: 2px;">AI Decision & Retention Platform</div>
+                <div style="font-size: 0.66rem; font-weight: 700; color: #1D4ED8; letter-spacing: 0.08em;">COMMERCELENS AI</div>
+                <div style="font-size: 0.98rem; font-weight: 700; color: #0F172A; line-height: 1.2;">AI-Powered E-Commerce Intelligence Platform</div>
+                <div style="font-size: 0.72rem; color: #475569; margin-top: 2px;">Turning Data into Intelligent Decisions</div>
             </div>
             """,
             unsafe_allow_html=True,
@@ -2000,7 +2000,7 @@ def main() -> None:
     slice_meta = compute_filtered_slice(data, filters)
     render_top_header(
         page_title=page,
-        subtitle="AI-Powered Business Intelligence & Decision Platform • Reconciled Olist Marketplace Analytics (BRL / R$)",
+        subtitle="Turning E-Commerce Data into Intelligent Business Decisions • Reconciled Olist Analytics (BRL / R$)",
         scope_label=slice_meta["scope_tag"],
     )
     render_scope_comparison_strip(slice_meta)

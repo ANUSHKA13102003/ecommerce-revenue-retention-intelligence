@@ -1,266 +1,252 @@
-# 🛒 E-COMMERCE INTELLIGENCE OS — AI-Powered Business Intelligence & Decision Platform
+# CommerceLens AI
 
-> **Enterprise-Grade Business Analytics, SQL, Python, Power BI, Streamlit & Agentic AI Portfolio Product**  
-> Built on the real-world **Olist Brazilian E-Commerce Public Dataset** (`9` raw CSV files, `1,550,922` raw records, `99,441` orders from Sept 2016 – Oct 2018). Every metric, SQL view, chart, statistical test, 10-sheet Excel workbook, 3-page PDF executive report, Power BI star-schema export, Streamlit module, and AI Business Copilot response is 100% reproducible, governed by an **18-KPI Centralised Metric Catalogue**, reconciled across all 5 layers, and verified by **18 automated `pytest` tests**.
+### AI-Powered E-Commerce Intelligence Platform
+> **Turning E-Commerce Data into Intelligent Business Decisions.**  
+> *Flagship End-to-End Business Intelligence, SQL, Python, Power BI, Streamlit & Agentic AI Portfolio Platform*
 
----
-
-## 📋 Table of Contents
-
-- [Executive KPI Scorecard](#-executive-kpi-scorecard)
-- [Business Problem & Governance Rules](#-business-problem--governance-rules)
-- [System Architecture](#-system-architecture)
-- [Visual Analytics & Chart Gallery](#-visual-analytics--chart-gallery)
-- [Key Empirical Findings](#-key-empirical-findings)
-  - [1. Revenue & Seasonality](#1-revenue--seasonality-jan-2017--aug-2018-analysis-window)
-  - [2. Customer Retention & Cohort Decay](#2-customer-retention--cohort-decay)
-  - [3. RFM Customer Segmentation](#3-rfm-customer-segmentation-93358-delivered-customers)
-  - [4. Product Category & Seller Pareto Concentration](#4-product-category--seller-pareto-concentration)
-  - [5. Delivery Performance vs. Customer Satisfaction](#5-delivery-performance-vs-customer-satisfaction-hypothesis-testing)
-- [Strategic Business Recommendations](#-strategic-business-recommendations)
-- [Enterprise Streamlit BI Dashboard (8 Modules)](#-enterprise-streamlit-bi-dashboard-8-modules)
-- [AI Agentic Business Q&A Assistant](#-ai-agentic-business-qa-assistant)
-- [Executive Excel Workbook & Power BI Star-Schema Package](#-executive-excel-workbook--power-bi-star-schema-package)
-- [How to Install, Run & Connect](#-how-to-install-run--connect)
-- [Automated Quality Assurance (`18/18` Passed)](#-automated-quality-assurance-1818-passed)
-- [Limitations & Analytical Honesty](#-limitations--analytical-honesty)
-- [Licence & Attribution](#-licence--attribution)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](requirements.txt)
+[![SQL: MySQL 8 & DuckDB](https://img.shields.io/badge/SQL-MySQL%208.0%20%7C%20DuckDB-00758F?logo=mysql&logoColor=white)](sql/)
+[![BI: Power BI & Streamlit](https://img.shields.io/badge/BI-Power%20BI%20%7C%20Streamlit-F2C811?logo=powerbi&logoColor=black)](powerbi/)
+[![QA: 18/18 Tests Passing](https://img.shields.io/badge/Tests-18%2F18%20Passing-16A34A)](tests/test_analytics_pipeline.py)
+[![KPI Parity: 18/18 Reconciled](https://img.shields.io/badge/KPI%20Parity-18%2F18%20Reconciled-1D4ED8)](src/analytics/reconciliation_engine.py)
 
 ---
 
-## 📊 Executive KPI Scorecard
+## Product Overview
 
-All monetary figures are reported in **Brazilian Real (`BRL` / `R$`)**:
+**CommerceLens AI** transforms **1,550,922 raw records across 9 relational tables** from the public **Olist Brazilian E-Commerce Dataset** (`99,441` orders from Sept 2016 to Oct 2018) into an audited, decision-ready analytics platform spanning:
 
-| Metric | Full Dataset (2016–2018) | Primary Analysis Window (Jan 2017 – Aug 2018) | Governance Rule / Source |
-|---|---:|---:|---|
-| **Total Orders (All Statuses)** | `99,441` | `99,092` | `orders_clean` |
-| **Delivered Orders** | `96,478` (`97.02%` of all orders) | `96,211` | `order_level (is_delivered = 1)` |
-| **Delivered Order Value Proxy (`SUM(payment_value)`)** | **`R$ 15,422,461.77`** | **`R$ 15,375,875.44`** | **Rule D-1:** Buyer total paid (`price + freight + installment interest`) |
-| **Delivered Merchandise Revenue (`SUM(price)`)** | **`R$ 13,221,498.11`** | **`R$ 13,181,027.13`** | **Rule D-1:** Used for product, category & seller analysis |
-| **Delivered Freight Value (`SUM(freight_value)`)** | **`R$ 2,198,275.64`** | `R$ 2,192,092.88` | **Rule D-1:** Reported separately from merchandise price |
-| **Average Order Value (Mean / Median AOV)** | `R$ 159.86` / `R$ 105.28` | `R$ 159.81` / `R$ 105.28` | `IQR: R$ 114.45 (P25 R$ 61.85 – P75 R$ 176.30)` |
-| **Unique Customers (`customer_unique_id`)** | `96,096` (all) / **`93,358`** (delivered) | `93,104` (delivered) | True customer identity (`customer_unique_id`) |
-| **True Repeat Customers (Rule D-5)** | **`2,015` (`2.16%`)** | **`2,005` (`2.15%`)** | `2+` delivered orders on `2+` distinct calendar dates |
-| **Repeat Customer Sensitivity (a) / (c)** | `2,801` (`3.00%`) / `2,997` (`3.12%`) | — | (a) `2+` delivered any day; (c) `2+` all statuses |
-| **Avg Historical CLV Proxy (Repeat vs. Single)** | **`R$ 320.82` vs. `R$ 160.76`** | — | **2.0x** historical lifetime order value multiplier |
-| **Late Delivery Rate (Timestamp / Calendar Day)** | **`8.11%`** (`7,826`) / **`6.77%`** (`6,534`) | `8.12%` | Delivered after `order_estimated_delivery_date` |
-| **Avg Review Score (On-Time vs. Late)** | **`4.29 ★` vs. `2.57 ★`** (`-1.72 ★` drop) | `4.29 ★` vs. `2.57 ★` | Mann-Whitney U $p < 0.0001$, Welch's $t = 96.49$ |
+- **Revenue Intelligence** (`R$ 15.42M` Delivered Order Value Proxy vs. `R$ 13.22M` Item Revenue & `R$ 2.20M` Freight)
+- **Customer Intelligence & Retention** (`93,358` unique delivered customers, RFM segmentation, `2.16%` multi-day D-5 repeat rate vs. `786` same-day split checkouts, 20-month cohort retention matrix)
+- **Product, Seller & Logistics SLA Analytics** (`74` translated categories, Top 10% seller Pareto concentration = `67.11%`, `-1.72★` late-delivery satisfaction cliff tested at $p < 0.0001$)
+- **Grounded AI Business Copilot** (`6` coordinated agents executing read-only SQL queries against allow-listed tables with zero-hallucination scope guardrails)
+
+| Streamlit Executive Intelligence View | Streamlit AI Business Copilot View |
+|---|---|
+| ![CommerceLens AI Executive Dashboard](docs/screenshots/after_01_executive_dashboard.png) | ![CommerceLens AI Business Copilot](docs/screenshots/after_08_ai_business_copilot.png) |
 
 ---
 
-## 🎯 Business Problem & Governance Rules
+## Table of Contents
 
-E-commerce leadership requires reconciled, audit-ready visibility into **revenue growth**, **customer repeat behavior**, **product/seller concentration**, and **logistics SLA impact on customer reviews**.
-
-To prevent common analytical traps on the Olist dataset, this project enforces six formal **Data Governance Rules**:
-
-1. **Rule D-1 (Revenue Separation):** `SUM(payment_value)` on delivered orders (`R$ 15,422,461.77`) is labeled **Delivered Order Value (Revenue Proxy)** — never Olist's net marketplace commission. Product, category, and seller rankings strictly use **Merchandise Revenue** (`SUM(price)` = `R$ 13,221,498.11` delivered; `R$ 13,591,643.70` all orders), with `freight_value` (`R$ 2,198,275.64` delivered; `R$ 2,251,909.54` all orders) tracked separately.
-2. **Rule D-2 (Analysis Window):** Monthly time-series and cohort retention analyses use the complete **20-month window from January 2017 to August 2018** (`in_analysis_window = 1`), excluding partial boundary months (`Sept–Dec 2016` and `Sept–Oct 2018`).
-3. **Rule D-3 (Review Deduplication):** Orders with multiple reviews (`98,410` unique `review_id`s across `99,224` rows) are deduplicated to `1` row per order (`98,673` reviewed orders) using the most recent review timestamp as the primary score and the mean score as a sensitivity check.
-4. **Rule D-4 (Category Translations):** Preserves original Portuguese category names, merges official English translations (`71` categories), adds `2` documented manual mappings (`pc_gamer`, `portable_kitchen_and_food_preparers`), and labels `610` uncategorized products as `Unknown`.
-5. **Rule D-5 (True Repeat Customers):** Identifies customers via `customer_unique_id` (never `customer_id`, which is per-order) and requires **$\ge 2$ distinct delivered orders placed on $\ge 2$ distinct calendar dates** (`2,015` customers / `2.16%`), separating `786` same-day multi-order checkout splits (`0.84%`).
-6. **Rule D-6 (Inactivity vs. Churn):** Because marketplace shopping is non-contractual, recency thresholds (`90/180/270/365` days) are reported strictly as **analytical inactivity indicators**, never as observed customer churn.
+1. [Business Problem & Objectives](#1-business-problem--objectives)
+2. [Key Capabilities & Technology Stack](#2-key-capabilities--technology-stack)
+3. [System Architecture & End-to-End Data Workflow](#3-system-architecture--end-to-end-data-workflow)
+4. [Dataset Source, Cleaning Methodology & Data Governance](#4-dataset-source-cleaning-methodology--data-governance)
+5. [KPI Definitions & Verified Scorecard](#5-kpi-definitions--verified-scorecard)
+6. [Key Empirical Findings & Business Recommendations](#6-key-empirical-findings--business-recommendations)
+7. [Five-Page Power BI Desktop Model & Report](#7-five-page-power-bi-desktop-model--report)
+8. [Eight-Page Streamlit Application & Dashboard Gallery](#8-eight-page-streamlit-application--dashboard-gallery)
+9. [AI Multi-Agent Business Copilot & Safety Architecture](#9-ai-multi-agent-business-copilot--safety-architecture)
+10. [MySQL Integration, Excel Workbook & PDF Reporting](#10-mysql-integration-excel-workbook--pdf-reporting)
+11. [Installation, Launch Commands & Verification Results](#11-installation-launch-commands--verification-results)
+12. [Limitations, Attribution & Future Scope](#12-limitations-attribution--future-scope)
 
 ---
 
-## 🏗 System Architecture
+## 1. Business Problem & Objectives
 
-```text
-┌─────────────────────────────────────────────────────────────────────────┐
-│ 1. RAW DATA LAYER (Immutable — data/raw/*.csv, SHA-256 Verified)        │
-│    9 Olist CSV files | 1,550,922 total rows | 99,441 orders             │
-└───────────────────────────────────┬─────────────────────────────────────┘
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│ 2. CLEANING & TRANSFORMATION LAYER (src/cleaning/ → data/processed/)    │
-│    Non-destructive quality flags, pre-aggregated order summaries,       │
-│    unified order_level fact table (99,441 rows) & customer_rfm (93,358) │
-└───────────────────────────────────┬─────────────────────────────────────┘
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│ 3. DUAL-BACKEND RELATIONAL WAREHOUSE (MySQL 8 + DuckDB Parity Engine)   │
-│    14 tables + customer_rfm + 8 Analytical Views (sql/01..05)           │
-└───────┬───────────────────────────┬───────────────────────────┬─────────┘
-        ▼                           ▼                           ▼
-┌──────────────────────┐ ┌─────────────────────────┐ ┌────────────────────┐
-│ 4A. PYTHON & STATS   │ │ 4B. AI AGENTIC SYSTEM   │ │ 4C. BI & REPORTING │
-│ • 6 Jupyter Notebooks│ │ • 6 Specialized Agents  │ │ • 10-Tab Excel.xlsx│
-│ • 8 Publication PNGs │ │ • Read-Only SQL Gate    │ │ • Power BI (.pbip) │
-│ • Hypothesis Tests   │ │ • Scope Guardrail       │ │   19-Table Model   │
-│ • KPI JSON Summary   │ │ • Local + LLM Modes     │ │ • 8-Page Streamlit │
-└──────────────────────┘ └─────────────────────────┘ └────────────────────┘
+Marketplace operators face four recurring executive blind spots on raw transactional schemas:
+1. **Metric Inflation & Join Fan-Out:** Joining `orders` with `order_items`, `order_payments`, and `order_reviews` directly inflates revenue whenever an order contains multiple items or split payments.
+2. **Gross Spend vs. Commission Confusion:** Mixing total buyer checkout `payment_value` with net marketplace commission or seller merchandise `price` leads to incorrect financial reporting.
+3. **False Repeat-Buyer Signals:** Using checkout-level `customer_id` yields `0%` repeat purchasing, whereas naive `customer_unique_id` counts fold same-day split checkouts (`786` buyers) into multi-day retention.
+4. **Disconnected Delivery & Satisfaction Reporting:** Leadership needs quantified proof of how carrier transit delays impact customer review scores across regions and seller tiers.
+
+**Objectives:** Build a single-source-of-truth KPI layer (`src/analytics/metric_catalogue.py`), enforce strict grain separation before BI consumption, reconcile every figure across SQL, Python, Excel, PDF, Power BI, and Streamlit, and expose evidence-backed self-service Q&A through a read-only SQL agent pipeline.
+
+---
+
+## 2. Key Capabilities & Technology Stack
+
+| Layer | Technologies Used | Key Engineering Outputs |
+|---|---|---|
+| **Data Engineering & Cleaning** | `Python 3.14`, `pandas`, `numpy` | Non-destructive quality flags, pre-aggregated order summaries, `14` processed tables + `customer_rfm` |
+| **Relational Warehouse** | `MySQL 8.0`, `PyMySQL`, `SQLAlchemy`, `DuckDB` | `15` warehouse tables + `8` analytical SQL views (`sql/01..05`) + automatic DuckDB parity fallback |
+| **Statistical & KPI Engine** | `SciPy`, `scikit-learn`, `Jupyter` | `18` canonical KPIs, Welch's $t$-test & Mann-Whitney $U$ SLA proof, `8` publication Matplotlib/Seaborn PNGs |
+| **BI Dashboards** | `Power BI Desktop (TMDL/DAX)`, `Streamlit`, `Plotly` | `19`-table Power BI `.pbip` (`10` relationships, `39` weighted DAX measures, `5` pages) + `8`-page Streamlit app |
+| **AI Decision Copilot** | Custom Multi-Agent Orchestrator | `6` specialized agents, deterministic SQL routing + Read-Only SQL Safety Validator + Scope Guardrail |
+| **Executive Delivery & QA** | `OpenPyXL`, `Matplotlib PdfPages`, `Pytest` | `10`-sheet formula-driven Excel workbook, `3`-page PDF report, `18/18` automated tests |
+
+---
+
+## 3. System Architecture & End-to-End Data Workflow
+
+```mermaid
+flowchart LR
+    RAW["1. Raw Layer (Immutable CSVs)<br/>9 Olist Files | 1.55M Rows<br/>SHA-256 Verified"] --> CLEAN["2. Cleaning & Grain Safe Join<br/>src/cleaning/<br/>Pre-Aggregated Summaries + Flags"]
+    CLEAN --> DB["3. Relational Warehouse<br/>MySQL 8.0 & DuckDB Parity<br/>15 Tables + 8 Views"]
+    DB --> PY["4A. KPI & Stats Engine<br/>18 Canonical KPIs<br/>Welch t & Mann-Whitney U"]
+    DB --> AI["4B. AI Business Copilot<br/>6 Agents + SQL Safety Gate<br/>Scope Guardrail"]
+    DB --> BI["4C. BI & Executive Reports<br/>Power BI (5 Pages, 39 DAX)<br/>Streamlit (8 Pages) | Excel | PDF"]
+    PY --> QA["5. Cross-Platform Reconciliation<br/>18/18 KPI Parity + 18 Pytest Tests"]
+    AI --> QA
+    BI --> QA
+```
+
+```
+data/raw/*.csv (9 Immutable Files)
+   └─▶ src/cleaning/build_clean_datasets.py
+         ├─▶ order_item_summary (1:1 order_id) ─┐
+         ├─▶ order_payment_summary (1:1) ───────┼─▶ order_level (99,441 rows, 0 fan-out)
+         └─▶ order_review_summary (1:1, D-3) ───┘      ├─▶ MySQL 8.0 (`ecommerce_analytics`) & DuckDB
+                                                       ├─▶ Power BI (`Ecommerce_Intelligence_OS.pbip`)
+                                                       ├─▶ Streamlit (`app/streamlit_app.py`)
+                                                       ├─▶ Excel (10 Sheets) & PDF (3 Pages)
+                                                       └─▶ AI Copilot (`agents/orchestrator.py`)
 ```
 
 ---
 
-## 📈 Visual Analytics & Chart Gallery
+## 4. Dataset Source, Cleaning Methodology & Data Governance
 
-All charts below are generated directly from verified SQL/Python pipeline outputs via `python src/analytics/chart_generator.py`:
+- **Source:** [Olist Brazilian E-Commerce Public Dataset (Kaggle)](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) (`9` raw CSV files, `99,441` orders from Sept 2016 to Oct 2018).
+- **Non-Destructive Cleaning (`src/cleaning/`):**
+  - Raw files in `data/raw/` are hash-verified and never modified.
+  - Child tables (`order_items` `112,650` rows, `order_payments` `103,886` rows, `order_reviews` `99,224` rows) are aggregated to exact `1:1` `order_id` grain *before* joining into `order_level` (`99,441` rows).
+  - Geolocation coordinates are filtered to Brazilian bounding boxes and aggregated cleanly into `geolocation_zip_lookup` (`17,737` unique zip prefixes).
+  - `610` products lacking Portuguese category names are preserved as `Unknown` via quality flags (`missing_category`), and `2` missing official English category mappings (`pc_gamer`, `portable_kitchen_and_food_preparers`) are documented in `data/external/category_translation_supplement.csv`.
 
-| Monthly Revenue & Order Trend (`2017-01` to `2018-08`) | Top 15 Categories by Merchandise Revenue (`SUM(price)`) |
-|---|---|
-| ![Monthly Revenue Trend](reports/charts/01_monthly_revenue_and_orders_trend.png) | ![Top Categories](reports/charts/02_top_categories_item_revenue.png) |
-
-| Monthly Cohort Retention Heatmap (`M+1` to `M+12`) | Validated RFM Customer Segments (`93,358` Customers) |
-|---|---|
-| ![Cohort Retention Heatmap](reports/charts/03_cohort_retention_heatmap.png) | ![RFM Segments](reports/charts/04_rfm_customer_segments.png) |
-
-| Delivery Delay vs. Review Score (The Satisfaction Cliff) | Geographic Revenue & Late Delivery Rate by State |
-|---|---|
-| ![Delivery vs Review Score](reports/charts/05_delivery_delay_vs_review_score.png) | ![State Performance](reports/charts/06_state_revenue_and_late_rate.png) |
-
-| Payment Method & Installment Distribution | Seller Revenue Pareto Concentration (`Top 10% = 67.11%`) |
-|---|---|
-| ![Payment Distribution](reports/charts/07_payment_method_distribution.png) | ![Seller Pareto](reports/charts/08_seller_pareto_concentration.png) |
+**Approved Governance Rules (`D-1` to `D-6`):**
+1. **D-1 (Financial Separation):** `SUM(payment_value)` (`R$ 15,422,461.77`) = **Delivered Order Value Proxy** (buyer spend including freight & installment interest — **not** Olist's undisclosed commission revenue). Product/category/seller rankings strictly use **Merchandise Revenue** (`SUM(price)` = `R$ 13,221,498.11` delivered; `R$ 13,591,643.70` all orders), with **Freight Value** (`R$ 2,198,275.64` delivered) tracked separately. Cost/profitability cannot be computed because seller COGS and marketing CAC are absent.
+2. **D-2 (Analysis Window):** Monthly trends and acquisition cohorts use the complete 20-month window **January 2017 – August 2018** (`99,092` total / `96,211` delivered orders), disclosing excluded sparse boundary months (`Sept–Dec 2016`, `Sept–Oct 2018`).
+3. **D-3 (Review Deduplication):** Duplicate review rows (`98,410` unique `review_id`s across `99,224` rows) collapse deterministically to the most recent review per order (`98,673` reviewed orders).
+4. **D-4 (Category Translations):** Retains original Portuguese category names alongside `71` official + `2` manual English mappings + `Unknown`.
+5. **D-5 (True Repeat Customers):** Resolves identity via `customer_unique_id` (`93,358` delivered customers) and requires **$\ge 2$ delivered orders placed on $\ge 2$ distinct purchase dates** (`2,015` = **`2.16%`**), explicitly separating **`786` same-day split-checkout buyers (`0.84%`)** and Option-A total (`2,801` = `3.00%`).
+6. **D-6 (Inactivity vs. Churn):** Recency bands (`90/180/270/365` days) measure non-contractual inactivity, not confirmed subscription churn.
 
 ---
 
-## 🔍 Key Empirical Findings
+## 5. KPI Definitions & Verified Scorecard
 
-### 1. Revenue & Seasonality (Jan 2017 – Aug 2018 Analysis Window)
-- **Rapid Marketplace Scaling:** Monthly delivered order value grew **7.7x** from **`R$ 127,545.67`** (`750` orders in Jan 2017) to a stabilized run-rate of **`R$ 985,414.28 – R$ 1,122,888.09`** per month in Q1–Q3 2018.
-- **Black Friday Peak:** November 2017 achieved the single-month record of **`R$ 1,153,528.05`** across **`7,289` delivered orders**, but triggered a spike in late deliveries to **`14.31%`** (vs. `8.11%` baseline).
-- **Right-Skewed Order Values:** Delivered AOV averages **`R$ 159.86`** with a median of **`R$ 105.28`** (`IQR = R$ 61.88 – R$ 176.33`). Credit-card installment buyers spend more per transaction (`R$ 162.24`, avg `3.50` installments) than single-payment Boleto buyers (`R$ 144.33`).
+All monetary metrics are denominated in **Brazilian Real (`BRL` / `R$`)**:
 
-### 2. Customer Retention & Cohort Decay
-- **True Repeat Rate (Rule D-5):** Among **`93,358`** delivered unique customers, **`2,015` (`2.16%`)** placed $\ge 2$ delivered orders on $\ge 2$ distinct dates (`2,005` / `2.15%` in the Jan 2017 – Aug 2018 window). An additional **`786` customers (`0.84%`)** placed multiple orders on the *same calendar day* (checkout split baskets).
-- **2.0x CLV Multiplier:** True repeat customers generate **`R$ 320.82`** in average historical order value vs. **`R$ 277.23`** for same-day split-basket buyers and **`R$ 160.76`** for single-order buyers (`R$ 161.76` across all `91,343` non-D5 customers).
-- **Cohort Decay:** Across all `19` acquisition cohorts with full M+1 visibility (`2017-01` to `2018-07`), Month-1 retention ranges between **`0.184%`** (`2017-02`) and **`0.716%`** (`2017-10`), confirming that low repeat rate is a structural platform characteristic.
-
-### 3. RFM Customer Segmentation (`93,358` Delivered Customers)
-
-| RFM Segment | Customers | Customer Share | Avg Recency (Days) | Avg Purchase Days | Avg Monetary (`BRL`) | Total Order Value Proxy (`BRL`) | Revenue Share |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| **Recent Customers** | `37,219` | `39.87%` | `89.85` | `1.03` | `R$ 168.44` | `R$ 6,269,299.23` | `40.65%` |
-| **Lost Customers** | `37,358` | `40.02%` | `394.00` | `1.01` | `R$ 165.11` | `R$ 6,167,951.88` | `39.99%` |
-| **Needs Attention** | `18,272` | `19.57%` | `219.17` | `1.00` | `R$ 153.14` | `R$ 2,798,239.09` | `18.14%` |
-| **Potential Loyalists** | `449` | `0.48%` | `197.87` | `2.20` | `R$ 328.03` | `R$ 147,286.12` | `0.96%` |
-| **Champions** | `23` | `0.02%` | `81.30` | `5.13` | `R$ 855.85` | `R$ 19,684.50` | `0.13%` |
-| **At Risk** | `31` | `0.03%` | `335.35` | `3.06` | `R$ 486.06` | `R$ 15,067.94` | `0.10%` |
-| **Loyal Customers** | `6` | `0.01%` | `210.50` | `5.17` | `R$ 822.17` | `R$ 4,933.01` | `0.03%` |
-| **Total** | **`93,358`** | **`100.00%`** | — | — | **`R$ 165.20`** | **`R$ 15,422,461.77`** | **`100.00%`** |
-
-### 4. Product Category & Seller Pareto Concentration
-- **Top 5 Categories Drive `39.83%` of Merchandise Sales:** Out of `74` active categories (`R$ 13,221,498.11` total delivered `SUM(price)`), the top 5 are `health_beauty` (`R$ 1,233,131.72`), `watches_gifts` (`R$ 1,166,176.98`), `bed_bath_table` (`R$ 1,023,434.76`), `sports_leisure` (`R$ 954,852.55`), and `computers_accessories` (`R$ 888,724.61`).
-- **Seller Concentration:** The **top `10%` of active sellers (`297` of `2,970` sellers, Decile 1)** generate **`67.11%`** (`R$ 8,873,076.37`) of all delivered merchandise revenue, and the top `20%` (`594` sellers, Deciles 1–2) generate **`82.29%`** (`R$ 10,879,659.64`).
-
-### 5. Delivery Performance vs. Customer Satisfaction (Hypothesis Testing)
-- **Statistically Significant Satisfaction Cliff:**
-  - **On-Time Orders (`88,644` / `91.89%`):** Mean transit **`10.88` days**, average review score **`4.29 / 5.00 ★`** (`8.94%` 1-star rate).
-  - **Late Orders (`7,826` / `8.11%`):** Mean transit **`31.52` days**, average review score **`2.57 / 5.00 ★`** (`46.46%` 1-star rate) — a **`-1.72 ★` drop** (Welch's $t = 96.49, p < 0.0001$; Mann-Whitney $U = 5.01 \times 10^8, p < 0.0001$).
-  - **Severe Delays (`8+` Days Late — `2,862` orders):** Average review plunges to **`1.70 ★`**, with **`69.87%` 1-star ratings**.
-- **Geographic Disparity:** São Paulo (`SP`, `40,501` delivered orders) enjoys an **`8.76`-day** average transit and **`5.89%`** late rate (`4.25 ★`), whereas Rio de Janeiro (`RJ`, `12,350` orders) suffers a **`13.47%`** late rate (`15.31` days, `3.97 ★`), and Northeast states face **`14%–24%`** late rates (`AL 23.93%`, `MA 19.67%`, `PI 15.97%`, `CE 15.32%`, `BA 14.04%`).
+| KPI ID | Metric Definition | Full Dataset (Sep 2016–Oct 2018) | Window D-2 (Jan 2017–Aug 2018) | Governance Rule |
+|---|---|---:|---:|---|
+| `KPI-001` | Total Orders (All Statuses) | `99,441` | `99,092` | `orders_clean` |
+| `KPI-002` | Delivered Orders | `96,478` (`97.02%`) | `96,211` | `is_delivered = 1` |
+| `KPI-004` | Delivered Order Value Proxy (`SUM(payment_value)`) | **`R$ 15,422,461.77`** | **`R$ 15,375,875.44`** | Rule D-1 |
+| `KPI-005` | Delivered Merchandise Revenue (`SUM(price)`) | **`R$ 13,221,498.11`** | **`R$ 13,181,027.13`** | Rule D-1 |
+| `KPI-006` | Delivered Freight Value (`SUM(freight_value)`) | **`R$ 2,198,275.64`** | `R$ 2,192,092.88` | Rule D-1 |
+| `KPI-008/9` | Mean / Median Order Value Proxy | `R$ 159.86` / `R$ 105.28` | `R$ 159.81` / `R$ 105.28` | IQR `R$ 114.45` |
+| `KPI-010` | Unique Delivered Customers (`customer_unique_id`) | `93,358` | `93,104` | `customer_unique_id` |
+| `KPI-011` | **True Repeat Customers (D-5 Distinct Dates)** | **`2,015` (`2.16%`)** | **`2,005` (`2.15%`)** | Rule D-5 |
+| `—` | Same-Day Split-Basket Buyers / Option A Total | `786` (`0.84%`) / `2,801` (`3.00%`) | `—` | Rule D-5 Sensitivity |
+| `KPI-012` | Repeat Customer Revenue Share (D-5) | `4.19%` (`R$ 646,454.25`) | `—` | Avg CLV `R$ 320.82` vs `R$ 160.76` |
+| `KPI-013/14` | Avg Delivery Days / Late Rate (Timestamp) | `12.56 days` / **`8.11%`** | `8.12%` late | Promised deadline SLA |
+| `KPI-015/16` | Avg Review Score / Late Review Penalty | `4.16 ★` (`4.29 ★` on-time vs `2.57 ★` late) | `—` | `-1.72 ★` drop ($p < 0.0001$) |
+| `KPI-017` | #1 Merchandise Category (`health_beauty`) | **`R$ 1,233,131.72`** | `—` | `8,647` delivered orders |
+| `KPI-018` | Top 10% Active Sellers Merchandise Share | **`67.11%`** (`R$ 8,873,076.37`) | `—` | `297` of `2,970` sellers |
 
 ---
 
-## 💡 Strategic Business Recommendations
+## 6. Key Empirical Findings & Business Recommendations
 
-| Priority | Initiative | Target Segment / Scope | Quantified Opportunity |
+| Monthly Revenue & Orders (`2017-01` – `2018-08`) | Delivery Delay Satisfaction Cliff |
+|---|---|
+| ![Monthly Revenue Trend](reports/charts/01_monthly_revenue_and_orders_trend.png) | ![Delivery Delay vs Review Score](reports/charts/05_delivery_delay_vs_review_score.png) |
+
+| Monthly Cohort Retention Heatmap (`M+1` – `M+12`) | Seller Pareto Concentration (`2,970` Sellers) |
+|---|---|
+| ![Cohort Retention Heatmap](reports/charts/03_cohort_retention_heatmap.png) | ![Seller Pareto](reports/charts/08_seller_pareto_concentration.png) |
+
+1. **Structural One-Time Buying & 2.0x Repeat CLV:** True multi-day repeat purchasing is **`2.16%` (`2,015` customers)**, with M+1 cohort retention ranging from `0.184%` to `0.716%`. Targeting the **`37,219 Recent Customers`** (`R$ 6.27M` pool) with 30–60 day replenishment incentives can lift retention toward `4.00%` (`~R$ 275,000+` estimated incremental order value).
+2. **Late Delivery Drives 1-Star Surge:** Crossing the estimated delivery date (`8.11%` of orders) causes reviews to drop by **`-1.72 ★`** (`4.29 ★` $\rightarrow$ `2.57 ★`, Mann-Whitney $U$ & Welch's $t = 96.49, p < 0.0001$). Severe delays (`8+` days late) generate **`69.87%` 1-star reviews**, concentrated in `RJ` (`13.47%` late) and Northeast states (`AL 23.93%`, `MA 19.67%`).
+3. **Top-Decile Seller Concentration:** `297` merchants (**`10%`**) drive **`67.11%` (`R$ 8.87M`)** of item sales, and `594` (**`20%`**) drive **`82.29%` (`R$ 10.88M`)**, motivating tiered seller SLA governance and regional 3PL fulfillment hubs.
+
+---
+
+## 7. Five-Page Power BI Desktop Model & Report
+
+Located under `powerbi/`, the project entrypoint is **[powerbi/Ecommerce_Intelligence_OS.pbip](powerbi/Ecommerce_Intelligence_OS.pbip)** (generated reproducibly via [powerbi/scripts/build_powerbi_project.ps1](powerbi/scripts/build_powerbi_project.ps1)):
+
+- **Semantic Model (`19` Tables, `10` Single-Direction Relationships, `39` Weighted DAX Measures):**
+  - `dim_date` (`1,096` days, marked as Date Table) + `7` granular tables (`order_level`, `order_items_clean`, `payments_clean`, `products_clean`, `sellers_clean`, `customers_clean`, `customer_rfm`) + `11` analytical summary marts (`powerbi/data_exports/`).
+  - Enforces strict single-direction star-schema filtering (`order_level[PurchaseDate]` used in D-5 distinct-day DAX so `Repeat Customers (D-5 Distinct Days)` = **`2,015` / `2.16%`** and `Same-Day Multi-Order Customers` = **`786` / `0.84%`**).
+  - Weighted DAX measures for CLV, RFM, category, seller, state delivery, and `Cohort Retention Rate %` (`100.00%` M0, `0.28%` M1).
+- **Synced Enterprise Light Pages (`Enterprise_Light_OS_Theme.json`):**
+  1. **Executive Overview** (`Year`, `Window D-2`, `Customer State`, `Product Category` synced slicers)
+  2. **Revenue Intelligence** (`Year`, `Window D-2`, `Customer State`, `Product Category`, `Payment Method` synced slicers)
+  3. **Customer Intelligence** (RFM & D-5 vs. Same-Day vs. Single-Order CLV breakdown)
+  4. **Product and Seller Performance** (Category/Seller item revenue, delivery bucket cliff & state SLAs)
+  5. **Retention Analysis** (Weighted cohort retention matrix & cohort size trends)
+- *Note:* `.pbix` binaries are gitignored (`powerbi/*.pbix`); refresh and save `powerbi/Ecommerce_Intelligence_OS.pbix` interactively inside Power BI Desktop using [powerbi_dashboard_guide.md](powerbi/documentation/powerbi_dashboard_guide.md).
+
+---
+
+## 8. Eight-Page Streamlit Application & Dashboard Gallery
+
+Built in [app/streamlit_app.py](app/streamlit_app.py) with global synced filters (`Scope`, `Year`, `State/Region`, `Product Category`) and Plotly visualizations:
+
+1. **Executive Intelligence Dashboard** — Scope comparison strip (`Full Dataset` vs `Jan 2017–Aug 2018`), KPI row, monthly dual-axis trend, RFM, and category bars.
+2. **Revenue Intelligence** — Checkout value decomposition (`price + freight + installments`), MoM growth, payment method & installment tiers.
+3. **Customer Intelligence** — D-5 (`2.16%`) vs. Same-Day (`0.84%`) vs. Option A (`3.00%`), CLV multiplier, and D-6 inactivity bands.
+4. **RFM Segmentation** — All 7 segments across `93,358` customers and CRM action matrix.
+5. **Cohort Retention** — `20 × 12` cohort heatmap and M+1 trajectory.
+6. **Product & Seller Intelligence** — `74` categories Pareto & seller decile concentration.
+7. **Delivery & Customer Satisfaction** — Statistical SLA scorecard and state delay map/scatter.
+8. **AI Business Copilot** — Benchmark questions, Read-Only SQL Sandbox, grounded summary cards, SQL lineage inspector, and audit trail.
+
+| Revenue Intelligence | RFM Segmentation | Cohort Retention | Delivery & Satisfaction |
 |---|---|---|---|
-| **1. Operations** | **Carrier SLA Recalibration & Regional 3PL Hubs (RJ & Northeast)** | `7,826` late orders (`1,664` in RJ alone) | Cutting late deliveries by `50%` (~`3,913` orders) prevents ~`1,468` 1-star reviews and lifts platform rating from `4.15 ★` to `4.22 ★`. |
-| **2. Retention** | **30-to-60 Day Second-Purchase Replenishment Campaign** | `37,219` `Recent Customers` (`R$ 6.27M` segment) | Converting `+1.84%` of recent buyers into repeat buyers (`2.16% -> 4.00%`) adds ~**`R$ 275,000+`** in incremental order value. |
-| **3. Merchandising** | **Top-Decile Seller SLA Governance & Category Packaging Audits** | Top `297` sellers (`67.11%` GMV) & heavy-freight categories (`office_furniture` `3.52 ★`) | Enforcing `<5%` late dispatch SLAs and pre-shipment packaging checks protects `R$ 8.87M` in core merchandise sales. |
-| **4. Checkout** | **Smart Multi-Seller Split-Basket Consolidation** | `786` same-day multi-order buyers | Unified cart checkout reduces duplicate boleto/card processing friction and surfaces cross-seller bundle discounts. |
+| ![Revenue](docs/screenshots/after_02_revenue_intelligence.png) | ![RFM](docs/screenshots/after_04_rfm_segmentation.png) | ![Cohort](docs/screenshots/after_05_cohort_retention.png) | ![Delivery](docs/screenshots/after_07_delivery_satisfaction.png) |
 
 ---
 
-## 🖥 Enterprise Streamlit BI Dashboard (8 Modules)
+## 9. AI Multi-Agent Business Copilot & Safety Architecture
 
-Launch the redesigned **8-module enterprise BI dashboard** (`app/streamlit_app.py`):
+Located in `agents/`, **`AnalyticsOrchestrator`** coordinates `6` specialized agents (`DataProfilerAgent`, `DataQualityAgent`, `SQLAnalystAgent`, `CustomerAnalyticsAgent`, `BusinessInsightAgent`, `ReportAgent`):
+
+- **Deterministic Execution vs. External LLM Mode:** In offline/default mode, natural-language intent matching and insight synthesis execute **100% deterministically** against live SQL outputs (`MySQL` when reachable or automatic `DuckDB` parity) with zero synthetic API guessing.
+- **SQL Safety Gate ([agents/tools/sql_safety_validator.py](agents/tools/sql_safety_validator.py)):** Enforces single-statement `SELECT`/`WITH` execution against `23` allow-listed tables/views, blocks `DROP`, `DELETE`, `UPDATE`, `ALTER`, and `;`, and applies `LIMIT 100` row bounds.
+- **Scope Guardrail:** Out-of-scope prompts (e.g., *"What is our net profit margin after marketing CAC?"*) are safely declined with transparent dataset-boundary disclosures.
+
+---
+
+## 10. MySQL Integration, Excel Workbook & PDF Reporting
+
+- **MySQL 8.0 & Live Verifier ([src/database/verify_live_mysql.py](src/database/verify_live_mysql.py)):** Checks service `MySQL80`, connects via `getpass` hidden prompt (no credentials stored), verifies all `15` warehouse tables (`14` cleaned + `customer_rfm` including `geolocation_zip_lookup = 17,737`), reconciles **`22/22` live SQL KPI queries** (`0.0` abs diff), and writes `docs/mysql_live_verification_report.md` + `reports/reconciliation/mysql_live_verification.json`.
+- **10-Sheet Executive Excel Workbook (`reports/executive_summary/Ecommerce_Revenue_Retention_Intelligence_Report.xlsx`):** Generated via [excel_report_builder.py](src/reporting/excel_report_builder.py) with `44` dynamic Excel formula cells (`=SUM`, `=AVERAGE`), `R$` / `%` number formatting, conditional formatting, and charts.
+- **3-Page Executive PDF Report (`reports/executive_summary/Ecommerce_Intelligence_OS_Executive_Report.pdf`):** Generated via [pdf_report_builder.py](src/reporting/pdf_report_builder.py) covering canonical KPIs, charts, strategic recommendations, and analytical limitations.
+
+---
+
+## 11. Installation, Launch Commands & Verification Results
 
 ```bash
+# 1. Install all Python dependencies
+pip install -r requirements.txt
+
+# 2. Place raw Olist CSVs into data/raw/ (from Kaggle Olist dataset) and run cleaning + analytics
+python src/cleaning/build_clean_datasets.py
+python src/database/execute_and_validate_sql.py
+python src/analytics/kpi_engine.py
+python src/analytics/reconciliation_engine.py
+
+# 3. Launch CommerceLens AI Streamlit Dashboard
 streamlit run app/streamlit_app.py
-```
 
-1. **Executive Overview** — Scope toggle (`Full Dataset` vs `Primary Analysis Window`), 8 non-truncating KPI cards, dual-axis Monthly Revenue & Orders chart, RFM Segment Contribution chart, Top 10 Categories chart, and Executive Observations.
-2. **Revenue & Monthly Trends** — Interactive month range slider (`2017-01` to `2018-08`), Payment Method filter, Revenue Decomposition chart, MoM Growth (`%`) bar chart, and Credit Card Installment Tiers chart.
-3. **Customer & CLV Analytics** — Rule D-5 Repeat Rate (`2.16%`) vs Same-Day Split-Basket (`0.84%`) vs Sensitivity Options (a/c), Historical CLV Proxy chart, and Rule D-6 Inactivity sensitivity analysis.
-4. **RFM Segmentation** — Segment multi-select filter, Customer Share vs Order Value Share comparison, RFM Portfolio Bubble Matrix, and CRM Action Playbook table.
-5. **Cohort Retention** — Cohort range slider, `M+0` color-scale toggle, `20 × 12` retention heatmap, and Cohort Size vs M+1 Retention combo chart.
-6. **Products & Sellers** — Top-N category slider, Seller State filter, minimum order volume filter, Category Pareto Curve (`SUM(price)`), and Seller Decile Concentration chart.
-7. **Delivery & Satisfaction** — Macro-Region filter (`Southeast`, `South`, `Northeast`, `Central-West`, `North`), Welch's $t$ / Mann-Whitney $U$ scorecard, Dual-Axis Satisfaction Cliff chart, and State Late Rate vs Review Score bubble plot.
-8. **AI Business Q&A Assistant** — Preset benchmark selector, natural-language question input, Read-Only Custom SQL Sandbox, grounded Factual Summary & Recommendations cards, auto-generated Plotly chart, SQL & Lineage Inspector, and Session Audit Log.
-
----
-
-## 🤖 AI Agentic Business Q&A Assistant
-
-Located in `agents/`, the multi-agent system coordinates **6 specialized agents** via `AnalyticsOrchestrator` (`agents/orchestrator.py`):
-- **`DataProfilerAgent` & `DataQualityAgent`** — Verify row counts and quality flags without mutating raw data.
-- **`SQLAnalystAgent` & `SQLSafetyValidator`** — Enforce single-statement, read-only `SELECT` execution against the `23` allow-listed tables/views while blocking `DROP`, `DELETE`, `UPDATE`, `TRUNCATE`, and `;`.
-- **`ScopeGuardrail`** — Safely declines unsupported or out-of-scope questions (e.g., net profit margin, marketing CAC, weather) without fabricating figures.
-- **`CustomerAnalyticsAgent`, `BusinessInsightAgent` & `ReportAgent`** — Produce zero-hallucination insights and log all runs to `reports/agent_audit_log.json`.
-
-```bash
+# 4. Run AI Business Copilot CLI Demo
 python agents/orchestrator.py --demo
-python agents/orchestrator.py --question "Does late delivery relate to lower review scores?"
+
+# 5. Run Full Automated Test Suite
+pytest tests/ -v
+
+# 6. Verify Live Local MySQL 8.0 Database (uses secure hidden password prompt)
+python src/database/verify_live_mysql.py
 ```
 
----
-
-## 📑 Executive Excel Workbook (10 Sheets), 3-Page PDF Report & Power BI Star-Schema Package
-
-- **Executive Excel Workbook (`reports/executive_summary/Ecommerce_Revenue_Retention_Intelligence_Report.xlsx`):**  
-  Generated via `python src/reporting/excel_report_builder.py`. Contains **10 formatted worksheets** (`Executive_Summary`, `KPI_Overview`, `Revenue_Trends`, `Customer_Analytics`, `RFM_Segmentation`, `Cohort_Retention`, `Product_Seller_Performance`, `Delivery_Satisfaction`, `Data_Quality`, `Metric_Definitions`) with Excel tables, unit-specific `R$` / `%` / integer formats, dynamic `=SUM` and `=AVERAGE` formulas, conditional formatting, and embedded charts.
-- **Executive PDF Business Report (`reports/executive_summary/Ecommerce_Intelligence_OS_Executive_Report.pdf`):**  
-  Generated via `python src/reporting/pdf_report_builder.py`. A 3-page executive PDF briefing containing the canonical 18-KPI scorecard, revenue and RFM charts, category/delivery visuals, and the 4-pillar Decision Intelligence Playbook.
-- **Centralised KPI Catalogue & Cross-Platform Reconciliation (`src/analytics/`):**  
-  `src/analytics/metric_catalogue.py` (`docs/metric_catalogue.md`) and `src/analytics/reconciliation_engine.py` (`reports/reconciliation/reconciliation_report.md`) verify `18/18` KPIs match across SQL, Python, Excel, Streamlit, and Power BI.
-- **Power BI Star-Schema Package (`powerbi/`):**  
-  Generated via `python src/reporting/powerbi_package_builder.py`. Exports **12 star-schema CSV tables** in `powerbi/data_exports/` (including `dim_date.csv` and explicit `YYYY-MM-01` date foreign keys), relationship specification `star_schema_relationships.json`, **22 production DAX measures** in `powerbi/dax/olist_dax_measures.dax`, and a step-by-step connection & relationship guide in `powerbi/documentation/powerbi_dashboard_guide.md`.
+**Verified Results:**
+- **`pytest tests/ -v`:** **`18/18` passed (`0` failures, `0` skipped)** (`23.25s`).
+- **`src/analytics/reconciliation_engine.py`:** **`18/18` cross-platform KPIs reconciled (`100% PASS`)**.
+- **Power BI SDK (`build_powerbi_project.ps1`):** `19` tables, `10` relationships, `39` DAX measures round-trip verified; `PBIProjectShredder` `0` validation errors.
+- **Live MySQL 8.0 (`22/22` KPIs PASS):** Live SQL queries reconciled `0.0` diff on `MySQL 8.0.46`; `geolocation_zip_lookup` expectation fixed (`19,015` stale raw count $\rightarrow$ `17,737` cleaned count) pending one final user re-run for `15/15` table pass badge.
 
 ---
 
-## 🚀 How to Install, Run & Connect
+## 12. Limitations, Attribution & Future Scope
 
-1. **Install Dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-2. **Place Raw Olist CSVs in `data/raw/`:**  
-   Download from [Kaggle (Olist Dataset)](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) and extract all 9 CSV files into `data/raw/`.
-3. **Connect MySQL (Optional):**  
-   Copy `.env.example` to `.env`, set `MYSQL_PASSWORD=<your_password>`, and run `python src/database/load_data_to_mysql.py`. If MySQL is not running, `AnalyticsDBEngine` automatically uses its built-in **DuckDB** relational parity engine.
-4. **Run the Pipeline & Tests:**
-   ```bash
-   python src/cleaning/run_phase4_cleaning.py
-   python src/database/execute_and_validate_sql.py
-   python src/analytics/kpi_engine.py
-   python src/analytics/metric_catalogue.py
-   python src/analytics/chart_generator.py
-   python src/reporting/excel_report_builder.py
-   python src/reporting/pdf_report_builder.py
-   python src/reporting/powerbi_package_builder.py
-   python src/analytics/reconciliation_engine.py
-   python agents/orchestrator.py --demo
-   pytest tests/ -v
-   ```
+- **Dataset Attribution & Licence:** Data sourced from the [Olist Brazilian E-Commerce Public Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) under **CC BY-NC-SA 4.0**. Raw CSVs remain excluded via `.gitignore`. Repository source code and documentation are provided for portfolio demonstration purposes.
+- **Analytical Limitations:** Covers historical Sept 2016–Oct 2018 transactions (pre-PIX), lacks seller COGS/commission/CAC data (so `payment_value` is a proxy, not corporate profit/commission), exhibits right-censoring on late-2018 repeat rates, and treats long recency as non-contractual inactivity rather than confirmed churn. This repository is a **single-tenant portfolio analytics demonstration**, not a hosted production SaaS platform.
+- **Future Scope (Not Yet Implemented):** Live streaming order ingestion, probabilistic BG/NBD + Gamma-Gamma predictive CLV forecasting, automated CI/CD Power BI Service publishing, and optional external LLM API tool-calling connector.
 
----
-
-## 🧪 Automated Quality Assurance (`18/18` Passed)
-
-All **18 automated tests** in `tests/test_analytics_pipeline.py` pass (`18 passed`):
-- `test_01` to `test_04`: Raw data integrity, cleaning row count preservation, PK/FK uniqueness, and quality flag counts.
-- `test_05` to `test_09`: Financial reconciliation (`R$ 15,422,461.77` & `R$ 13,221,498.11`), Rule D-5 repeat customers (`2,015`), RFM baseline (`93,358` customers), and 20-month cohort matrix (`93,104` customers).
-- `test_10` to `test_14`: SQL safety validator, multi-agent orchestrator, all 8 benchmark/Copilot business questions, and out-of-scope guardrail.
-- `test_15` to `test_18`: 10-sheet Excel workbook structure/formulas/formats, Power BI date foreign-key integrity, Streamlit application data loader & 8 page modules, 18-KPI Metric Catalogue, 3-page PDF report, and 18/18 Cross-Platform Reconciliation Report.
-
-See [docs/FINAL_PROJECT_AUDIT.md](docs/FINAL_PROJECT_AUDIT.md) for the complete end-to-end audit report and [docs/recruiter_demo_guide.md](docs/recruiter_demo_guide.md) for the 3-minute live recruiter demonstration script.
-
----
-
-## ⚠️ Limitations & Analytical Honesty
-
-1. **Historical Coverage (2016–2018):** Reflects Brazilian e-commerce dynamics during 2016–2018 prior to the introduction of PIX instant payments in late 2020.
-2. **Order Value Proxy vs. Net Commission Revenue:** `payment_value` represents total buyer checkout spend (`price + freight + installment interest`), not Olist's undisclosed corporate commission revenue.
-3. **Non-Contractual Repeat Window:** Repeat purchase metrics are right-censored for customers acquired in mid-2018. Recency bands (`90/180/270/365` days) measure inactivity, not confirmed contractual churn.
-4. **Power BI `.pbix` Binary:** This repository includes the SDK-validated Power BI Project ([powerbi/Ecommerce_Intelligence_OS.pbip](powerbi/Ecommerce_Intelligence_OS.pbip)), TMDL Semantic Model (`19` tables, `10` relationships, weighted DAX measures), Enterprise Light Theme, `12` pre-reconciled CSV exports (`powerbi/data_exports/`), and interactive 5-page report layout (`powerbi/Ecommerce_Intelligence_OS.Report/`); saving the final compiled `.pbix` requires clicking **Refresh** $\rightarrow$ **File $\rightarrow$ Save as** in Power BI Desktop.
-
----
-
-## 📜 Licence & Attribution
-
-- **Dataset:** [Olist Brazilian E-Commerce Public Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) (CC BY-NC-SA 4.0)
-- **Code Licence:** MIT Licence (applies to repository source code, SQL scripts, and documentation; raw dataset files remain subject to CC BY-NC-SA 4.0 and are excluded from version control).
+For live walkthrough notes, see [docs/recruiter_demo_guide.md](docs/recruiter_demo_guide.md), [docs/FINAL_PROJECT_AUDIT.md](docs/FINAL_PROJECT_AUDIT.md), and [docs/architecture.md](docs/architecture.md).

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T17:14:26.856068",
+  "generated_at": "2026-11-16T17:50:54.557671",
   "db_backend": "duckdb",
   "llm_configured": false,
   "profiler_status": "success",
@@ -1507,7 +1507,7 @@
   ],
   "audit_trail": [
     {
-      "timestamp": "2026-11-16T17:14:23.721592",
+      "timestamp": "2026-11-16T17:50:52.556404",
       "question": "What is the monthly delivered revenue trend?",
       "intent": "monthly_revenue_trend",
       "is_safe": true,
@@ -1516,7 +1516,7 @@
       "factual_summary": "Across the 20-month primary analysis window (Jan 2017 \u2013 Aug 2018), delivered order value proxy totals R$ 15,375,875.44 (and delivered merchandise revenue totals R$ 13,181,027.13) across 96,211 delivered orders. Monthly order value expanded 7.7x from R$ 127,545.67 in 2017-01 (750 orders) to R$ 985,414.28 in 2018-08 (6,351 orders), peaking in 2017-11 (Black Friday) at R$ 1,153,528.05 (7,289 orders)."
     },
     {
-      "timestamp": "2026-11-16T17:14:23.998819",
+      "timestamp": "2026-11-16T17:50:52.731526",
       "question": "Why did order value decline in June 2018?",
       "intent": "june_2018_decline_analysis",
       "is_safe": true,
@@ -1525,7 +1525,7 @@
       "factual_summary": "Delivered order value proxy declined by -10.34% MoM in June 2018, dropping from R$ 1,128,836.69 in May 2018 (6,749 delivered orders) to R$ 1,012,090.68 in June 2018 (6,099 delivered orders). Decomposition shows the decline was driven 93% by an order volume contraction (-9.63%, -650 delivered orders) while Mean Order Value held nearly flat (-0.79%, R$ 167.26 -> R$ 165.94)."
     },
     {
-      "timestamp": "2026-11-16T17:14:24.033206",
+      "timestamp": "2026-11-16T17:50:52.753031",
       "question": "Which customer segments have the highest retention risk?",
       "intent": "rfm_segments",
       "is_safe": true,
@@ -1534,7 +1534,7 @@
       "factual_summary": "Across 93,358 delivered customers (R$ 15,422,461.77 total delivered order value proxy), 'Recent Customers' generates the highest order value at R$ 6,269,299.23 (40.65% share across 37,219 customers), closely followed by 'Lost Customers' with 37,358 customers (R$ 6,167,951.88, 39.99% share). High-frequency multi-day segments ('Potential Loyalists' = 449, 'At Risk' = 31, 'Champions' = 23, 'Loyal Customers' = 6) total 509 customers (R$ 186,971.57)."
     },
     {
-      "timestamp": "2026-11-16T17:14:24.547976",
+      "timestamp": "2026-11-16T17:50:53.088689",
       "question": "What is the repeat purchase rate and why is it low?",
       "intent": "repeat_purchase_rate",
       "is_safe": true,
@@ -1543,7 +1543,7 @@
       "factual_summary": "Under approved Rule D-5, out of 93,358 unique delivered customers, 2,015 (2.16%) are True Repeat Customers (2+ delivered orders on 2+ distinct calendar dates), generating R$ 646,454.25 with an average historical CLV proxy of R$ 320.82 vs R$ 161.76 across the 91,343 non-D5 customers (which comprise 90,557 strictly single-order buyers at R$ 160.76 avg CLV and 786 same-day split-basket buyers at R$ 277.23 avg CLV)."
     },
     {
-      "timestamp": "2026-11-16T17:14:25.091142",
+      "timestamp": "2026-11-16T17:50:53.432126",
       "question": "Which product categories generate the highest revenue?",
       "intent": "category_performance",
       "is_safe": true,
@@ -1552,7 +1552,7 @@
       "factual_summary": "Per Rule D-1, the top 3 categories by delivered merchandise revenue (SUM(price)) are 'health_beauty' (R$ 1,233,131.72 across 8,647 orders), 'watches_gifts' (R$ 1,166,176.98, 5,495 orders), and 'bed_bath_table' (R$ 1,023,434.76, 9,272 orders). The top 5 categories combined generate R$ 5,266,320.62 (39.83% of all R$ 13,221,498.11 delivered merchandise revenue)."
     },
     {
-      "timestamp": "2026-11-16T17:14:25.720795",
+      "timestamp": "2026-11-16T17:50:53.774209",
       "question": "How much revenue is concentrated among top sellers?",
       "intent": "seller_performance",
       "is_safe": true,
@@ -1561,7 +1561,7 @@
       "factual_summary": "Across 2,970 active sellers with delivered orders (R$ 13,221,498.11 total merchandise revenue), the top 10% (297 sellers, Decile 1) account for 67.11% (R$ 8,873,076.37) of merchandise sales, and the top 20% (594 sellers, Deciles 1\u20132) account for 82.29% (R$ 10,879,659.64). The top 20 individual sellers alone generate R$ 2,813,946.82 (21.28%), led by seller 4869f7a5... (SP) with R$ 226,987.93 across 1,124 delivered orders (late rate 11.59%, review score 4.14)."
     },
     {
-      "timestamp": "2026-11-16T17:14:25.820615",
+      "timestamp": "2026-11-16T17:50:53.838053",
       "question": "How do delivery delays affect customer review scores?",
       "intent": "delivery_vs_reviews",
       "is_safe": true,
@@ -1570,7 +1570,7 @@
       "factual_summary": "Yes \u2014 late delivery is strongly and significantly associated with lower review scores (Mann-Whitney U p < 0.0001, Welch's t = 96.49). Orders delivered 8+ days early (71,303 orders) average 4.32 / 5.00 stars (6.47% 1-star rate), whereas orders 1\u20133 days late (1,870 orders) drop to 3.29 stars (25.11% 1-star rate), and orders 8+ days late (2,862 orders) plunge to 1.70 stars with 69.87% 1-star reviews. Overall, on-time delivered orders (91.89%) average 4.29 stars vs 2.57 stars for late orders (8.11%, -1.72 star drop)."
     },
     {
-      "timestamp": "2026-11-16T17:14:25.861705",
+      "timestamp": "2026-11-16T17:50:53.866038",
       "question": "What business actions should management consider?",
       "intent": "executive_decision_actions",
       "is_safe": true,
@@ -1579,7 +1579,7 @@
       "factual_summary": "Management actions are anchored in 4 verified empirical findings across the 96,478 delivered orders (R$ 15,422,461.77 order value proxy): (1) Retention: 37,219 'Recent Customers' (R$ 6,269,299.23) and 18,272 'Needs Attention' customers (R$ 2,798,239.09) face >97% single-order attrition (2.16% D-5 repeat rate); (2) Logistics SLA: 8.11% late deliveries trigger a -1.73 star review collapse (4.29 -> 2.57 stars, p < 0.0001), concentrated in RJ (13.47% late) and BA (14.04% late); (3) Seller Concentration: Top 10% of sellers (297 merchants) generate 67.11% (R$ 8,873,076.37) of item revenue; (4) Category Merchandising: Top 5 categories generate 39.83% (R$ 5,266,253.78) of merchandise revenue."
     },
     {
-      "timestamp": "2026-11-16T17:14:26.230141",
+      "timestamp": "2026-11-16T17:50:54.177648",
       "question": "Which cohorts have the weakest retention?",
       "intent": "cohort_retention",
       "is_safe": true,
@@ -1588,7 +1588,7 @@
       "factual_summary": "Across the 19 acquisition cohorts with complete M+1 observation (2017-01 to 2018-07), M+1 repeat retention ranges from a low of 0.184% in cohort 2017-02 (3 of 1,628 customers) to a high of 0.716% in cohort 2017-10 (31 of 4,328 customers)."
     },
     {
-      "timestamp": "2026-11-16T17:14:26.850223",
+      "timestamp": "2026-11-16T17:50:54.556681",
       "question": "Which regions have the highest delivery delay rate?",
       "intent": "delivery_and_regions",
       "is_safe": true,
@@ -1597,7 +1597,7 @@
       "factual_summary": "Highest state late-delivery rates occur in AL (23.93% late, 3.85/5), MA (19.67% late, 3.83/5), PI (15.97% late, 3.99/5). Among major revenue states, RJ has a 13.47% late rate (avg 15.31 days, review score 3.97) compared to SP at 5.89% late (avg 8.76 days, review score 4.25)."
     },
     {
-      "timestamp": "2026-11-16T17:14:26.854870",
+      "timestamp": "2026-11-16T17:50:54.557501",
       "question": "Drop orders table test",
       "intent": "custom_sql_query",
       "is_safe": false,
@@ -1606,7 +1606,7 @@
       "factual_summary": "Query rejected by SQL safety gate: Query must begin with SELECT or WITH (read-only query required)."
     },
     {
-      "timestamp": "2026-11-16T17:14:26.856036",
+      "timestamp": "2026-11-16T17:50:54.557664",
       "question": "What is the company net profit margin after marketing CAC?",
       "intent": "unsupported_question",
       "is_safe": false,

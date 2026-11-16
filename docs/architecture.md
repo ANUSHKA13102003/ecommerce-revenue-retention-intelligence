@@ -1,8 +1,24 @@
-# System & Data Architecture
+# CommerceLens AI — System & Data Architecture
 
-## 1. End-to-End Architecture Overview
+**Product:** **CommerceLens AI** (*AI-Powered E-Commerce Intelligence Platform*)  
+**Tagline:** *Turning E-Commerce Data into Intelligent Business Decisions.*
 
-This project implements a six-layer production analytics architecture designed for **immutability**, **grain safety**, **dual-engine SQL portability**, and **zero-hallucination AI analytics**:
+## 1. End-to-End Architecture & Workflow Diagrams
+
+CommerceLens AI implements a reproducible, multi-layer analytics architecture designed for **raw data immutability**, **grain safety**, **dual-engine SQL portability**, and **grounded AI decision intelligence**:
+
+```mermaid
+flowchart TD
+    A["Layer 1: Immutable Raw CSVs (9 Olist Tables, 1,550,922 Rows)"] --> B["Layer 2: Python Cleaning & Grain Reconciliation (src/cleaning/)"]
+    B --> C["Pre-Aggregated Order Summaries + Quality Flags -> order_level (99,441 Rows)"]
+    C --> D["Layer 3: Relational Warehouse (MySQL 8.0 / DuckDB Parity, 15 Tables + 8 Views)"]
+    D --> E["Layer 4A: Python KPI & Statistical Engine (18 Canonical KPIs, Welch t & Mann-Whitney U)"]
+    D --> F["Layer 4B: Multi-Agent Business Copilot (6 Agents + Read-Only SQL Gate + Scope Guardrail)"]
+    D --> G["Layer 4C: BI & Executive Delivery (Power BI .pbip/DAX, 8-Page Streamlit, 10-Tab Excel, 3-Page PDF)"]
+    E --> H["Cross-Platform Reconciliation Engine (18/18 KPI Parity + 18 Pytest Checks)"]
+    F --> H
+    G --> H
+```
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
@@ -28,10 +44,10 @@ This project implements a six-layer production analytics architecture designed f
 ┌──────────────────────┐ ┌─────────────────────────┐ ┌────────────────────┐
 │ LAYER 4A: PYTHON &   │ │ LAYER 4B: AGENTIC AI    │ │ LAYER 4C: BI &     │
 │ STATISTICAL ENGINE   │ │ ANALYTICS LAYER         │ │ EXECUTIVE DELIVERY │
-│ • kpi_engine.py      │ │ • AnalyticsOrchestrator │ │ • 8-Tab Excel .xlsx│
-│ • chart_generator.py │ │ • 6 Specialized Agents  │ │ • 12 Star-Schema   │
-│ • 6 Jupyter Notebooks│ │ • Read-Only SQL Gate    │ │   Power BI CSVs +  │
-│ • Welch's t & Mann-  │ │ • Audit Trail Logging   │ │   22 DAX Measures  │
+│ • kpi_engine.py      │ │ • AnalyticsOrchestrator │ │ • 10-Tab Excel     │
+│ • chart_generator.py │ │ • 6 Specialized Agents  │ │ • 3-Page Exec PDF  │
+│ • 6 Jupyter Notebooks│ │ • Read-Only SQL Gate    │ │ • Power BI (.pbip: │
+│ • Welch's t & Mann-  │ │ • Audit Trail Logging   │ │   19 Tables, 39 DAX│
 │   Whitney U Tests    │ │   (agent_audit_log.json)│ │ • 8-Page Streamlit │
 └──────────────────────┘ └─────────────────────────┘ └────────────────────┘
 ```

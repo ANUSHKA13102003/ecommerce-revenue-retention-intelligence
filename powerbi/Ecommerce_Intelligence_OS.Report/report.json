@@ -11,7 +11,7 @@
                          "visualContainers":  [
                                                   {
                                                       "filters":  "[]",
-                                                      "config":  "{\"layouts\":[{\"id\":0,\"position\":{\"width\":560,\"y\":10,\"z\":1,\"x\":12,\"tabOrder\":1,\"height\":60}}],\"singleVisual\":{\"drillFilterOtherVisuals\":false,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"textStyle\":{\"color\":\"#0F172A\",\"fontWeight\":\"bold\",\"fontSize\":\"13pt\"},\"value\":\"E-Commerce Intelligence OS — Executive Overview\"}]},{\"textRuns\":[{\"textStyle\":{\"fontSize\":\"8.5pt\",\"color\":\"#475569\"},\"value\":\"All Dates Default (Use Window D-2 Slicer for Jan 2017 - Aug 2018) | D-5 Repeat: 2.16% (2,015)\"}]}]}}]},\"visualType\":\"textbox\"},\"name\":\"p1_hdr\"}",
+                                                      "config":  "{\"layouts\":[{\"id\":0,\"position\":{\"width\":560,\"y\":10,\"z\":1,\"x\":12,\"tabOrder\":1,\"height\":60}}],\"singleVisual\":{\"drillFilterOtherVisuals\":false,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"textStyle\":{\"color\":\"#0F172A\",\"fontWeight\":\"bold\",\"fontSize\":\"13pt\"},\"value\":\"CommerceLens AI — Executive Overview\"}]},{\"textRuns\":[{\"textStyle\":{\"fontSize\":\"8.5pt\",\"color\":\"#475569\"},\"value\":\"All Dates Default (Use Window D-2 Slicer for Jan 2017 - Aug 2018) | D-5 Repeat: 2.16% (2,015)\"}]}]}}]},\"visualType\":\"textbox\"},\"name\":\"p1_hdr\"}",
                                                       "width":  560,
                                                       "y":  10,
                                                       "z":  1,
@@ -140,7 +140,7 @@
                          "visualContainers":  [
                                                   {
                                                       "filters":  "[]",
-                                                      "config":  "{\"layouts\":[{\"id\":0,\"position\":{\"width\":498,\"y\":10,\"z\":1,\"x\":12,\"tabOrder\":1,\"height\":60}}],\"singleVisual\":{\"drillFilterOtherVisuals\":false,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"textStyle\":{\"color\":\"#0F172A\",\"fontWeight\":\"bold\",\"fontSize\":\"13pt\"},\"value\":\"Revenue Intelligence — Price, Freight \\u0026 Payments\"}]},{\"textRuns\":[{\"textStyle\":{\"fontSize\":\"8.5pt\",\"color\":\"#475569\"},\"value\":\"Rule D-1: Order Value Proxy vs Item Price Revenue vs Freight Cost\"}]}]}}]},\"visualType\":\"textbox\"},\"name\":\"p2_hdr\"}",
+                                                      "config":  "{\"layouts\":[{\"id\":0,\"position\":{\"width\":498,\"y\":10,\"z\":1,\"x\":12,\"tabOrder\":1,\"height\":60}}],\"singleVisual\":{\"drillFilterOtherVisuals\":false,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"textStyle\":{\"color\":\"#0F172A\",\"fontWeight\":\"bold\",\"fontSize\":\"13pt\"},\"value\":\"CommerceLens AI — Revenue Intelligence\"}]},{\"textRuns\":[{\"textStyle\":{\"fontSize\":\"8.5pt\",\"color\":\"#475569\"},\"value\":\"Rule D-1: Order Value Proxy vs Item Price Revenue vs Freight Cost\"}]}]}}]},\"visualType\":\"textbox\"},\"name\":\"p2_hdr\"}",
                                                       "width":  498,
                                                       "y":  10,
                                                       "z":  1,
@@ -278,7 +278,7 @@
                          "visualContainers":  [
                                                   {
                                                       "filters":  "[]",
-                                                      "config":  "{\"layouts\":[{\"id\":0,\"position\":{\"width\":560,\"y\":10,\"z\":1,\"x\":12,\"tabOrder\":1,\"height\":60}}],\"singleVisual\":{\"drillFilterOtherVisuals\":false,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"textStyle\":{\"color\":\"#0F172A\",\"fontWeight\":\"bold\",\"fontSize\":\"13pt\"},\"value\":\"Customer Intelligence — RFM \\u0026 CLV Economics\"}]},{\"textRuns\":[{\"textStyle\":{\"fontSize\":\"8.5pt\",\"color\":\"#475569\"},\"value\":\"Rule D-5: 2,015 True Repeat (2.16%) | 786 Same-Day Split-Basket (0.84%) | 93,358 Customers\"}]}]}}]},\"visualType\":\"textbox\"},\"name\":\"p3_hdr\"}",
+                                                      "config":  "{\"layouts\":[{\"id\":0,\"position\":{\"width\":560,\"y\":10,\"z\":1,\"x\":12,\"tabOrder\":1,\"height\":60}}],\"singleVisual\":{\"drillFilterOtherVisuals\":false,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"textStyle\":{\"color\":\"#0F172A\",\"fontWeight\":\"bold\",\"fontSize\":\"13pt\"},\"value\":\"CommerceLens AI — Customer Intelligence (RFM \\u0026 CLV)\"}]},{\"textRuns\":[{\"textStyle\":{\"fontSize\":\"8.5pt\",\"color\":\"#475569\"},\"value\":\"Rule D-5: 2,015 True Repeat (2.16%) | 786 Same-Day Split-Basket (0.84%) | 93,358 Customers\"}]}]}}]},\"visualType\":\"textbox\"},\"name\":\"p3_hdr\"}",
                                                       "width":  560,
                                                       "y":  10,
                                                       "z":  1,
@@ -416,7 +416,7 @@
                          "visualContainers":  [
                                                   {
                                                       "filters":  "[]",
-                                                      "config":  "{\"layouts\":[{\"id\":0,\"position\":{\"width\":560,\"y\":10,\"z\":1,\"x\":12,\"tabOrder\":1,\"height\":60}}],\"singleVisual\":{\"drillFilterOtherVisuals\":false,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"textStyle\":{\"color\":\"#0F172A\",\"fontWeight\":\"bold\",\"fontSize\":\"13pt\"},\"value\":\"Product, Seller \\u0026 Logistics SLA Performance\"}]},{\"textRuns\":[{\"textStyle\":{\"fontSize\":\"8.5pt\",\"color\":\"#475569\"},\"value\":\"Seller Item Revenue (SUM(price)) vs State Order Value \\u0026 Delivery Delay Penalty (-1.72 Stars)\"}]}]}}]},\"visualType\":\"textbox\"},\"name\":\"p4_hdr\"}",
+                                                      "config":  "{\"layouts\":[{\"id\":0,\"position\":{\"width\":560,\"y\":10,\"z\":1,\"x\":12,\"tabOrder\":1,\"height\":60}}],\"singleVisual\":{\"drillFilterOtherVisuals\":false,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"textStyle\":{\"color\":\"#0F172A\",\"fontWeight\":\"bold\",\"fontSize\":\"13pt\"},\"value\":\"CommerceLens AI — Product, Seller \\u0026 Logistics SLA\"}]},{\"textRuns\":[{\"textStyle\":{\"fontSize\":\"8.5pt\",\"color\":\"#475569\"},\"value\":\"Seller Item Revenue (SUM(price)) vs State Order Value \\u0026 Delivery Delay Penalty (-1.72 Stars)\"}]}]}}]},\"visualType\":\"textbox\"},\"name\":\"p4_hdr\"}",
                                                       "width":  560,
                                                       "y":  10,
                                                       "z":  1,
@@ -545,7 +545,7 @@
                          "visualContainers":  [
                                                   {
                                                       "filters":  "[]",
-                                                      "config":  "{\"layouts\":[{\"id\":0,\"position\":{\"width\":560,\"y\":10,\"z\":1,\"x\":12,\"tabOrder\":1,\"height\":60}}],\"singleVisual\":{\"drillFilterOtherVisuals\":false,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"textStyle\":{\"color\":\"#0F172A\",\"fontWeight\":\"bold\",\"fontSize\":\"13pt\"},\"value\":\"Retention Analysis — Acquisition Cohorts (Jan 2017 - Aug 2018)\"}]},{\"textRuns\":[{\"textStyle\":{\"fontSize\":\"8.5pt\",\"color\":\"#475569\"},\"value\":\"Rule D-2 Cohort Window | Weighted Cohort Retention % (M0=100.00%, M1=0.18%-0.72%) | D-5 Repeat: 2.16%\"}]}]}}]},\"visualType\":\"textbox\"},\"name\":\"p5_hdr\"}",
+                                                      "config":  "{\"layouts\":[{\"id\":0,\"position\":{\"width\":560,\"y\":10,\"z\":1,\"x\":12,\"tabOrder\":1,\"height\":60}}],\"singleVisual\":{\"drillFilterOtherVisuals\":false,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"textStyle\":{\"color\":\"#0F172A\",\"fontWeight\":\"bold\",\"fontSize\":\"13pt\"},\"value\":\"CommerceLens AI — Cohort Retention Analysis\"}]},{\"textRuns\":[{\"textStyle\":{\"fontSize\":\"8.5pt\",\"color\":\"#475569\"},\"value\":\"Rule D-2 Cohort Window | Weighted Cohort Retention % (M0=100.00%, M1=0.18%-0.72%) | D-5 Repeat: 2.16%\"}]}]}}]},\"visualType\":\"textbox\"},\"name\":\"p5_hdr\"}",
                                                       "width":  560,
                                                       "y":  10,
                                                       "z":  1,
