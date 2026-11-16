@@ -1,0 +1,76 @@
+table dim_date
+	dataCategory: Time
+
+	column date_key
+		dataType: dateTime
+		isKey
+		formatString: yyyy-MM-dd
+		sourceColumn: date_key
+
+	column year
+		dataType: int64
+		sourceColumn: year
+
+	column quarter_num
+		dataType: int64
+		sourceColumn: quarter_num
+
+	column quarter_label
+		dataType: string
+		sourceColumn: quarter_label
+
+	column month_num
+		dataType: int64
+		sourceColumn: month_num
+
+	column year_month
+		dataType: string
+		sourceColumn: year_month
+		sortByColumn: month_start_date
+
+	column month_start_date
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		sourceColumn: month_start_date
+
+	column month_name
+		dataType: string
+		sourceColumn: month_name
+		sortByColumn: month_num
+
+	column month_short
+		dataType: string
+		sourceColumn: month_short
+		sortByColumn: month_start_date
+
+	column day_of_month
+		dataType: int64
+		sourceColumn: day_of_month
+
+	column day_of_week_num
+		dataType: int64
+		sourceColumn: day_of_week_num
+
+	column day_name
+		dataType: string
+		sourceColumn: day_name
+		sortByColumn: day_of_week_num
+
+	column is_weekend
+		dataType: boolean
+		sourceColumn: is_weekend
+
+	column in_analysis_window
+		dataType: boolean
+		sourceColumn: in_analysis_window
+
+	partition dim_date = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Dell\OneDrive\Desktop\Documents\DataAnalyticsPortfolio\ecommerce-revenue-retention-intelligence\powerbi\data_exports\dim_date.csv"),[Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Promoted,{{"date_key", type date}, {"year", Int64.Type}, {"quarter_num", Int64.Type}, {"quarter_label", type text}, {"month_num", Int64.Type}, {"year_month", type text}, {"month_start_date", type date}, {"month_name", type text}, {"month_short", type text}, {"day_of_month", Int64.Type}, {"day_of_week_num", Int64.Type}, {"day_name", type text}, {"is_weekend", type logical}, {"in_analysis_window", type logical}}, "en-US")
+				in
+				    Typed
+

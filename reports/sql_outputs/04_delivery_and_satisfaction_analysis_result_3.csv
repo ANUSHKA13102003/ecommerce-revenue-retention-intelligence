@@ -1,0 +1,6 @@
+review_score,delivered_orders,share_of_reviewed_orders_pct,avg_delivery_days,late_delivery_rate_pct,avg_order_value_brl,total_order_value_proxy_brl
+5.0,56749,59.22,10.68,3.0,156.36,8873092.86
+4.0,18894,19.72,12.31,5.0,154.66,2922139.34
+3.0,7916,8.26,14.26,11.02,151.11,1196173.38
+2.0,2919,3.05,16.63,20.55,169.98,496159.36
+1.0,9354,9.76,21.32,37.86,193.14,1806466.15

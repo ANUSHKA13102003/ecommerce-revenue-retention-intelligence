@@ -1,0 +1,959 @@
+{
+  "generated_at": "2026-11-15T19:12:41.289423",
+  "data_source": "Olist Brazilian E-Commerce Public Dataset",
+  "kaggle_url": "https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce",
+  "licence": "CC BY-NC-SA 4.0",
+  "total_files": 9,
+  "total_raw_size_bytes": 126186995,
+  "total_raw_size_human": "120.34 MB",
+  "total_rows": 1550922,
+  "file_checks": {
+    "olist_orders_dataset.csv": {
+      "exists": true,
+      "path": "C:\\Users\\Dell\\OneDrive\\Desktop\\Documents\\DataAnalyticsPortfolio\\ecommerce-revenue-retention-intelligence\\data\\raw\\olist_orders_dataset.csv",
+      "size_bytes": 17654914,
+      "size_human": "16.84 MB"
+    },
+    "olist_customers_dataset.csv": {
+      "exists": true,
+      "path": "C:\\Users\\Dell\\OneDrive\\Desktop\\Documents\\DataAnalyticsPortfolio\\ecommerce-revenue-retention-intelligence\\data\\raw\\olist_customers_dataset.csv",
+      "size_bytes": 9033957,
+      "size_human": "8.62 MB"
+    },
+    "olist_order_items_dataset.csv": {
+      "exists": true,
+      "path": "C:\\Users\\Dell\\OneDrive\\Desktop\\Documents\\DataAnalyticsPortfolio\\ecommerce-revenue-retention-intelligence\\data\\raw\\olist_order_items_dataset.csv",
+      "size_bytes": 15438671,
+      "size_human": "14.72 MB"
+    },
+    "olist_order_payments_dataset.csv": {
+      "exists": true,
+      "path": "C:\\Users\\Dell\\OneDrive\\Desktop\\Documents\\DataAnalyticsPortfolio\\ecommerce-revenue-retention-intelligence\\data\\raw\\olist_order_payments_dataset.csv",
+      "size_bytes": 5777138,
+      "size_human": "5.51 MB"
+    },
+    "olist_order_reviews_dataset.csv": {
+      "exists": true,
+      "path": "C:\\Users\\Dell\\OneDrive\\Desktop\\Documents\\DataAnalyticsPortfolio\\ecommerce-revenue-retention-intelligence\\data\\raw\\olist_order_reviews_dataset.csv",
+      "size_bytes": 14451670,
+      "size_human": "13.78 MB"
+    },
+    "olist_products_dataset.csv": {
+      "exists": true,
+      "path": "C:\\Users\\Dell\\OneDrive\\Desktop\\Documents\\DataAnalyticsPortfolio\\ecommerce-revenue-retention-intelligence\\data\\raw\\olist_products_dataset.csv",
+      "size_bytes": 2379446,
+      "size_human": "2.27 MB"
+    },
+    "olist_sellers_dataset.csv": {
+      "exists": true,
+      "path": "C:\\Users\\Dell\\OneDrive\\Desktop\\Documents\\DataAnalyticsPortfolio\\ecommerce-revenue-retention-intelligence\\data\\raw\\olist_sellers_dataset.csv",
+      "size_bytes": 174703,
+      "size_human": "170.6 KB"
+    },
+    "olist_geolocation_dataset.csv": {
+      "exists": true,
+      "path": "C:\\Users\\Dell\\OneDrive\\Desktop\\Documents\\DataAnalyticsPortfolio\\ecommerce-revenue-retention-intelligence\\data\\raw\\olist_geolocation_dataset.csv",
+      "size_bytes": 61273883,
+      "size_human": "58.44 MB"
+    },
+    "product_category_name_translation.csv": {
+      "exists": true,
+      "path": "C:\\Users\\Dell\\OneDrive\\Desktop\\Documents\\DataAnalyticsPortfolio\\ecommerce-revenue-retention-intelligence\\data\\raw\\product_category_name_translation.csv",
+      "size_bytes": 2613,
+      "size_human": "2.6 KB"
+    }
+  },
+  "profiles": {
+    "olist_orders_dataset.csv": {
+      "filename": "olist_orders_dataset.csv",
+      "errors": [],
+      "read_success": true,
+      "rows": 99441,
+      "columns": 8,
+      "column_names": [
+        "order_id",
+        "customer_id",
+        "order_status",
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_delivered_carrier_date",
+        "order_delivered_customer_date",
+        "order_estimated_delivery_date"
+      ],
+      "dtypes": {
+        "order_id": "object",
+        "customer_id": "object",
+        "order_status": "object",
+        "order_purchase_timestamp": "object",
+        "order_approved_at": "object",
+        "order_delivered_carrier_date": "object",
+        "order_delivered_customer_date": "object",
+        "order_estimated_delivery_date": "object"
+      },
+      "memory_mb": 52.94,
+      "missing_values": {
+        "order_id": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "customer_id": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "order_status": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "order_purchase_timestamp": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "order_approved_at": {
+          "count": 160,
+          "pct": 0.16
+        },
+        "order_delivered_carrier_date": {
+          "count": 1783,
+          "pct": 1.79
+        },
+        "order_delivered_customer_date": {
+          "count": 2965,
+          "pct": 2.98
+        },
+        "order_estimated_delivery_date": {
+          "count": 0,
+          "pct": 0.0
+        }
+      },
+      "total_missing_cells": 4908,
+      "total_cells": 795528,
+      "missing_pct_overall": 0.62,
+      "duplicate_rows": 0,
+      "duplicate_pct": 0.0,
+      "date_ranges": {
+        "order_purchase_timestamp": {
+          "min": "2016-09-04 21:15:19",
+          "max": "2018-10-17 17:30:18",
+          "null_count": 0,
+          "parse_failures": 0
+        },
+        "order_approved_at": {
+          "min": "2016-09-15 12:16:38",
+          "max": "2018-09-03 17:40:06",
+          "null_count": 160,
+          "parse_failures": 0
+        },
+        "order_delivered_carrier_date": {
+          "min": "2016-10-08 10:34:01",
+          "max": "2018-09-11 19:48:28",
+          "null_count": 1783,
+          "parse_failures": 0
+        },
+        "order_delivered_customer_date": {
+          "min": "2016-10-11 13:46:32",
+          "max": "2018-10-17 13:22:46",
+          "null_count": 2965,
+          "parse_failures": 0
+        },
+        "order_estimated_delivery_date": {
+          "min": "2016-09-30 00:00:00",
+          "max": "2018-11-12 00:00:00",
+          "null_count": 0,
+          "parse_failures": 0
+        }
+      },
+      "sample_values": {
+        "order_id": [
+          "e481f51cbdc54678b7cc49136f2d6af7",
+          "53cdb2fc8bc7dce0b6741e2150273451",
+          "47770eb9100c2d0c44946d9cf07ec65d"
+        ],
+        "customer_id": [
+          "9ef432eb6251297304e76186b10a928d",
+          "b0830fb4747a6c6d20dea0b8c802d7ef",
+          "41ce2a54c0b03bf3443c3d931a367089"
+        ],
+        "order_status": [
+          "delivered",
+          "invoiced",
+          "shipped"
+        ],
+        "order_purchase_timestamp": [
+          "2017-10-02 10:56:33",
+          "2018-07-24 20:41:37",
+          "2018-08-08 08:38:49"
+        ],
+        "order_approved_at": [
+          "2017-10-02 11:07:15",
+          "2018-07-26 03:24:27",
+          "2018-08-08 08:55:23"
+        ],
+        "order_delivered_carrier_date": [
+          "2017-10-04 19:55:00",
+          "2018-07-26 14:31:00",
+          "2018-08-08 13:50:00"
+        ],
+        "order_delivered_customer_date": [
+          "2017-10-10 21:25:13",
+          "2018-08-07 15:27:45",
+          "2018-08-17 18:06:29"
+        ],
+        "order_estimated_delivery_date": [
+          "2017-10-18 00:00:00",
+          "2018-08-13 00:00:00",
+          "2018-09-04 00:00:00"
+        ]
+      },
+      "unique_counts": {
+        "order_id": 99441,
+        "customer_id": 99441,
+        "order_status": 8,
+        "order_purchase_timestamp": 98875,
+        "order_approved_at": 90733,
+        "order_delivered_carrier_date": 81018,
+        "order_delivered_customer_date": 95664,
+        "order_estimated_delivery_date": 459
+      }
+    },
+    "olist_customers_dataset.csv": {
+      "filename": "olist_customers_dataset.csv",
+      "errors": [],
+      "read_success": true,
+      "rows": 99441,
+      "columns": 5,
+      "column_names": [
+        "customer_id",
+        "customer_unique_id",
+        "customer_zip_code_prefix",
+        "customer_city",
+        "customer_state"
+      ],
+      "dtypes": {
+        "customer_id": "object",
+        "customer_unique_id": "object",
+        "customer_zip_code_prefix": "int64",
+        "customer_city": "object",
+        "customer_state": "object"
+      },
+      "memory_mb": 26.59,
+      "missing_values": {
+        "customer_id": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "customer_unique_id": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "customer_zip_code_prefix": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "customer_city": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "customer_state": {
+          "count": 0,
+          "pct": 0.0
+        }
+      },
+      "total_missing_cells": 0,
+      "total_cells": 497205,
+      "missing_pct_overall": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_pct": 0.0,
+      "date_ranges": {},
+      "sample_values": {
+        "customer_id": [
+          "06b8999e2fba1a1fbc88172c00ba8bc7",
+          "18955e83d337fd6b2def6b18a428ac77",
+          "4e7b3e00288586ebd08712fdd0374a03"
+        ],
+        "customer_unique_id": [
+          "861eff4711a542e4b93843c6dd7febb0",
+          "290c77bc529b7ac935b93aa66c333dc3",
+          "060e732b5b29e8181a18229c7b0b2b5e"
+        ],
+        "customer_zip_code_prefix": [
+          "14409",
+          "9790",
+          "1151"
+        ],
+        "customer_city": [
+          "franca",
+          "sao bernardo do campo",
+          "sao paulo"
+        ],
+        "customer_state": [
+          "SP",
+          "SC",
+          "MG"
+        ]
+      },
+      "unique_counts": {
+        "customer_id": 99441,
+        "customer_unique_id": 96096,
+        "customer_zip_code_prefix": 14994,
+        "customer_city": 4119,
+        "customer_state": 27
+      }
+    },
+    "olist_order_items_dataset.csv": {
+      "filename": "olist_order_items_dataset.csv",
+      "errors": [],
+      "read_success": true,
+      "rows": 112650,
+      "columns": 7,
+      "column_names": [
+        "order_id",
+        "order_item_id",
+        "product_id",
+        "seller_id",
+        "shipping_limit_date",
+        "price",
+        "freight_value"
+      ],
+      "dtypes": {
+        "order_id": "object",
+        "order_item_id": "int64",
+        "product_id": "object",
+        "seller_id": "object",
+        "shipping_limit_date": "object",
+        "price": "float64",
+        "freight_value": "float64"
+      },
+      "memory_mb": 35.99,
+      "missing_values": {
+        "order_id": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "order_item_id": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "product_id": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "seller_id": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "shipping_limit_date": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "price": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "freight_value": {
+          "count": 0,
+          "pct": 0.0
+        }
+      },
+      "total_missing_cells": 0,
+      "total_cells": 788550,
+      "missing_pct_overall": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_pct": 0.0,
+      "date_ranges": {
+        "shipping_limit_date": {
+          "min": "2016-09-19 00:15:34",
+          "max": "2020-04-09 22:35:08",
+          "null_count": 0,
+          "parse_failures": 0
+        }
+      },
+      "sample_values": {
+        "order_id": [
+          "00010242fe8c5a6d1ba2dd792cb16214",
+          "00018f77f2f0320c557190d7a144bdd3",
+          "000229ec398224ef6ca0657da4fc703e"
+        ],
+        "order_item_id": [
+          "1",
+          "2",
+          "3"
+        ],
+        "product_id": [
+          "4244733e06e7ecb4970a6e2683c13e61",
+          "e5f2d52b802189ee658865ca93d83a8f",
+          "c777355d18b72b67abbeef9df44fd0fd"
+        ],
+        "seller_id": [
+          "48436dade18ac8b2bce089ec2a041202",
+          "dd7ddc04e1b6c2c614352b383efe2d36",
+          "5b51032eddd242adc84c38acab88f23d"
+        ],
+        "shipping_limit_date": [
+          "2017-09-19 09:45:35",
+          "2017-05-03 11:05:13",
+          "2018-01-18 14:48:30"
+        ],
+        "price": [
+          "58.9",
+          "239.9",
+          "199.0"
+        ],
+        "freight_value": [
+          "13.29",
+          "19.93",
+          "17.87"
+        ]
+      },
+      "unique_counts": {
+        "order_id": 98666,
+        "order_item_id": 21,
+        "product_id": 32951,
+        "seller_id": 3095,
+        "shipping_limit_date": 93318,
+        "price": 5968,
+        "freight_value": 6999
+      }
+    },
+    "olist_order_payments_dataset.csv": {
+      "filename": "olist_order_payments_dataset.csv",
+      "errors": [],
+      "read_success": true,
+      "rows": 103886,
+      "columns": 5,
+      "column_names": [
+        "order_id",
+        "payment_sequential",
+        "payment_type",
+        "payment_installments",
+        "payment_value"
+      ],
+      "dtypes": {
+        "order_id": "object",
+        "payment_sequential": "int64",
+        "payment_type": "object",
+        "payment_installments": "int64",
+        "payment_value": "float64"
+      },
+      "memory_mb": 16.23,
+      "missing_values": {
+        "order_id": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "payment_sequential": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "payment_type": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "payment_installments": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "payment_value": {
+          "count": 0,
+          "pct": 0.0
+        }
+      },
+      "total_missing_cells": 0,
+      "total_cells": 519430,
+      "missing_pct_overall": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_pct": 0.0,
+      "date_ranges": {},
+      "sample_values": {
+        "order_id": [
+          "b81ef226f3fe1789b1e8b2acac839d17",
+          "a9810da82917af2d9aefd1278f1dcfa0",
+          "25e8ea4e93396b6fa0d3dd708e76c1bd"
+        ],
+        "payment_sequential": [
+          "1",
+          "2",
+          "4"
+        ],
+        "payment_type": [
+          "credit_card",
+          "boleto",
+          "voucher"
+        ],
+        "payment_installments": [
+          "8",
+          "1",
+          "2"
+        ],
+        "payment_value": [
+          "99.33",
+          "24.39",
+          "65.71"
+        ]
+      },
+      "unique_counts": {
+        "order_id": 99440,
+        "payment_sequential": 29,
+        "payment_type": 5,
+        "payment_installments": 24,
+        "payment_value": 29077
+      }
+    },
+    "olist_order_reviews_dataset.csv": {
+      "filename": "olist_order_reviews_dataset.csv",
+      "errors": [],
+      "read_success": true,
+      "rows": 99224,
+      "columns": 7,
+      "column_names": [
+        "review_id",
+        "order_id",
+        "review_score",
+        "review_comment_title",
+        "review_comment_message",
+        "review_creation_date",
+        "review_answer_timestamp"
+      ],
+      "dtypes": {
+        "review_id": "object",
+        "order_id": "object",
+        "review_score": "int64",
+        "review_comment_title": "object",
+        "review_comment_message": "object",
+        "review_creation_date": "object",
+        "review_answer_timestamp": "object"
+      },
+      "memory_mb": 39.12,
+      "missing_values": {
+        "review_id": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "order_id": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "review_score": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "review_comment_title": {
+          "count": 87656,
+          "pct": 88.34
+        },
+        "review_comment_message": {
+          "count": 58247,
+          "pct": 58.7
+        },
+        "review_creation_date": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "review_answer_timestamp": {
+          "count": 0,
+          "pct": 0.0
+        }
+      },
+      "total_missing_cells": 145903,
+      "total_cells": 694568,
+      "missing_pct_overall": 21.01,
+      "duplicate_rows": 0,
+      "duplicate_pct": 0.0,
+      "date_ranges": {
+        "review_creation_date": {
+          "min": "2016-10-02 00:00:00",
+          "max": "2018-08-31 00:00:00",
+          "null_count": 0,
+          "parse_failures": 0
+        },
+        "review_answer_timestamp": {
+          "min": "2016-10-07 18:32:28",
+          "max": "2018-10-29 12:27:35",
+          "null_count": 0,
+          "parse_failures": 0
+        }
+      },
+      "sample_values": {
+        "review_id": [
+          "7bc2406110b926393aa56f80a40eba40",
+          "80e641a11e56f04c1ad469d5645fdfde",
+          "228ce5500dc1d8e020d8d1322874b6f0"
+        ],
+        "order_id": [
+          "73fc7af87114b39712e6da79b0a377eb",
+          "a548910a1c6147796b98fdf73dbeba33",
+          "f9e4b658b201a9f2ecdecbb34bed034b"
+        ],
+        "review_score": [
+          "4",
+          "5",
+          "1"
+        ],
+        "review_comment_title": [
+          "recomendo",
+          "Super recomendo",
+          "Não chegou meu produto "
+        ],
+        "review_comment_message": [
+          "Recebi bem antes do prazo estipulado.",
+          "Parabéns lojas lannister adorei comprar pela Internet seguro e prático Parabéns a todos feliz Páscoa",
+          "aparelho eficiente. no site a marca do aparelho esta impresso como 3desinfector e ao chegar esta com outro nome...atualizar com a marca correta uma vez que é o mesmo aparelho"
+        ],
+        "review_creation_date": [
+          "2018-01-18 00:00:00",
+          "2018-03-10 00:00:00",
+          "2018-02-17 00:00:00"
+        ],
+        "review_answer_timestamp": [
+          "2018-01-18 21:46:59",
+          "2018-03-11 03:05:13",
+          "2018-02-18 14:36:24"
+        ]
+      },
+      "unique_counts": {
+        "review_id": 98410,
+        "order_id": 98673,
+        "review_score": 5,
+        "review_comment_title": 4527,
+        "review_comment_message": 36159,
+        "review_creation_date": 636,
+        "review_answer_timestamp": 98248
+      }
+    },
+    "olist_products_dataset.csv": {
+      "filename": "olist_products_dataset.csv",
+      "errors": [],
+      "read_success": true,
+      "rows": 32951,
+      "columns": 9,
+      "column_names": [
+        "product_id",
+        "product_category_name",
+        "product_name_lenght",
+        "product_description_lenght",
+        "product_photos_qty",
+        "product_weight_g",
+        "product_length_cm",
+        "product_height_cm",
+        "product_width_cm"
+      ],
+      "dtypes": {
+        "product_id": "object",
+        "product_category_name": "object",
+        "product_name_lenght": "float64",
+        "product_description_lenght": "float64",
+        "product_photos_qty": "float64",
+        "product_weight_g": "float64",
+        "product_length_cm": "float64",
+        "product_height_cm": "float64",
+        "product_width_cm": "float64"
+      },
+      "memory_mb": 6.3,
+      "missing_values": {
+        "product_id": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "product_category_name": {
+          "count": 610,
+          "pct": 1.85
+        },
+        "product_name_lenght": {
+          "count": 610,
+          "pct": 1.85
+        },
+        "product_description_lenght": {
+          "count": 610,
+          "pct": 1.85
+        },
+        "product_photos_qty": {
+          "count": 610,
+          "pct": 1.85
+        },
+        "product_weight_g": {
+          "count": 2,
+          "pct": 0.01
+        },
+        "product_length_cm": {
+          "count": 2,
+          "pct": 0.01
+        },
+        "product_height_cm": {
+          "count": 2,
+          "pct": 0.01
+        },
+        "product_width_cm": {
+          "count": 2,
+          "pct": 0.01
+        }
+      },
+      "total_missing_cells": 2448,
+      "total_cells": 296559,
+      "missing_pct_overall": 0.83,
+      "duplicate_rows": 0,
+      "duplicate_pct": 0.0,
+      "date_ranges": {},
+      "sample_values": {
+        "product_id": [
+          "1e9e8ef04dbcff4541ed26657ea517e5",
+          "3aa071139cb16b67ca9e5dea641aaa2f",
+          "96bd76ec8810374ed1b65e291975717f"
+        ],
+        "product_category_name": [
+          "perfumaria",
+          "artes",
+          "esporte_lazer"
+        ],
+        "product_name_lenght": [
+          "40.0",
+          "44.0",
+          "46.0"
+        ],
+        "product_description_lenght": [
+          "287.0",
+          "276.0",
+          "250.0"
+        ],
+        "product_photos_qty": [
+          "1.0",
+          "4.0",
+          "2.0"
+        ],
+        "product_weight_g": [
+          "225.0",
+          "1000.0",
+          "154.0"
+        ],
+        "product_length_cm": [
+          "16.0",
+          "30.0",
+          "18.0"
+        ],
+        "product_height_cm": [
+          "10.0",
+          "18.0",
+          "9.0"
+        ],
+        "product_width_cm": [
+          "14.0",
+          "20.0",
+          "15.0"
+        ]
+      },
+      "unique_counts": {
+        "product_id": 32951,
+        "product_category_name": 73,
+        "product_name_lenght": 66,
+        "product_description_lenght": 2960,
+        "product_photos_qty": 19,
+        "product_weight_g": 2204,
+        "product_length_cm": 99,
+        "product_height_cm": 102,
+        "product_width_cm": 95
+      }
+    },
+    "olist_sellers_dataset.csv": {
+      "filename": "olist_sellers_dataset.csv",
+      "errors": [],
+      "read_success": true,
+      "rows": 3095,
+      "columns": 4,
+      "column_names": [
+        "seller_id",
+        "seller_zip_code_prefix",
+        "seller_city",
+        "seller_state"
+      ],
+      "dtypes": {
+        "seller_id": "object",
+        "seller_zip_code_prefix": "int64",
+        "seller_city": "object",
+        "seller_state": "object"
+      },
+      "memory_mb": 0.59,
+      "missing_values": {
+        "seller_id": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "seller_zip_code_prefix": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "seller_city": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "seller_state": {
+          "count": 0,
+          "pct": 0.0
+        }
+      },
+      "total_missing_cells": 0,
+      "total_cells": 12380,
+      "missing_pct_overall": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_pct": 0.0,
+      "date_ranges": {},
+      "sample_values": {
+        "seller_id": [
+          "3442f8959a84dea7ee197c632cb2df15",
+          "d1b65fc7debc3361ea86b5f14c68d2e2",
+          "ce3ad9de960102d0677a81f5d0bb7b2d"
+        ],
+        "seller_zip_code_prefix": [
+          "13023",
+          "13844",
+          "20031"
+        ],
+        "seller_city": [
+          "campinas",
+          "mogi guacu",
+          "rio de janeiro"
+        ],
+        "seller_state": [
+          "SP",
+          "RJ",
+          "PE"
+        ]
+      },
+      "unique_counts": {
+        "seller_id": 3095,
+        "seller_zip_code_prefix": 2246,
+        "seller_city": 611,
+        "seller_state": 23
+      }
+    },
+    "olist_geolocation_dataset.csv": {
+      "filename": "olist_geolocation_dataset.csv",
+      "errors": [],
+      "read_success": true,
+      "rows": 1000163,
+      "columns": 5,
+      "column_names": [
+        "geolocation_zip_code_prefix",
+        "geolocation_lat",
+        "geolocation_lng",
+        "geolocation_city",
+        "geolocation_state"
+      ],
+      "dtypes": {
+        "geolocation_zip_code_prefix": "int64",
+        "geolocation_lat": "float64",
+        "geolocation_lng": "float64",
+        "geolocation_city": "object",
+        "geolocation_state": "object"
+      },
+      "memory_mb": 129.38,
+      "missing_values": {
+        "geolocation_zip_code_prefix": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "geolocation_lat": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "geolocation_lng": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "geolocation_city": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "geolocation_state": {
+          "count": 0,
+          "pct": 0.0
+        }
+      },
+      "total_missing_cells": 0,
+      "total_cells": 5000815,
+      "missing_pct_overall": 0.0,
+      "duplicate_rows": 261831,
+      "duplicate_pct": 26.18,
+      "date_ranges": {},
+      "sample_values": {
+        "geolocation_zip_code_prefix": [
+          "1037",
+          "1046",
+          "1041"
+        ],
+        "geolocation_lat": [
+          "-23.54562128115268",
+          "-23.54608112703553",
+          "-23.54612896641469"
+        ],
+        "geolocation_lng": [
+          "-46.63929204800168",
+          "-46.64482029837157",
+          "-46.64295148361138"
+        ],
+        "geolocation_city": [
+          "sao paulo",
+          "são paulo",
+          "sao bernardo do campo"
+        ],
+        "geolocation_state": [
+          "SP",
+          "RN",
+          "AC"
+        ]
+      },
+      "unique_counts": {
+        "geolocation_zip_code_prefix": 19015,
+        "geolocation_lat": 717360,
+        "geolocation_lng": 717613,
+        "geolocation_city": 8011,
+        "geolocation_state": 27
+      }
+    },
+    "product_category_name_translation.csv": {
+      "filename": "product_category_name_translation.csv",
+      "errors": [],
+      "read_success": true,
+      "rows": 71,
+      "columns": 2,
+      "column_names": [
+        "product_category_name",
+        "product_category_name_english"
+      ],
+      "dtypes": {
+        "product_category_name": "object",
+        "product_category_name_english": "object"
+      },
+      "memory_mb": 0.01,
+      "missing_values": {
+        "product_category_name": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "product_category_name_english": {
+          "count": 0,
+          "pct": 0.0
+        }
+      },
+      "total_missing_cells": 0,
+      "total_cells": 142,
+      "missing_pct_overall": 0.0,
+      "duplicate_rows": 0,
+      "duplicate_pct": 0.0,
+      "date_ranges": {},
+      "sample_values": {
+        "product_category_name": [
+          "beleza_saude",
+          "informatica_acessorios",
+          "automotivo"
+        ],
+        "product_category_name_english": [
+          "health_beauty",
+          "computers_accessories",
+          "auto"
+        ]
+      },
+      "unique_counts": {
+        "product_category_name": 71,
+        "product_category_name_english": 71
+      }
+    }
+  }
+}

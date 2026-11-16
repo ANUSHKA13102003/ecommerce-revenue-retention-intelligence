@@ -1,0 +1,6 @@
+installment_tier,transactions,delivered_orders,total_payment_value_brl,share_of_cc_value_pct,avg_payment_value_brl
+1. Single Payment (0-1x),24761,24713,2367149.36,19.56,95.6
+2. Short Installments (2-3x),22239,22189,2971869.74,24.56,133.63
+3. Medium Installments (4-6x),15790,15757,2849773.9,23.55,180.48
+4. Long Installments (7-10x),11467,11434,3794058.86,31.35,330.87
+5. Extended Installments (11x+),329,329,118243.02,0.98,359.4

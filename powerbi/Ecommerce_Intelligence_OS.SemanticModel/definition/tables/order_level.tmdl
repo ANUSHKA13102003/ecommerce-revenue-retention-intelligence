@@ -1,0 +1,291 @@
+table order_level
+
+	measure 'Delivered Orders' = CALCULATE(DISTINCTCOUNT(order_level[order_id]), order_level[is_delivered] = TRUE())
+		formatString: #,##0
+		displayFolder: 01 Revenue & Orders
+
+	measure 'Total Orders (All Statuses)' = DISTINCTCOUNT(order_level[order_id])
+		formatString: #,##0
+		displayFolder: 01 Revenue & Orders
+
+	measure 'Delivery Completion Rate %' = DIVIDE([Delivered Orders], [Total Orders (All Statuses)], 0)
+		formatString: 0.00%
+		displayFolder: 01 Revenue & Orders
+
+	/// Approved Rule D-1: Total payment_value on delivered orders (Order Value Proxy, not marketplace commission revenue).
+	measure 'Delivered Order Value Proxy (BRL)' = CALCULATE(SUM(order_level[payment_value]), order_level[is_delivered] = TRUE())
+		formatString: "R$" #,##0.00
+		displayFolder: 01 Revenue & Orders
+
+	measure 'Average Order Value (BRL)' = DIVIDE([Delivered Order Value Proxy (BRL)], [Delivered Orders], 0)
+		formatString: "R$" #,##0.00
+		displayFolder: 01 Revenue & Orders
+
+	measure 'Previous Month Order Value Proxy (BRL)' = CALCULATE([Delivered Order Value Proxy (BRL)], DATEADD(dim_date[date_key], -1, MONTH))
+		formatString: "R$" #,##0.00
+		displayFolder: 01 Revenue & Orders
+
+	measure 'MoM Order Value Growth %' =
+			VAR CurrentVal = [Delivered Order Value Proxy (BRL)]
+			VAR PrevVal = [Previous Month Order Value Proxy (BRL)]
+			RETURN
+			    DIVIDE(CurrentVal - PrevVal, PrevVal, BLANK())
+		formatString: 0.00%
+		displayFolder: 01 Revenue & Orders
+
+	measure 'Unique Delivered Customers' = CALCULATE(DISTINCTCOUNT(order_level[customer_unique_id]), order_level[is_delivered] = TRUE())
+		formatString: #,##0
+		displayFolder: 02 Customer & Retention
+
+	/// Approved Rule D-5: 2+ delivered orders placed on 2+ distinct purchase dates (2,015 / 2.16%).
+	measure 'Repeat Customers (D-5 Distinct Days)' =
+			CALCULATE(
+			    COUNTROWS(
+			        FILTER(
+			            VALUES(order_level[customer_unique_id]),
+			            CALCULATE(
+			                DISTINCTCOUNT(order_level[order_id]),
+			                order_level[is_delivered] = TRUE()
+			            ) >= 2
+			            &&
+			            CALCULATE(
+			                DISTINCTCOUNT(order_level[PurchaseDate]),
+			                order_level[is_delivered] = TRUE()
+			            ) >= 2
+			        )
+			    )
+			)
+		formatString: #,##0
+		displayFolder: 02 Customer & Retention
+
+	/// Split-basket checkout buyers with 2+ delivered orders on 1 distinct calendar date (786 / 0.84%).
+	measure 'Same-Day Multi-Order Customers' =
+			CALCULATE(
+			    COUNTROWS(
+			        FILTER(
+			            VALUES(order_level[customer_unique_id]),
+			            CALCULATE(
+			                DISTINCTCOUNT(order_level[order_id]),
+			                order_level[is_delivered] = TRUE()
+			            ) >= 2
+			            &&
+			            CALCULATE(
+			                DISTINCTCOUNT(order_level[PurchaseDate]),
+			                order_level[is_delivered] = TRUE()
+			            ) = 1
+			        )
+			    )
+			)
+		formatString: #,##0
+		displayFolder: 02 Customer & Retention
+
+	/// Sensitivity benchmark: 2+ delivered orders regardless of purchase date (2,801 / 3.00%).
+	measure 'Any-Day Repeat Customers (Option A)' =
+			CALCULATE(
+			    COUNTROWS(
+			        FILTER(
+			            VALUES(order_level[customer_unique_id]),
+			            CALCULATE(
+			                DISTINCTCOUNT(order_level[order_id]),
+			                order_level[is_delivered] = TRUE()
+			            ) >= 2
+			        )
+			    )
+			)
+		formatString: #,##0
+		displayFolder: 02 Customer & Retention
+
+	measure 'Repeat Customer Rate %' = DIVIDE([Repeat Customers (D-5 Distinct Days)], [Unique Delivered Customers], 0)
+		formatString: 0.00%
+		displayFolder: 02 Customer & Retention
+
+	measure 'Same-Day Multi-Order Rate %' = DIVIDE([Same-Day Multi-Order Customers], [Unique Delivered Customers], 0)
+		formatString: 0.00%
+		displayFolder: 02 Customer & Retention
+
+	measure 'Historical CLV Proxy per Customer (BRL)' = DIVIDE([Delivered Order Value Proxy (BRL)], [Unique Delivered Customers], 0)
+		formatString: "R$" #,##0.00
+		displayFolder: 02 Customer & Retention
+
+	measure 'Average Delivery Days' = CALCULATE(AVERAGE(order_level[delivery_days]), order_level[is_delivered] = TRUE(), order_level[missing_delivery_date] = FALSE())
+		formatString: 0.00
+		displayFolder: 04 Delivery & CX
+
+	measure 'Late Delivered Orders' = CALCULATE(DISTINCTCOUNT(order_level[order_id]), order_level[is_delivered] = TRUE(), order_level[is_late] = TRUE())
+		formatString: #,##0
+		displayFolder: 04 Delivery & CX
+
+	measure 'Delivered Orders With Delivery Date' = CALCULATE(DISTINCTCOUNT(order_level[order_id]), order_level[is_delivered] = TRUE(), order_level[missing_delivery_date] = FALSE())
+		formatString: #,##0
+		displayFolder: 04 Delivery & CX
+
+	measure 'Late Delivery Rate %' = DIVIDE([Late Delivered Orders], [Delivered Orders With Delivery Date], 0)
+		formatString: 0.00%
+		displayFolder: 04 Delivery & CX
+
+	measure 'On-Time Delivery Rate %' = 1.0 - [Late Delivery Rate %]
+		formatString: 0.00%
+		displayFolder: 04 Delivery & CX
+
+	/// Approved Rule D-3: Primary order-level review score uses the most recent review per order.
+	measure 'Average Review Score' = CALCULATE(AVERAGE(order_level[review_score]), order_level[is_delivered] = TRUE())
+		formatString: 0.00
+		displayFolder: 04 Delivery & CX
+
+	column order_id
+		dataType: string
+		isKey
+		sourceColumn: order_id
+
+	column customer_id
+		dataType: string
+		sourceColumn: customer_id
+
+	column order_status
+		dataType: string
+		sourceColumn: order_status
+
+	column order_purchase_timestamp
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		sourceColumn: order_purchase_timestamp
+
+	column order_approved_at
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		sourceColumn: order_approved_at
+
+	column order_delivered_carrier_date
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		sourceColumn: order_delivered_carrier_date
+
+	column order_delivered_customer_date
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		sourceColumn: order_delivered_customer_date
+
+	column order_estimated_delivery_date
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		sourceColumn: order_estimated_delivery_date
+
+	column missing_delivery_date
+		dataType: boolean
+		sourceColumn: missing_delivery_date
+
+	column missing_stage_date
+		dataType: boolean
+		sourceColumn: missing_stage_date
+
+	column carrier_before_purchase
+		dataType: boolean
+		sourceColumn: carrier_before_purchase
+
+	column carrier_before_approval
+		dataType: boolean
+		sourceColumn: carrier_before_approval
+
+	column delivered_before_carrier
+		dataType: boolean
+		sourceColumn: delivered_before_carrier
+
+	column status_date_conflict
+		dataType: boolean
+		sourceColumn: status_date_conflict
+
+	column has_items
+		dataType: boolean
+		sourceColumn: has_items
+
+	column in_analysis_window
+		dataType: boolean
+		sourceColumn: in_analysis_window
+
+	column delivery_days
+		dataType: double
+		formatString: 0.00
+		sourceColumn: delivery_days
+
+	column is_late
+		dataType: boolean
+		sourceColumn: is_late
+
+	column is_delivered
+		dataType: boolean
+		sourceColumn: is_delivered
+
+	column customer_unique_id
+		dataType: string
+		sourceColumn: customer_unique_id
+
+	column item_count
+		dataType: double
+		sourceColumn: item_count
+
+	column item_revenue
+		dataType: double
+		formatString: "R$" #,##0.00
+		sourceColumn: item_revenue
+
+	column freight_value
+		dataType: double
+		formatString: "R$" #,##0.00
+		sourceColumn: freight_value
+
+	column distinct_products
+		dataType: double
+		sourceColumn: distinct_products
+
+	column distinct_sellers
+		dataType: double
+		sourceColumn: distinct_sellers
+
+	column payment_value
+		dataType: double
+		formatString: "R$" #,##0.00
+		sourceColumn: payment_value
+
+	column payment_count
+		dataType: double
+		sourceColumn: payment_count
+
+	column max_installments
+		dataType: double
+		sourceColumn: max_installments
+
+	column review_score
+		dataType: double
+		formatString: 0.00
+		sourceColumn: review_score
+
+	column review_creation_date
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		sourceColumn: review_creation_date
+
+	column review_answer_timestamp
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		sourceColumn: review_answer_timestamp
+
+	column review_before_purchase
+		dataType: boolean
+		sourceColumn: review_before_purchase
+
+	column PurchaseDate
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		sourceColumn: PurchaseDate
+
+	partition order_level = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Dell\OneDrive\Desktop\Documents\DataAnalyticsPortfolio\ecommerce-revenue-retention-intelligence\data\processed\order_level.csv"),[Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Promoted,{{"order_id", type text}, {"customer_id", type text}, {"order_status", type text}, {"order_purchase_timestamp", type datetime}, {"order_approved_at", type datetime}, {"order_delivered_carrier_date", type datetime}, {"order_delivered_customer_date", type datetime}, {"order_estimated_delivery_date", type date}, {"missing_delivery_date", type logical}, {"missing_stage_date", type logical}, {"carrier_before_purchase", type logical}, {"carrier_before_approval", type logical}, {"delivered_before_carrier", type logical}, {"status_date_conflict", type logical}, {"has_items", type logical}, {"in_analysis_window", type logical}, {"delivery_days", type number}, {"is_late", type logical}, {"is_delivered", type logical}, {"customer_unique_id", type text}, {"item_count", type number}, {"item_revenue", type number}, {"freight_value", type number}, {"distinct_products", type number}, {"distinct_sellers", type number}, {"payment_value", type number}, {"payment_count", type number}, {"max_installments", type number}, {"review_score", type number}, {"review_creation_date", type datetime}, {"review_answer_timestamp", type datetime}, {"review_before_purchase", type logical}}, "en-US"),
+				    FinalStep = Table.AddColumn(Typed, "PurchaseDate", each if [order_purchase_timestamp] = null then null else Date.From([order_purchase_timestamp]), type date)
+				in
+				    FinalStep
+

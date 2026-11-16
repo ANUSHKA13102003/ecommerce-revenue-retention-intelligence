@@ -1,0 +1,71 @@
+table pbi_state_performance
+
+	measure 'Summary State Weighted Delivery Days' = DIVIDE(SUMX(pbi_state_performance, pbi_state_performance[avg_delivery_days] * pbi_state_performance[delivered_orders]), SUM(pbi_state_performance[delivered_orders]), 0)
+		formatString: 0.00
+		displayFolder: 04 Delivery & CX
+
+	measure 'Summary State Weighted Late Rate %' = DIVIDE(SUMX(pbi_state_performance, (pbi_state_performance[late_delivery_rate_pct] / 100.0) * pbi_state_performance[delivered_orders]), SUM(pbi_state_performance[delivered_orders]), 0)
+		formatString: 0.00%
+		displayFolder: 04 Delivery & CX
+
+	measure 'Summary State Weighted Review Score' = DIVIDE(SUMX(pbi_state_performance, pbi_state_performance[avg_review_score] * pbi_state_performance[delivered_orders]), SUM(pbi_state_performance[delivered_orders]), 0)
+		formatString: 0.00
+		displayFolder: 04 Delivery & CX
+
+	column customer_state
+		dataType: string
+		sourceColumn: customer_state
+
+	column delivered_orders
+		dataType: int64
+		sourceColumn: delivered_orders
+
+	column unique_customers
+		dataType: int64
+		sourceColumn: unique_customers
+
+	column order_value_proxy_brl
+		dataType: double
+		formatString: "R$" #,##0.00
+		sourceColumn: order_value_proxy_brl
+
+	column item_revenue_brl
+		dataType: double
+		formatString: "R$" #,##0.00
+		sourceColumn: item_revenue_brl
+
+	column freight_value_brl
+		dataType: double
+		formatString: "R$" #,##0.00
+		sourceColumn: freight_value_brl
+
+	column avg_order_value_brl
+		dataType: double
+		formatString: "R$" #,##0.00
+		sourceColumn: avg_order_value_brl
+
+	column avg_delivery_days
+		dataType: double
+		formatString: 0.00
+		sourceColumn: avg_delivery_days
+
+	column late_delivery_rate_pct
+		dataType: double
+		formatString: 0.00"%"
+		sourceColumn: late_delivery_rate_pct
+
+	column avg_review_score
+		dataType: double
+		formatString: 0.00
+		sourceColumn: avg_review_score
+
+	partition pbi_state_performance = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Dell\OneDrive\Desktop\Documents\DataAnalyticsPortfolio\ecommerce-revenue-retention-intelligence\powerbi\data_exports\pbi_state_performance.csv"),[Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Promoted,{{"customer_state", type text}, {"delivered_orders", Int64.Type}, {"unique_customers", Int64.Type}, {"order_value_proxy_brl", type number}, {"item_revenue_brl", type number}, {"freight_value_brl", type number}, {"avg_order_value_brl", type number}, {"avg_delivery_days", type number}, {"late_delivery_rate_pct", type number}, {"avg_review_score", type number}}, "en-US")
+				in
+				    Typed
+

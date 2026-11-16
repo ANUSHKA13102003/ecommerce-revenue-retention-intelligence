@@ -1,0 +1,40 @@
+relationship rel_order_level_PurchaseDate_dim_date
+	fromColumn: order_level.PurchaseDate
+	toColumn: dim_date.date_key
+
+relationship rel_order_items_clean_order_id_order_level
+	fromColumn: order_items_clean.order_id
+	toColumn: order_level.order_id
+
+relationship rel_order_items_clean_product_id_products_clean
+	fromColumn: order_items_clean.product_id
+	toColumn: products_clean.product_id
+
+relationship rel_order_items_clean_seller_id_sellers_clean
+	fromColumn: order_items_clean.seller_id
+	toColumn: sellers_clean.seller_id
+
+relationship rel_payments_clean_order_id_order_level
+	fromColumn: payments_clean.order_id
+	toColumn: order_level.order_id
+
+relationship rel_order_level_customer_id_customers_clean
+	fromColumn: order_level.customer_id
+	toColumn: customers_clean.customer_id
+
+relationship rel_order_level_customer_unique_id_customer_rfm
+	fromColumn: order_level.customer_unique_id
+	toColumn: customer_rfm.customer_unique_id
+
+relationship rel_pbi_monthly_kpis_month_start_date_dim_date
+	fromColumn: pbi_monthly_kpis.month_start_date
+	toColumn: dim_date.date_key
+
+relationship rel_pbi_cohort_retention_long_cohort_start_date_dim_date
+	fromColumn: pbi_cohort_retention_long.cohort_start_date
+	toColumn: dim_date.date_key
+
+relationship rel_pbi_cohort_retention_matrix_cohort_start_date_dim_date
+	fromColumn: pbi_cohort_retention_matrix.cohort_start_date
+	toColumn: dim_date.date_key
+

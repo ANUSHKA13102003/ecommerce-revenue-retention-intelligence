@@ -1,0 +1,88 @@
+{
+  "currency": "BRL (R$ #,##0.00)",
+  "primary_analysis_window": "2017-01-01 to 2018-08-31",
+  "granular_star_schema_relationships": [
+    {
+      "from_table": "order_level",
+      "from_column": "PurchaseDate (Date.From([order_purchase_timestamp]))",
+      "to_table": "dim_date",
+      "to_column": "date_key",
+      "cardinality": "Many-to-One (*:1)",
+      "cross_filter_direction": "Single (dim_date filters order_level)"
+    },
+    {
+      "from_table": "order_items_clean",
+      "from_column": "order_id",
+      "to_table": "order_level",
+      "to_column": "order_id",
+      "cardinality": "Many-to-One (*:1)",
+      "cross_filter_direction": "Single (order_level filters order_items_clean)"
+    },
+    {
+      "from_table": "order_items_clean",
+      "from_column": "product_id",
+      "to_table": "products_clean",
+      "to_column": "product_id",
+      "cardinality": "Many-to-One (*:1)",
+      "cross_filter_direction": "Single (products_clean filters order_items_clean)"
+    },
+    {
+      "from_table": "order_items_clean",
+      "from_column": "seller_id",
+      "to_table": "sellers_clean",
+      "to_column": "seller_id",
+      "cardinality": "Many-to-One (*:1)",
+      "cross_filter_direction": "Single (sellers_clean filters order_items_clean)"
+    },
+    {
+      "from_table": "order_level",
+      "from_column": "customer_id",
+      "to_table": "customers_clean",
+      "to_column": "customer_id",
+      "cardinality": "One-to-One (1:1)",
+      "cross_filter_direction": "Single (customers_clean filters order_level)"
+    },
+    {
+      "from_table": "order_level",
+      "from_column": "customer_unique_id",
+      "to_table": "customer_rfm",
+      "to_column": "customer_unique_id",
+      "cardinality": "Many-to-One (*:1)",
+      "cross_filter_direction": "Single (customer_rfm filters order_level on delivered orders)"
+    },
+    {
+      "from_table": "payments_clean",
+      "from_column": "order_id",
+      "to_table": "order_level",
+      "to_column": "order_id",
+      "cardinality": "Many-to-One (*:1)",
+      "cross_filter_direction": "Single (order_level filters payments_clean)"
+    }
+  ],
+  "summary_mart_relationships": [
+    {
+      "from_table": "pbi_monthly_kpis",
+      "from_column": "month_start_date",
+      "to_table": "dim_date",
+      "to_column": "date_key",
+      "cardinality": "Many-to-One (*:1)",
+      "cross_filter_direction": "Single"
+    },
+    {
+      "from_table": "pbi_cohort_retention_long",
+      "from_column": "cohort_start_date",
+      "to_table": "dim_date",
+      "to_column": "date_key",
+      "cardinality": "Many-to-One (*:1)",
+      "cross_filter_direction": "Single"
+    },
+    {
+      "from_table": "pbi_cohort_retention_matrix",
+      "from_column": "cohort_start_date",
+      "to_table": "dim_date",
+      "to_column": "date_key",
+      "cardinality": "Many-to-One (*:1)",
+      "cross_filter_direction": "Single"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+table_name,exact_rows
+customers_clean,99441
+customers_with_geolocation,99441
+geolocation_zip_lookup,17737
+order_item_summary,98666
+order_items_clean,112650
+order_level,99441
+order_payment_summary,99440
+order_review_summary,98673
+orders_clean,99441
+payments_clean,103886
+products_clean,32951
+reviews_clean,99224
+sellers_clean,3095
+sellers_with_geolocation,3095

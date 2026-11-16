@@ -1,0 +1,39 @@
+table pbi_order_status_summary
+
+	column order_status
+		dataType: string
+		sourceColumn: order_status
+
+	column order_count
+		dataType: int64
+		sourceColumn: order_count
+
+	column orders_with_items
+		dataType: double
+		sourceColumn: orders_with_items
+
+	column total_payment_value_brl
+		dataType: double
+		formatString: "R$" #,##0.00
+		sourceColumn: total_payment_value_brl
+
+	column total_item_price_brl
+		dataType: double
+		formatString: "R$" #,##0.00
+		sourceColumn: total_item_price_brl
+
+	column avg_review_score
+		dataType: double
+		formatString: 0.00
+		sourceColumn: avg_review_score
+
+	partition pbi_order_status_summary = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Dell\OneDrive\Desktop\Documents\DataAnalyticsPortfolio\ecommerce-revenue-retention-intelligence\powerbi\data_exports\pbi_order_status_summary.csv"),[Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Promoted,{{"order_status", type text}, {"order_count", Int64.Type}, {"orders_with_items", type number}, {"total_payment_value_brl", type number}, {"total_item_price_brl", type number}, {"avg_review_score", type number}}, "en-US")
+				in
+				    Typed
+

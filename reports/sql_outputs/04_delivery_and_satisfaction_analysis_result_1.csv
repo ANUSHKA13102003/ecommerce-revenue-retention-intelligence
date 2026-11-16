@@ -1,0 +1,2 @@
+total_delivered_orders,orders_with_delivery_date,orders_missing_delivery_date,late_delivered_orders,on_time_delivered_orders,late_delivery_rate_pct,on_time_delivery_rate_pct,avg_delivery_days,avg_on_time_delivery_days,avg_late_delivery_days,overall_avg_review_score,on_time_avg_review_score,late_avg_review_score
+96478,96470.0,8.0,7826.0,88644.0,8.11,91.89,12.56,10.88,31.52,4.16,4.29,2.57

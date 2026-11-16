@@ -1,0 +1,6 @@
+fk_relationship,orphan_rows
+orders_clean.customer_id -> customers_clean,0
+order_items_clean.order_id -> orders_clean,0
+order_items_clean.product_id -> products_clean,0
+order_items_clean.seller_id -> sellers_clean,0
+payments_clean.order_id -> orders_clean,0

@@ -1,0 +1,4 @@
+customer_behaviour_group,customer_count,customer_share_pct,total_delivered_orders,avg_delivered_orders,avg_lifespan_days,total_historical_clv_brl,clv_share_pct,avg_historical_clv_brl,avg_order_value_brl
+"1. True Repeat Customer (2+ Delivered Orders, 2+ Days)",2015,2.16,4323.0,2.15,122.55,646454.25,4.19,320.82,149.09
+2. Same-Day Multi-Order Customer (Split Basket),786,0.84,1598.0,2.03,0.0,217902.96,1.41,277.23,137.62
+3. Single-Order Customer (1 Delivered Order),90557,97.0,90557.0,1.0,0.0,14558104.56,94.4,160.76,160.76

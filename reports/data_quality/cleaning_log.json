@@ -1,0 +1,85 @@
+{
+    "project": "E-commerce Revenue & Customer Retention Intelligence",
+    "phase": "Phase 4 - Data Cleaning",
+    "generated_at_utc": "2026-11-15T14:50:35.472905+00:00",
+    "analysis_window": {
+        "start": "2017-01-01",
+        "end_exclusive": "2018-09-01"
+    },
+    "geolocation_boundary": {
+        "latitude_min": -33.75,
+        "latitude_max": -5.27,
+        "longitude_min": -73.99,
+        "longitude_max": -34.79
+    },
+    "input_sha256": {
+        "olist_orders_dataset.csv": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+        "olist_customers_dataset.csv": "983a422239e1712ded753b3bf9ecf47dc73f144d306029dcfa99e70a226883d2",
+        "olist_order_items_dataset.csv": "0bc4d068c4fe38cbb01bd90e8746e3c613fe7b4baef75fab7b0e329701c3e279",
+        "olist_order_payments_dataset.csv": "4f713964f2815dbbaa40b9488268c55aac3627bfce5aa96cf58d1f3616de3cc0",
+        "olist_order_reviews_dataset.csv": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7",
+        "olist_products_dataset.csv": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc",
+        "olist_sellers_dataset.csv": "1f643d2b950373b85735e7794b20986f528d7a000432e7c6f9bcbb44d0846a0e",
+        "olist_geolocation_dataset.csv": "b514f6fc991b9566aeba02aa5d67e2c3630f034b60a0e05aa0d082a3b66d88d6",
+        "product_category_name_translation.csv": "a81f0d1f27b27e7293f761bc79e3ce8f348ee39c4b3ed3e49bde38f478586278"
+    },
+    "output_row_counts": {
+        "orders_clean": 99441,
+        "customers_clean": 99441,
+        "order_items_clean": 112650,
+        "payments_clean": 103886,
+        "reviews_clean": 99224,
+        "products_clean": 32951,
+        "sellers_clean": 3095,
+        "geolocation_zip_lookup": 17737,
+        "order_item_summary": 98666,
+        "order_payment_summary": 99440,
+        "order_review_summary": 98673,
+        "order_level": 99441
+    },
+    "quality_flag_counts": {
+        "missing_delivery_date": 2965,
+        "missing_stage_date": 2980,
+        "carrier_before_purchase": 166,
+        "carrier_before_approval": 1359,
+        "delivered_before_carrier": 23,
+        "status_date_conflict": 8,
+        "orders_without_items": 775,
+        "shipping_limit_outliers": 12,
+        "invalid_installments": 2,
+        "reviews_before_purchase": 74,
+        "products_missing_dimensions": 2,
+        "products_zero_weight": 4,
+        "geolocation_out_of_bounds": 25881,
+        "customers_without_geolocation": 3497,
+        "sellers_without_geolocation": 21,
+        "orders_without_payments": 1
+    },
+    "reconciliation": {
+        "item_price_total": 13591643.7,
+        "item_freight_total": 2251909.54,
+        "payment_value_total": 16008872.12,
+        "order_level_item_price_total": 13591643.7,
+        "order_level_payment_total": 16008872.12
+    },
+    "validation_checks": {
+        "orders_row_count_preserved": true,
+        "customers_row_count_preserved": true,
+        "items_row_count_preserved": true,
+        "payments_row_count_preserved": true,
+        "reviews_row_count_preserved": true,
+        "products_row_count_preserved": true,
+        "sellers_row_count_preserved": true,
+        "orders_unique": true,
+        "customers_unique": true,
+        "order_level_unique": true,
+        "item_summary_unique": true,
+        "payment_summary_unique": true,
+        "review_summary_unique": true,
+        "geo_zip_unique": true,
+        "item_revenue_reconciles": true,
+        "payment_reconciles": true,
+        "raw_files_unchanged": true
+    },
+    "all_checks_passed": true
+}

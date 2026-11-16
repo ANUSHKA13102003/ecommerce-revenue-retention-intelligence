@@ -1,0 +1,50 @@
+table customer_rfm
+
+	column customer_unique_id
+		dataType: string
+		isKey
+		sourceColumn: customer_unique_id
+
+	column recency
+		dataType: int64
+		sourceColumn: recency
+
+	column frequency
+		dataType: int64
+		sourceColumn: frequency
+
+	column monetary
+		dataType: double
+		formatString: "R$" #,##0.00
+		sourceColumn: monetary
+
+	column r_score
+		dataType: int64
+		sourceColumn: r_score
+
+	column f_score
+		dataType: int64
+		sourceColumn: f_score
+
+	column m_score
+		dataType: int64
+		sourceColumn: m_score
+
+	column rfm_score
+		dataType: string
+		sourceColumn: rfm_score
+
+	column customer_segment
+		dataType: string
+		sourceColumn: customer_segment
+
+	partition customer_rfm = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Dell\OneDrive\Desktop\Documents\DataAnalyticsPortfolio\ecommerce-revenue-retention-intelligence\data\processed\customer_rfm.csv"),[Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Promoted,{{"customer_unique_id", type text}, {"recency", Int64.Type}, {"frequency", Int64.Type}, {"monetary", type number}, {"r_score", Int64.Type}, {"f_score", Int64.Type}, {"m_score", Int64.Type}, {"rfm_score", type text}, {"customer_segment", type text}}, "en-US")
+				in
+				    Typed
+

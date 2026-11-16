@@ -1,0 +1,340 @@
+{
+  "verified_at": "2026-11-16T16:28:02.403110",
+  "mysql_server": {
+    "version": "8.0.46",
+    "host": "127.0.0.1",
+    "port": 3306,
+    "server_hostname": "DESKTOP-DI8S09O",
+    "database": "ecommerce_analytics",
+    "windows_service": {
+      "service_name": "MySQL80",
+      "service_detected": true,
+      "service_running": true,
+      "raw_status": "RUNNING",
+      "tcp_port_open": true,
+      "tcp_return_code": 0
+    }
+  },
+  "overall_status": "FAIL",
+  "table_row_count_verification": [
+    {
+      "table_name": "customers_clean",
+      "mysql_row_count": 99441,
+      "expected_csv_row_count": 99441,
+      "difference": 0,
+      "status": "PASS"
+    },
+    {
+      "table_name": "customers_with_geolocation",
+      "mysql_row_count": 99441,
+      "expected_csv_row_count": 99441,
+      "difference": 0,
+      "status": "PASS"
+    },
+    {
+      "table_name": "geolocation_zip_lookup",
+      "mysql_row_count": 17737,
+      "expected_csv_row_count": 19015,
+      "difference": -1278,
+      "status": "FAIL"
+    },
+    {
+      "table_name": "order_item_summary",
+      "mysql_row_count": 98666,
+      "expected_csv_row_count": 98666,
+      "difference": 0,
+      "status": "PASS"
+    },
+    {
+      "table_name": "order_items_clean",
+      "mysql_row_count": 112650,
+      "expected_csv_row_count": 112650,
+      "difference": 0,
+      "status": "PASS"
+    },
+    {
+      "table_name": "order_level",
+      "mysql_row_count": 99441,
+      "expected_csv_row_count": 99441,
+      "difference": 0,
+      "status": "PASS"
+    },
+    {
+      "table_name": "order_payment_summary",
+      "mysql_row_count": 99440,
+      "expected_csv_row_count": 99440,
+      "difference": 0,
+      "status": "PASS"
+    },
+    {
+      "table_name": "order_review_summary",
+      "mysql_row_count": 98673,
+      "expected_csv_row_count": 98673,
+      "difference": 0,
+      "status": "PASS"
+    },
+    {
+      "table_name": "orders_clean",
+      "mysql_row_count": 99441,
+      "expected_csv_row_count": 99441,
+      "difference": 0,
+      "status": "PASS"
+    },
+    {
+      "table_name": "payments_clean",
+      "mysql_row_count": 103886,
+      "expected_csv_row_count": 103886,
+      "difference": 0,
+      "status": "PASS"
+    },
+    {
+      "table_name": "products_clean",
+      "mysql_row_count": 32951,
+      "expected_csv_row_count": 32951,
+      "difference": 0,
+      "status": "PASS"
+    },
+    {
+      "table_name": "reviews_clean",
+      "mysql_row_count": 99224,
+      "expected_csv_row_count": 99224,
+      "difference": 0,
+      "status": "PASS"
+    },
+    {
+      "table_name": "sellers_clean",
+      "mysql_row_count": 3095,
+      "expected_csv_row_count": 3095,
+      "difference": 0,
+      "status": "PASS"
+    },
+    {
+      "table_name": "sellers_with_geolocation",
+      "mysql_row_count": 3095,
+      "expected_csv_row_count": 3095,
+      "difference": 0,
+      "status": "PASS"
+    },
+    {
+      "table_name": "customer_rfm (derived SQL table)",
+      "mysql_row_count": 93358,
+      "expected_csv_row_count": 93358,
+      "difference": 0,
+      "status": "PASS"
+    }
+  ],
+  "metric_reconciliation": [
+    {
+      "metric": "Total Orders (All Statuses)",
+      "mysql_live_value": 99441,
+      "python_validated_value": 99441,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Delivered Orders (Full Dataset)",
+      "mysql_live_value": 96478,
+      "python_validated_value": 96478,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Delivery Completion Rate (%)",
+      "mysql_live_value": 97.02,
+      "python_validated_value": 97.02,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Delivered Order Value Proxy (BRL, Full)",
+      "mysql_live_value": 15422461.77,
+      "python_validated_value": 15422461.77,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Delivered Merchandise Revenue (BRL, Full)",
+      "mysql_live_value": 13221498.11,
+      "python_validated_value": 13221498.11,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Delivered Freight Value (BRL, Full)",
+      "mysql_live_value": 2198275.64,
+      "python_validated_value": 2198275.64,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Gross Payment Value (All Statuses, BRL)",
+      "mysql_live_value": 16008872.12,
+      "python_validated_value": 16008872.12,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Mean Order Value Proxy (BRL)",
+      "mysql_live_value": 159.86,
+      "python_validated_value": 159.86,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Unique Customers (All Statuses)",
+      "mysql_live_value": 96096,
+      "python_validated_value": 96096,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Unique Delivered Customers (Full)",
+      "mysql_live_value": 93358,
+      "python_validated_value": 93358,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Window D-2 Delivered Orders (Jan 17\u2013Aug 18)",
+      "mysql_live_value": 96211,
+      "python_validated_value": 96211,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Window D-2 Order Value Proxy (BRL)",
+      "mysql_live_value": 15375875.44,
+      "python_validated_value": 15375875.44,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Window D-2 Item Revenue (BRL)",
+      "mysql_live_value": 13181027.13,
+      "python_validated_value": 13181027.13,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "True Repeat Customers (Rule D-5)",
+      "mysql_live_value": 2015,
+      "python_validated_value": 2015,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "True Repeat Rate (Rule D-5, %)",
+      "mysql_live_value": 2.16,
+      "python_validated_value": 2.16,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Same-Day Split-Checkout Buyers",
+      "mysql_live_value": 786,
+      "python_validated_value": 786,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Any-Day Repeat Customers (Option A)",
+      "mysql_live_value": 2801,
+      "python_validated_value": 2801,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Repeat Customer Revenue Share (D-5, %)",
+      "mysql_live_value": 4.19,
+      "python_validated_value": 4.19,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Average Delivery Days",
+      "mysql_live_value": 12.56,
+      "python_validated_value": 12.56,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Late Delivery Rate (%)",
+      "mysql_live_value": 8.11,
+      "python_validated_value": 8.11,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Average Review Score (Delivered)",
+      "mysql_live_value": 4.16,
+      "python_validated_value": 4.16,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "metric": "Top Category Item Revenue (health_beauty, BRL)",
+      "mysql_live_value": 1233131.72,
+      "python_validated_value": 1233131.72,
+      "abs_diff": 0.0,
+      "status": "PASS"
+    }
+  ],
+  "rfm_segments_mysql": [
+    {
+      "customer_segment": "Recent Customers",
+      "customer_count": 37219,
+      "avg_recency_days": 89.85,
+      "avg_purchase_days": 1.03,
+      "avg_monetary_brl": 168.44,
+      "total_order_value_brl": 6269299.23
+    },
+    {
+      "customer_segment": "Lost Customers",
+      "customer_count": 37358,
+      "avg_recency_days": 394.0,
+      "avg_purchase_days": 1.01,
+      "avg_monetary_brl": 165.11,
+      "total_order_value_brl": 6167951.88
+    },
+    {
+      "customer_segment": "Needs Attention",
+      "customer_count": 18272,
+      "avg_recency_days": 219.17,
+      "avg_purchase_days": 1.0,
+      "avg_monetary_brl": 153.14,
+      "total_order_value_brl": 2798239.09
+    },
+    {
+      "customer_segment": "Potential Loyalists",
+      "customer_count": 449,
+      "avg_recency_days": 197.87,
+      "avg_purchase_days": 2.2,
+      "avg_monetary_brl": 328.03,
+      "total_order_value_brl": 147286.12
+    },
+    {
+      "customer_segment": "Champions",
+      "customer_count": 23,
+      "avg_recency_days": 81.3,
+      "avg_purchase_days": 5.13,
+      "avg_monetary_brl": 855.85,
+      "total_order_value_brl": 19684.5
+    },
+    {
+      "customer_segment": "At Risk",
+      "customer_count": 31,
+      "avg_recency_days": 335.35,
+      "avg_purchase_days": 3.06,
+      "avg_monetary_brl": 486.06,
+      "total_order_value_brl": 15067.94
+    },
+    {
+      "customer_segment": "Loyal Customers",
+      "customer_count": 6,
+      "avg_recency_days": 210.5,
+      "avg_purchase_days": 5.17,
+      "avg_monetary_brl": 822.17,
+      "total_order_value_brl": 4933.01
+    }
+  ]
+}

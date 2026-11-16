@@ -1,0 +1,65 @@
+table products_clean
+
+	column product_id
+		dataType: string
+		isKey
+		sourceColumn: product_id
+
+	column product_category_name
+		dataType: string
+		sourceColumn: product_category_name
+
+	column product_name_lenght
+		dataType: double
+		sourceColumn: product_name_lenght
+
+	column product_description_lenght
+		dataType: double
+		sourceColumn: product_description_lenght
+
+	column product_photos_qty
+		dataType: double
+		sourceColumn: product_photos_qty
+
+	column product_weight_g
+		dataType: double
+		sourceColumn: product_weight_g
+
+	column product_length_cm
+		dataType: double
+		sourceColumn: product_length_cm
+
+	column product_height_cm
+		dataType: double
+		sourceColumn: product_height_cm
+
+	column product_width_cm
+		dataType: double
+		sourceColumn: product_width_cm
+
+	column product_category_name_english
+		dataType: string
+		sourceColumn: product_category_name_english
+
+	column category_name_en
+		dataType: string
+		sourceColumn: category_name_en
+
+	column missing_dimensions
+		dataType: boolean
+		sourceColumn: missing_dimensions
+
+	column zero_weight
+		dataType: boolean
+		sourceColumn: zero_weight
+
+	partition products_clean = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Dell\OneDrive\Desktop\Documents\DataAnalyticsPortfolio\ecommerce-revenue-retention-intelligence\data\processed\products_clean.csv"),[Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Promoted,{{"product_id", type text}, {"product_category_name", type text}, {"product_name_lenght", type number}, {"product_description_lenght", type number}, {"product_photos_qty", type number}, {"product_weight_g", type number}, {"product_length_cm", type number}, {"product_height_cm", type number}, {"product_width_cm", type number}, {"product_category_name_english", type text}, {"category_name_en", type text}, {"missing_dimensions", type logical}, {"zero_weight", type logical}}, "en-US")
+				in
+				    Typed
+

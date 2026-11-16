@@ -1,0 +1,90 @@
+table pbi_cohort_retention_matrix
+
+	column cohort_month
+		dataType: string
+		sourceColumn: cohort_month
+
+	column cohort_start_date
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		sourceColumn: cohort_start_date
+
+	column cohort_size
+		dataType: int64
+		sourceColumn: cohort_size
+
+	column m0_pct
+		dataType: double
+		formatString: 0.000"%"
+		sourceColumn: m0_pct
+
+	column m1_pct
+		dataType: double
+		formatString: 0.000"%"
+		sourceColumn: m1_pct
+
+	column m2_pct
+		dataType: double
+		formatString: 0.000"%"
+		sourceColumn: m2_pct
+
+	column m3_pct
+		dataType: double
+		formatString: 0.000"%"
+		sourceColumn: m3_pct
+
+	column m4_pct
+		dataType: double
+		formatString: 0.000"%"
+		sourceColumn: m4_pct
+
+	column m5_pct
+		dataType: double
+		formatString: 0.000"%"
+		sourceColumn: m5_pct
+
+	column m6_pct
+		dataType: double
+		formatString: 0.000"%"
+		sourceColumn: m6_pct
+
+	column m7_pct
+		dataType: double
+		formatString: 0.000"%"
+		sourceColumn: m7_pct
+
+	column m8_pct
+		dataType: double
+		formatString: 0.000"%"
+		sourceColumn: m8_pct
+
+	column m9_pct
+		dataType: double
+		formatString: 0.000"%"
+		sourceColumn: m9_pct
+
+	column m10_pct
+		dataType: double
+		formatString: 0.000"%"
+		sourceColumn: m10_pct
+
+	column m11_pct
+		dataType: double
+		formatString: 0.000"%"
+		sourceColumn: m11_pct
+
+	column m12_pct
+		dataType: double
+		formatString: 0.000"%"
+		sourceColumn: m12_pct
+
+	partition pbi_cohort_retention_matrix = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Dell\OneDrive\Desktop\Documents\DataAnalyticsPortfolio\ecommerce-revenue-retention-intelligence\powerbi\data_exports\pbi_cohort_retention_matrix.csv"),[Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Promoted,{{"cohort_month", type text}, {"cohort_start_date", type date}, {"cohort_size", Int64.Type}, {"m0_pct", type number}, {"m1_pct", type number}, {"m2_pct", type number}, {"m3_pct", type number}, {"m4_pct", type number}, {"m5_pct", type number}, {"m6_pct", type number}, {"m7_pct", type number}, {"m8_pct", type number}, {"m9_pct", type number}, {"m10_pct", type number}, {"m11_pct", type number}, {"m12_pct", type number}}, "en-US")
+				in
+				    Typed
+

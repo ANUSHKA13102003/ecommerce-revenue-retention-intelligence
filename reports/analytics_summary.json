@@ -1,0 +1,439 @@
+{
+  "generated_at": "2026-11-16T01:00:41.579913",
+  "currency": "BRL",
+  "executive_kpis": {
+    "full_dataset": {
+      "total_orders_all_statuses": 99441,
+      "delivered_orders": 96478,
+      "delivery_completion_rate_pct": 97.02,
+      "unique_customers_all_statuses": 96096,
+      "unique_delivered_customers": 93358,
+      "delivered_order_value_proxy_brl": 15422461.77,
+      "delivered_item_revenue_brl": 13221498.11,
+      "delivered_freight_value_brl": 2198275.64,
+      "all_orders_payment_total_brl": 16008872.12,
+      "all_orders_item_revenue_brl": 13591643.7,
+      "average_order_value_proxy_brl": 159.86,
+      "median_order_value_proxy_brl": 105.28,
+      "iqr_order_value_proxy_brl": 114.45,
+      "avg_delivery_days": 12.56,
+      "median_delivery_days": 10.22,
+      "late_delivery_rate_timestamp_pct": 8.11,
+      "avg_review_score_delivered": 4.16
+    },
+    "analysis_window_2017_01_to_2018_08": {
+      "total_orders_all_statuses": 99092,
+      "delivered_orders": 96211,
+      "unique_delivered_customers": 93104,
+      "delivered_order_value_proxy_brl": 15375875.44,
+      "delivered_item_revenue_brl": 13181027.13,
+      "delivered_freight_value_brl": 2192092.88,
+      "average_order_value_proxy_brl": 159.81,
+      "median_order_value_proxy_brl": 105.28
+    }
+  },
+  "retention_metrics": {
+    "full_dataset_delivered": {
+      "unique_customers": 93358,
+      "repeat_customers_d5_distinct_days": 2015,
+      "repeat_rate_d5_pct": 2.16,
+      "same_day_multi_order_customers": 786,
+      "repeat_customers_opt_a_any_day": 2801,
+      "repeat_rate_opt_a_pct": 3.0,
+      "repeat_customer_revenue_share_d5_pct": 4.19
+    },
+    "analysis_window_delivered": {
+      "unique_customers": 93104,
+      "repeat_customers_d5_distinct_days": 2005,
+      "repeat_rate_d5_pct": 2.15
+    }
+  },
+  "statistical_tests": {
+    "on_time_vs_late_review_score_mann_whitney": {
+      "on_time_n": 88163,
+      "late_n": 7661,
+      "on_time_mean_score": 4.294,
+      "late_mean_score": 2.5653,
+      "score_drop_when_late": 1.7287,
+      "u_statistic": 524647305.0,
+      "p_value": 0.0,
+      "statistically_significant_at_0_001": true
+    },
+    "delivery_days_vs_review_score_spearman": {
+      "spearman_rho": -0.2346,
+      "p_value": 0.0
+    },
+    "delay_days_vs_estimate_spearman": {
+      "spearman_rho": -0.1764,
+      "p_value": 0.0
+    }
+  },
+  "analytical_inactivity_sensitivity_not_observed_churn": {
+    "inactive_over_90_days": {
+      "customer_count": 74838,
+      "share_of_delivered_customers_pct": 80.16
+    },
+    "inactive_over_180_days": {
+      "customer_count": 55132,
+      "share_of_delivered_customers_pct": 59.05
+    },
+    "inactive_over_270_days": {
+      "customer_count": 36645,
+      "share_of_delivered_customers_pct": 39.25
+    },
+    "inactive_over_365_days": {
+      "customer_count": 20680,
+      "share_of_delivered_customers_pct": 22.15
+    }
+  },
+  "rfm_segments": [
+    {
+      "customer_segment": "Lost Customers",
+      "customer_count": 37358,
+      "customer_share_pct": 40.02,
+      "avg_recency_days": 394.0,
+      "avg_purchase_days": 1.01,
+      "avg_monetary_brl": 165.11,
+      "total_order_value_brl": 6167951.88,
+      "revenue_share_pct": 39.99
+    },
+    {
+      "customer_segment": "Recent Customers",
+      "customer_count": 37219,
+      "customer_share_pct": 39.87,
+      "avg_recency_days": 89.85,
+      "avg_purchase_days": 1.03,
+      "avg_monetary_brl": 168.44,
+      "total_order_value_brl": 6269299.23,
+      "revenue_share_pct": 40.65
+    },
+    {
+      "customer_segment": "Needs Attention",
+      "customer_count": 18272,
+      "customer_share_pct": 19.57,
+      "avg_recency_days": 219.17,
+      "avg_purchase_days": 1.0,
+      "avg_monetary_brl": 153.14,
+      "total_order_value_brl": 2798239.09,
+      "revenue_share_pct": 18.14
+    },
+    {
+      "customer_segment": "Potential Loyalists",
+      "customer_count": 449,
+      "customer_share_pct": 0.48,
+      "avg_recency_days": 197.87,
+      "avg_purchase_days": 2.2,
+      "avg_monetary_brl": 328.03,
+      "total_order_value_brl": 147286.12,
+      "revenue_share_pct": 0.96
+    },
+    {
+      "customer_segment": "At Risk",
+      "customer_count": 31,
+      "customer_share_pct": 0.03,
+      "avg_recency_days": 335.35,
+      "avg_purchase_days": 3.06,
+      "avg_monetary_brl": 486.06,
+      "total_order_value_brl": 15067.94,
+      "revenue_share_pct": 0.1
+    },
+    {
+      "customer_segment": "Champions",
+      "customer_count": 23,
+      "customer_share_pct": 0.02,
+      "avg_recency_days": 81.3,
+      "avg_purchase_days": 5.13,
+      "avg_monetary_brl": 855.85,
+      "total_order_value_brl": 19684.5,
+      "revenue_share_pct": 0.13
+    },
+    {
+      "customer_segment": "Loyal Customers",
+      "customer_count": 6,
+      "customer_share_pct": 0.01,
+      "avg_recency_days": 210.5,
+      "avg_purchase_days": 5.17,
+      "avg_monetary_brl": 822.17,
+      "total_order_value_brl": 4933.01,
+      "revenue_share_pct": 0.03
+    }
+  ],
+  "top_10_categories": [
+    {
+      "category_name_en": "health_beauty",
+      "category_name_pt": "beleza_saude",
+      "delivered_orders": 8647,
+      "items_sold": 9465,
+      "distinct_products": 2397,
+      "distinct_sellers": 479,
+      "item_revenue_brl": 1233131.72,
+      "freight_value_brl": 178957.81,
+      "avg_item_price_brl": 130.28,
+      "avg_delivery_days": 11.98,
+      "late_delivery_rate_pct": 9.05,
+      "avg_review_score": 4.19
+    },
+    {
+      "category_name_en": "watches_gifts",
+      "category_name_pt": "relogios_presentes",
+      "delivered_orders": 5495,
+      "items_sold": 5859,
+      "distinct_products": 1300,
+      "distinct_sellers": 95,
+      "item_revenue_brl": 1166176.98,
+      "freight_value_brl": 98156.14,
+      "avg_item_price_brl": 199.04,
+      "avg_delivery_days": 12.66,
+      "late_delivery_rate_pct": 8.28,
+      "avg_review_score": 4.07
+    },
+    {
+      "category_name_en": "bed_bath_table",
+      "category_name_pt": "cama_mesa_banho",
+      "delivered_orders": 9272,
+      "items_sold": 10953,
+      "distinct_products": 2991,
+      "distinct_sellers": 189,
+      "item_revenue_brl": 1023434.76,
+      "freight_value_brl": 201774.5,
+      "avg_item_price_brl": 93.44,
+      "avg_delivery_days": 12.81,
+      "late_delivery_rate_pct": 8.4,
+      "avg_review_score": 3.92
+    },
+    {
+      "category_name_en": "sports_leisure",
+      "category_name_pt": "esporte_lazer",
+      "delivered_orders": 7530,
+      "items_sold": 8431,
+      "distinct_products": 2822,
+      "distinct_sellers": 466,
+      "item_revenue_brl": 954852.55,
+      "freight_value_brl": 163404.36,
+      "avg_item_price_brl": 113.25,
+      "avg_delivery_days": 12.15,
+      "late_delivery_rate_pct": 7.41,
+      "avg_review_score": 4.17
+    },
+    {
+      "category_name_en": "computers_accessories",
+      "category_name_pt": "informatica_acessorios",
+      "delivered_orders": 6530,
+      "items_sold": 7644,
+      "distinct_products": 1600,
+      "distinct_sellers": 279,
+      "item_revenue_brl": 888724.61,
+      "freight_value_brl": 143999.16,
+      "avg_item_price_brl": 116.26,
+      "avg_delivery_days": 13.23,
+      "late_delivery_rate_pct": 7.77,
+      "avg_review_score": 3.99
+    },
+    {
+      "category_name_en": "furniture_decor",
+      "category_name_pt": "moveis_decoracao",
+      "delivered_orders": 6307,
+      "items_sold": 8160,
+      "distinct_products": 2593,
+      "distinct_sellers": 352,
+      "item_revenue_brl": 711927.69,
+      "freight_value_brl": 168402.23,
+      "avg_item_price_brl": 87.25,
+      "avg_delivery_days": 12.88,
+      "late_delivery_rate_pct": 8.43,
+      "avg_review_score": 3.95
+    },
+    {
+      "category_name_en": "housewares",
+      "category_name_pt": "utilidades_domesticas",
+      "delivered_orders": 5743,
+      "items_sold": 6795,
+      "distinct_products": 2282,
+      "distinct_sellers": 452,
+      "item_revenue_brl": 615628.69,
+      "freight_value_brl": 142763.56,
+      "avg_item_price_brl": 90.6,
+      "avg_delivery_days": 10.92,
+      "late_delivery_rate_pct": 6.49,
+      "avg_review_score": 4.11
+    },
+    {
+      "category_name_en": "cool_stuff",
+      "category_name_pt": "cool_stuff",
+      "delivered_orders": 3559,
+      "items_sold": 3718,
+      "distinct_products": 770,
+      "distinct_sellers": 259,
+      "item_revenue_brl": 610204.1,
+      "freight_value_brl": 81476.79,
+      "avg_item_price_brl": 164.12,
+      "avg_delivery_days": 12.36,
+      "late_delivery_rate_pct": 6.75,
+      "avg_review_score": 4.2
+    },
+    {
+      "category_name_en": "auto",
+      "category_name_pt": "automotivo",
+      "delivered_orders": 3810,
+      "items_sold": 4140,
+      "distinct_products": 1853,
+      "distinct_sellers": 371,
+      "item_revenue_brl": 578966.65,
+      "freight_value_brl": 90488.1,
+      "avg_item_price_brl": 139.85,
+      "avg_delivery_days": 12.23,
+      "late_delivery_rate_pct": 8.29,
+      "avg_review_score": 4.12
+    },
+    {
+      "category_name_en": "toys",
+      "category_name_pt": "brinquedos",
+      "delivered_orders": 3804,
+      "items_sold": 4030,
+      "distinct_products": 1373,
+      "distinct_sellers": 242,
+      "item_revenue_brl": 471286.48,
+      "freight_value_brl": 75774.58,
+      "avg_item_price_brl": 116.94,
+      "avg_delivery_days": 11.7,
+      "late_delivery_rate_pct": 7.42,
+      "avg_review_score": 4.21
+    }
+  ],
+  "top_10_states": [
+    {
+      "customer_state": "SP",
+      "delivered_orders": 40501,
+      "unique_customers": 39156,
+      "order_value_proxy_brl": 5770266.19,
+      "item_revenue_brl": 5067633.16,
+      "freight_value_brl": 702069.99,
+      "avg_order_value_brl": 142.48,
+      "avg_delivery_days": 8.76,
+      "late_delivery_rate_pct": 5.89,
+      "avg_review_score": 4.25
+    },
+    {
+      "customer_state": "RJ",
+      "delivered_orders": 12350,
+      "unique_customers": 11917,
+      "order_value_proxy_brl": 2055690.45,
+      "item_revenue_brl": 1759651.13,
+      "freight_value_brl": 295750.44,
+      "avg_order_value_brl": 166.45,
+      "avg_delivery_days": 15.31,
+      "late_delivery_rate_pct": 13.47,
+      "avg_review_score": 3.97
+    },
+    {
+      "customer_state": "MG",
+      "delivered_orders": 11354,
+      "unique_customers": 11001,
+      "order_value_proxy_brl": 1819277.61,
+      "item_revenue_brl": 1552481.83,
+      "freight_value_brl": 266409.84,
+      "avg_order_value_brl": 160.23,
+      "avg_delivery_days": 12.01,
+      "late_delivery_rate_pct": 5.61,
+      "avg_review_score": 4.19
+    },
+    {
+      "customer_state": "RS",
+      "delivered_orders": 5345,
+      "unique_customers": 5168,
+      "order_value_proxy_brl": 861802.4,
+      "item_revenue_brl": 728897.47,
+      "freight_value_brl": 132575.32,
+      "avg_order_value_brl": 161.24,
+      "avg_delivery_days": 15.3,
+      "late_delivery_rate_pct": 7.15,
+      "avg_review_score": 4.18
+    },
+    {
+      "customer_state": "PR",
+      "delivered_orders": 4923,
+      "unique_customers": 4769,
+      "order_value_proxy_brl": 781919.55,
+      "item_revenue_brl": 666063.51,
+      "freight_value_brl": 115645.29,
+      "avg_order_value_brl": 158.83,
+      "avg_delivery_days": 11.99,
+      "late_delivery_rate_pct": 5.0,
+      "avg_review_score": 4.24
+    },
+    {
+      "customer_state": "SC",
+      "delivered_orders": 3546,
+      "unique_customers": 3449,
+      "order_value_proxy_brl": 595208.4,
+      "item_revenue_brl": 507012.13,
+      "freight_value_brl": 88115.65,
+      "avg_order_value_brl": 167.85,
+      "avg_delivery_days": 14.95,
+      "late_delivery_rate_pct": 9.76,
+      "avg_review_score": 4.13
+    },
+    {
+      "customer_state": "BA",
+      "delivered_orders": 3256,
+      "unique_customers": 3158,
+      "order_value_proxy_brl": 591270.6,
+      "item_revenue_brl": 493584.14,
+      "freight_value_brl": 97553.67,
+      "avg_order_value_brl": 181.59,
+      "avg_delivery_days": 19.34,
+      "late_delivery_rate_pct": 14.04,
+      "avg_review_score": 3.93
+    },
+    {
+      "customer_state": "DF",
+      "delivered_orders": 2080,
+      "unique_customers": 2019,
+      "order_value_proxy_brl": 346146.17,
+      "item_revenue_brl": 296498.41,
+      "freight_value_brl": 49624.94,
+      "avg_order_value_brl": 166.42,
+      "avg_delivery_days": 12.97,
+      "late_delivery_rate_pct": 7.07,
+      "avg_review_score": 4.13
+    },
+    {
+      "customer_state": "GO",
+      "delivered_orders": 1957,
+      "unique_customers": 1895,
+      "order_value_proxy_brl": 334294.22,
+      "item_revenue_brl": 282836.7,
+      "freight_value_brl": 51375.65,
+      "avg_order_value_brl": 170.82,
+      "avg_delivery_days": 15.61,
+      "late_delivery_rate_pct": 8.18,
+      "avg_review_score": 4.1
+    },
+    {
+      "customer_state": "ES",
+      "delivered_orders": 1995,
+      "unique_customers": 1928,
+      "order_value_proxy_brl": 317682.65,
+      "item_revenue_brl": 268643.45,
+      "freight_value_brl": 49014.48,
+      "avg_order_value_brl": 159.24,
+      "avg_delivery_days": 15.79,
+      "late_delivery_rate_pct": 12.23,
+      "avg_review_score": 4.08
+    }
+  ],
+  "peak_sales_month": {
+    "sales_month": "2017-11",
+    "delivered_orders": 7289,
+    "active_customers": 7183,
+    "order_value_proxy_brl": 1153528.05,
+    "item_revenue_brl": 987765.37,
+    "freight_value_brl": 165598.83,
+    "average_order_value_brl": 158.26,
+    "prev_month_order_value_brl": 751140.27,
+    "mom_growth_pct": 53.57,
+    "avg_delivery_days": 15.16,
+    "late_delivery_rate_pct": 14.31,
+    "avg_review_score": 3.99
+  }
+}

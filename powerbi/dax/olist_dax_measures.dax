@@ -1,0 +1,281 @@
+// =========================================================================
+// PROJECT: E-COMMERCE REVENUE & CUSTOMER RETENTION INTELLIGENCE
+// MODULE: POWER BI DAX MEASURES LIBRARY
+// CURRENCY: Brazilian Real (BRL — Format: "R$ #,##0.00")
+// =========================================================================
+
+// -------------------------------------------------------------------------
+// 1. REVENUE & ORDER KPI MEASURES (Rule D-1 & Rule D-2)
+// -------------------------------------------------------------------------
+
+Delivered Orders =
+CALCULATE(
+    DISTINCTCOUNT(order_level[order_id]),
+    order_level[is_delivered] = TRUE()
+)
+
+Total Orders (All Statuses) =
+DISTINCTCOUNT(order_level[order_id])
+
+Delivery Completion Rate % =
+DIVIDE([Delivered Orders], [Total Orders (All Statuses)], 0)
+
+Delivered Order Value Proxy (BRL) =
+// Approved Rule D-1: Total payment_value on delivered orders.
+// Labelled as Order Value Proxy, NOT Olist marketplace commission revenue.
+CALCULATE(
+    SUM(order_level[payment_value]),
+    order_level[is_delivered] = TRUE()
+)
+
+Delivered Item Revenue (BRL) =
+// Approved Rule D-1: SUM(price) used for product, category, and seller analysis.
+CALCULATE(
+    SUM(order_items_clean[price]),
+    order_level[is_delivered] = TRUE()
+)
+
+Delivered Freight Value (BRL) =
+CALCULATE(
+    SUM(order_items_clean[freight_value]),
+    order_level[is_delivered] = TRUE()
+)
+
+Average Order Value (BRL) =
+DIVIDE([Delivered Order Value Proxy (BRL)], [Delivered Orders], 0)
+
+Previous Month Order Value Proxy (BRL) =
+CALCULATE(
+    [Delivered Order Value Proxy (BRL)],
+    DATEADD(dim_date[date_key], -1, MONTH)
+)
+
+MoM Order Value Growth % =
+VAR CurrentVal = [Delivered Order Value Proxy (BRL)]
+VAR PrevVal = [Previous Month Order Value Proxy (BRL)]
+RETURN
+    DIVIDE(CurrentVal - PrevVal, PrevVal, BLANK())
+
+// -------------------------------------------------------------------------
+// 2. CUSTOMER ACQUISITION, RETENTION & RFM MEASURES (Rule D-5)
+// -------------------------------------------------------------------------
+
+Unique Delivered Customers =
+CALCULATE(
+    DISTINCTCOUNT(order_level[customer_unique_id]),
+    order_level[is_delivered] = TRUE()
+)
+
+Repeat Customers (D-5 Distinct Days) =
+// Approved Rule D-5: Customers with 2+ delivered orders placed on 2+ distinct purchase dates (2,015 / 2.16%).
+// Uses order_level[PurchaseDate] on the Many side because dim_date -> order_level is single-direction.
+CALCULATE(
+    COUNTROWS(
+        FILTER(
+            VALUES(order_level[customer_unique_id]),
+            CALCULATE(
+                DISTINCTCOUNT(order_level[order_id]),
+                order_level[is_delivered] = TRUE()
+            ) >= 2
+            &&
+            CALCULATE(
+                DISTINCTCOUNT(order_level[PurchaseDate]),
+                order_level[is_delivered] = TRUE()
+            ) >= 2
+        )
+    )
+)
+
+Same-Day Multi-Order Customers =
+// Customers with 2+ delivered orders placed on the exact same calendar purchase date (786 / 0.84%).
+CALCULATE(
+    COUNTROWS(
+        FILTER(
+            VALUES(order_level[customer_unique_id]),
+            CALCULATE(
+                DISTINCTCOUNT(order_level[order_id]),
+                order_level[is_delivered] = TRUE()
+            ) >= 2
+            &&
+            CALCULATE(
+                DISTINCTCOUNT(order_level[PurchaseDate]),
+                order_level[is_delivered] = TRUE()
+            ) = 1
+        )
+    )
+)
+
+Any-Day Repeat Customers (Option A) =
+// Sensitivity check: 2+ delivered orders regardless of purchase date (2,801 / 3.00% = 2,015 D-5 + 786 Same-Day).
+CALCULATE(
+    COUNTROWS(
+        FILTER(
+            VALUES(order_level[customer_unique_id]),
+            CALCULATE(
+                DISTINCTCOUNT(order_level[order_id]),
+                order_level[is_delivered] = TRUE()
+            ) >= 2
+        )
+    )
+)
+
+Repeat Customer Rate % =
+DIVIDE([Repeat Customers (D-5 Distinct Days)], [Unique Delivered Customers], 0)
+
+Same-Day Multi-Order Rate % =
+DIVIDE([Same-Day Multi-Order Customers], [Unique Delivered Customers], 0)
+
+Historical CLV Proxy per Customer (BRL) =
+DIVIDE([Delivered Order Value Proxy (BRL)], [Unique Delivered Customers], 0)
+
+RFM Customers Count =
+SUM(pbi_rfm_segments_summary[customer_count])
+
+RFM Total Order Value Proxy (BRL) =
+SUM(pbi_rfm_segments_summary[total_order_value_brl])
+
+RFM Weighted Avg Monetary (BRL) =
+DIVIDE(
+    SUM(pbi_rfm_segments_summary[total_order_value_brl]),
+    SUM(pbi_rfm_segments_summary[customer_count]),
+    0
+)
+
+CLV Weighted Avg Order Value Proxy (BRL) =
+DIVIDE(
+    SUM(pbi_customer_clv_groups[total_historical_clv_brl]),
+    SUM(pbi_customer_clv_groups[customer_count]),
+    0
+)
+
+CLV Weighted Avg Delivered Orders =
+DIVIDE(
+    SUM(pbi_customer_clv_groups[total_delivered_orders]),
+    SUM(pbi_customer_clv_groups[customer_count]),
+    0
+)
+
+Cohort Retention Rate % =
+DIVIDE(
+    SUM(pbi_cohort_retention_long[active_customers]),
+    SUM(pbi_cohort_retention_long[cohort_size]),
+    BLANK()
+)
+
+Payment Transaction Value (BRL) =
+CALCULATE(
+    SUM(payments_clean[payment_value]),
+    order_level[is_delivered] = TRUE()
+)
+
+// -------------------------------------------------------------------------
+// 3. PRODUCT, CATEGORY & SELLER MEASURES
+// -------------------------------------------------------------------------
+
+Category Item Revenue Share % =
+DIVIDE(
+    [Delivered Item Revenue (BRL)],
+    CALCULATE([Delivered Item Revenue (BRL)], ALL(products_clean[category_name_en])),
+    0
+)
+
+Active Delivered Sellers =
+CALCULATE(
+    DISTINCTCOUNT(order_items_clean[seller_id]),
+    order_level[is_delivered] = TRUE()
+)
+
+Revenue per Active Seller (BRL) =
+DIVIDE([Delivered Item Revenue (BRL)], [Active Delivered Sellers], 0)
+
+// -------------------------------------------------------------------------
+// 4. DELIVERY & CUSTOMER EXPERIENCE MEASURES (Rule D-3)
+// -------------------------------------------------------------------------
+
+Average Delivery Days =
+CALCULATE(
+    AVERAGE(order_level[delivery_days]),
+    order_level[is_delivered] = TRUE(),
+    order_level[missing_delivery_date] = FALSE()
+)
+
+Late Delivered Orders =
+CALCULATE(
+    DISTINCTCOUNT(order_level[order_id]),
+    order_level[is_delivered] = TRUE(),
+    order_level[is_late] = TRUE()
+)
+
+Delivered Orders With Delivery Date =
+CALCULATE(
+    DISTINCTCOUNT(order_level[order_id]),
+    order_level[is_delivered] = TRUE(),
+    order_level[missing_delivery_date] = FALSE()
+)
+
+Late Delivery Rate % =
+DIVIDE([Late Delivered Orders], [Delivered Orders With Delivery Date], 0)
+
+On-Time Delivery Rate % =
+1.0 - [Late Delivery Rate %]
+
+Average Review Score =
+// Rule D-3: Primary order-level review score uses the most recent review per order.
+CALCULATE(
+    AVERAGE(order_level[review_score]),
+    order_level[is_delivered] = TRUE()
+)
+
+// -------------------------------------------------------------------------
+// 5. WEIGHTED SUMMARY-MART AGGREGATION MEASURES (Prevents Unweighted Avg)
+// -------------------------------------------------------------------------
+
+Summary State Weighted Delivery Days =
+DIVIDE(
+    SUMX(pbi_state_performance, pbi_state_performance[avg_delivery_days] * pbi_state_performance[delivered_orders]),
+    SUM(pbi_state_performance[delivered_orders]),
+    0
+)
+
+Summary State Weighted Late Rate % =
+DIVIDE(
+    SUMX(pbi_state_performance, (pbi_state_performance[late_delivery_rate_pct] / 100.0) * pbi_state_performance[delivered_orders]),
+    SUM(pbi_state_performance[delivered_orders]),
+    0
+)
+
+Summary State Weighted Review Score =
+DIVIDE(
+    SUMX(pbi_state_performance, pbi_state_performance[avg_review_score] * pbi_state_performance[delivered_orders]),
+    SUM(pbi_state_performance[delivered_orders]),
+    0
+)
+
+Summary Category Weighted Review Score =
+DIVIDE(
+    SUMX(pbi_category_performance, pbi_category_performance[avg_review_score] * pbi_category_performance[delivered_orders]),
+    SUM(pbi_category_performance[delivered_orders]),
+    0
+)
+
+Summary Seller Weighted Late Rate % =
+DIVIDE(
+    SUMX(pbi_seller_performance, (pbi_seller_performance[late_delivery_rate_pct] / 100.0) * pbi_seller_performance[delivered_orders]),
+    SUM(pbi_seller_performance[delivered_orders]),
+    0
+)
+
+Summary Seller Weighted Review Score =
+DIVIDE(
+    SUMX(pbi_seller_performance, pbi_seller_performance[avg_review_score] * pbi_seller_performance[delivered_orders]),
+    SUM(pbi_seller_performance[delivered_orders]),
+    0
+)
+
+Delay Bucket Weighted Review Score =
+DIVIDE(
+    SUMX(pbi_delivery_delay_buckets, pbi_delivery_delay_buckets[avg_review_score] * pbi_delivery_delay_buckets[delivered_orders]),
+    SUM(pbi_delivery_delay_buckets[delivered_orders]),
+    0
+)
+

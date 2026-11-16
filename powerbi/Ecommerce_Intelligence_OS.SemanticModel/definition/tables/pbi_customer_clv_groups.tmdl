@@ -1,0 +1,65 @@
+table pbi_customer_clv_groups
+
+	measure 'CLV Weighted Avg Order Value Proxy (BRL)' = DIVIDE(SUM(pbi_customer_clv_groups[total_historical_clv_brl]), SUM(pbi_customer_clv_groups[customer_count]), 0)
+		formatString: "R$" #,##0.00
+		displayFolder: 02 Customer & Retention
+
+	measure 'CLV Weighted Avg Delivered Orders' = DIVIDE(SUM(pbi_customer_clv_groups[total_delivered_orders]), SUM(pbi_customer_clv_groups[customer_count]), 0)
+		formatString: 0.00
+		displayFolder: 02 Customer & Retention
+
+	column customer_behaviour_group
+		dataType: string
+		sourceColumn: customer_behaviour_group
+
+	column customer_count
+		dataType: int64
+		sourceColumn: customer_count
+
+	column customer_share_pct
+		dataType: double
+		formatString: 0.00"%"
+		sourceColumn: customer_share_pct
+
+	column total_delivered_orders
+		dataType: double
+		sourceColumn: total_delivered_orders
+
+	column avg_delivered_orders
+		dataType: double
+		sourceColumn: avg_delivered_orders
+
+	column avg_lifespan_days
+		dataType: double
+		sourceColumn: avg_lifespan_days
+
+	column total_historical_clv_brl
+		dataType: double
+		formatString: "R$" #,##0.00
+		sourceColumn: total_historical_clv_brl
+
+	column clv_share_pct
+		dataType: double
+		formatString: 0.00"%"
+		sourceColumn: clv_share_pct
+
+	column avg_historical_clv_brl
+		dataType: double
+		formatString: "R$" #,##0.00
+		sourceColumn: avg_historical_clv_brl
+
+	column avg_order_value_brl
+		dataType: double
+		formatString: "R$" #,##0.00
+		sourceColumn: avg_order_value_brl
+
+	partition pbi_customer_clv_groups = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Dell\OneDrive\Desktop\Documents\DataAnalyticsPortfolio\ecommerce-revenue-retention-intelligence\powerbi\data_exports\pbi_customer_clv_groups.csv"),[Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Promoted,{{"customer_behaviour_group", type text}, {"customer_count", Int64.Type}, {"customer_share_pct", type number}, {"total_delivered_orders", type number}, {"avg_delivered_orders", type number}, {"avg_lifespan_days", type number}, {"total_historical_clv_brl", type number}, {"clv_share_pct", type number}, {"avg_historical_clv_brl", type number}, {"avg_order_value_brl", type number}}, "en-US")
+				in
+				    Typed
+

@@ -1,0 +1,1618 @@
+{
+  "generated_at": "2026-11-16T17:14:26.856068",
+  "db_backend": "duckdb",
+  "llm_configured": false,
+  "profiler_status": "success",
+  "quality_status": "success",
+  "customer_agent_status": "success",
+  "executive_report_path": "reports\\executive_summary\\executive_business_report.md",
+  "safety_gate_block_verified": true,
+  "unsupported_scope_guard_verified": true,
+  "demo_question_responses": [
+    {
+      "question": "What is the monthly delivered revenue trend?",
+      "intent": "monthly_revenue_trend",
+      "routed_agent": "SQLAnalystAgent -> BusinessInsightAgent",
+      "sql_query": "SELECT sales_month, delivered_orders, active_customers, order_value_proxy_brl, item_revenue_brl, freight_value_brl, average_order_value_brl, mom_growth_pct, late_delivery_rate_pct, avg_review_score FROM vw_executive_monthly_kpis ORDER BY sales_month",
+      "validation": {
+        "is_safe": true,
+        "reason": "Read-only SELECT query verified against schema allow-list.",
+        "referenced_tables": [
+          "vw_executive_monthly_kpis"
+        ],
+        "normalized_sql": "SELECT sales_month, delivered_orders, active_customers, order_value_proxy_brl, item_revenue_brl, freight_value_brl, average_order_value_brl, mom_growth_pct, late_delivery_rate_pct, avg_review_score FROM vw_executive_monthly_kpis ORDER BY sales_month"
+      },
+      "row_count": 20,
+      "data_preview": [
+        {
+          "sales_month": "2017-01",
+          "delivered_orders": 750,
+          "active_customers": 718,
+          "order_value_proxy_brl": 127545.67,
+          "item_revenue_brl": 111798.36,
+          "freight_value_brl": 15684.01,
+          "average_order_value_brl": 170.06,
+          "mom_growth_pct": NaN,
+          "late_delivery_rate_pct": 3.07,
+          "avg_review_score": 4.2
+        },
+        {
+          "sales_month": "2017-02",
+          "delivered_orders": 1653,
+          "active_customers": 1630,
+          "order_value_proxy_brl": 271298.65,
+          "item_revenue_brl": 234223.4,
+          "freight_value_brl": 37015.92,
+          "average_order_value_brl": 164.13,
+          "mom_growth_pct": 112.71,
+          "late_delivery_rate_pct": 3.21,
+          "avg_review_score": 4.2
+        },
+        {
+          "sales_month": "2017-03",
+          "delivered_orders": 2546,
+          "active_customers": 2508,
+          "order_value_proxy_brl": 414369.39,
+          "item_revenue_brl": 359198.85,
+          "freight_value_brl": 55132.1,
+          "average_order_value_brl": 162.75,
+          "mom_growth_pct": 52.74,
+          "late_delivery_rate_pct": 5.58,
+          "avg_review_score": 4.19
+        },
+        {
+          "sales_month": "2017-04",
+          "delivered_orders": 2303,
+          "active_customers": 2274,
+          "order_value_proxy_brl": 390952.18,
+          "item_revenue_brl": 340669.68,
+          "freight_value_brl": 50142.72,
+          "average_order_value_brl": 169.76,
+          "mom_growth_pct": -5.65,
+          "late_delivery_rate_pct": 7.86,
+          "avg_review_score": 4.14
+        },
+        {
+          "sales_month": "2017-05",
+          "delivered_orders": 3546,
+          "active_customers": 3479,
+          "order_value_proxy_brl": 567066.73,
+          "item_revenue_brl": 489338.25,
+          "freight_value_brl": 77513.15,
+          "average_order_value_brl": 159.92,
+          "mom_growth_pct": 45.05,
+          "late_delivery_rate_pct": 3.61,
+          "avg_review_score": 4.24
+        },
+        {
+          "sales_month": "2017-06",
+          "delivered_orders": 3135,
+          "active_customers": 3076,
+          "order_value_proxy_brl": 490225.6,
+          "item_revenue_brl": 421923.37,
+          "freight_value_brl": 68127.0,
+          "average_order_value_brl": 156.37,
+          "mom_growth_pct": -13.55,
+          "late_delivery_rate_pct": 3.86,
+          "avg_review_score": 4.22
+        },
+        {
+          "sales_month": "2017-07",
+          "delivered_orders": 3872,
+          "active_customers": 3802,
+          "order_value_proxy_brl": 566403.93,
+          "item_revenue_brl": 481604.52,
+          "freight_value_brl": 84694.56,
+          "average_order_value_brl": 146.28,
+          "mom_growth_pct": 15.54,
+          "late_delivery_rate_pct": 3.43,
+          "avg_review_score": 4.26
+        },
+        {
+          "sales_month": "2017-08",
+          "delivered_orders": 4193,
+          "active_customers": 4114,
+          "order_value_proxy_brl": 646000.61,
+          "item_revenue_brl": 554699.7,
+          "freight_value_brl": 91132.66,
+          "average_order_value_brl": 154.07,
+          "mom_growth_pct": 14.05,
+          "late_delivery_rate_pct": 3.32,
+          "avg_review_score": 4.31
+        },
+        {
+          "sales_month": "2017-09",
+          "delivered_orders": 4150,
+          "active_customers": 4083,
+          "order_value_proxy_brl": 701169.99,
+          "item_revenue_brl": 607399.67,
+          "freight_value_brl": 93677.82,
+          "average_order_value_brl": 168.96,
+          "mom_growth_pct": 8.54,
+          "late_delivery_rate_pct": 5.2,
+          "avg_review_score": 4.27
+        },
+        {
+          "sales_month": "2017-10",
+          "delivered_orders": 4478,
+          "active_customers": 4417,
+          "order_value_proxy_brl": 751140.27,
+          "item_revenue_brl": 648247.65,
+          "freight_value_brl": 102869.36,
+          "average_order_value_brl": 167.74,
+          "mom_growth_pct": 7.13,
+          "late_delivery_rate_pct": 5.29,
+          "avg_review_score": 4.2
+        },
+        {
+          "sales_month": "2017-11",
+          "delivered_orders": 7289,
+          "active_customers": 7183,
+          "order_value_proxy_brl": 1153528.05,
+          "item_revenue_brl": 987765.37,
+          "freight_value_brl": 165598.83,
+          "average_order_value_brl": 158.26,
+          "mom_growth_pct": 53.57,
+          "late_delivery_rate_pct": 14.31,
+          "avg_review_score": 3.99
+        },
+        {
+          "sales_month": "2017-12",
+          "delivered_orders": 5513,
+          "active_customers": 5450,
+          "order_value_proxy_brl": 843199.17,
+          "item_revenue_brl": 726033.19,
+          "freight_value_brl": 117045.1,
+          "average_order_value_brl": 152.95,
+          "mom_growth_pct": -26.9,
+          "late_delivery_rate_pct": 8.38,
+          "avg_review_score": 4.09
+        },
+        {
+          "sales_month": "2018-01",
+          "delivered_orders": 7069,
+          "active_customers": 6974,
+          "order_value_proxy_brl": 1078606.86,
+          "item_revenue_brl": 924645.0,
+          "freight_value_brl": 153242.46,
+          "average_order_value_brl": 152.58,
+          "mom_growth_pct": 27.92,
+          "late_delivery_rate_pct": 6.56,
+          "avg_review_score": 4.11
+        },
+        {
+          "sales_month": "2018-02",
+          "delivered_orders": 6555,
+          "active_customers": 6400,
+          "order_value_proxy_brl": 966510.88,
+          "item_revenue_brl": 826437.13,
+          "freight_value_brl": 139731.28,
+          "average_order_value_brl": 147.45,
+          "mom_growth_pct": -10.39,
+          "late_delivery_rate_pct": 15.99,
+          "avg_review_score": 3.88
+        },
+        {
+          "sales_month": "2018-03",
+          "delivered_orders": 7003,
+          "active_customers": 6914,
+          "order_value_proxy_brl": 1120678.0,
+          "item_revenue_brl": 953356.25,
+          "freight_value_brl": 167241.99,
+          "average_order_value_brl": 160.03,
+          "mom_growth_pct": 15.95,
+          "late_delivery_rate_pct": 21.36,
+          "avg_review_score": 3.81
+        }
+      ],
+      "source_tables": [
+        "vw_executive_monthly_kpis",
+        "order_level"
+      ],
+      "metric_definitions": [
+        "Delivered Order Value Proxy (BRL) = SUM(payment_value) on delivered orders in Jan 2017 \u2013 Aug 2018 (Rules D-1 & D-2).",
+        "Delivered Merchandise Revenue (BRL) = SUM(price) on delivered items, tracked separately from freight_value.",
+        "Average Order Value (BRL) = Delivered Order Value Proxy / Delivered Orders."
+      ],
+      "factual_summary": "Across the 20-month primary analysis window (Jan 2017 \u2013 Aug 2018), delivered order value proxy totals R$ 15,375,875.44 (and delivered merchandise revenue totals R$ 13,181,027.13) across 96,211 delivered orders. Monthly order value expanded 7.7x from R$ 127,545.67 in 2017-01 (750 orders) to R$ 985,414.28 in 2018-08 (6,351 orders), peaking in 2017-11 (Black Friday) at R$ 1,153,528.05 (7,289 orders).",
+      "business_interpretation": "Marketplace order volume scaled rapidly throughout 2017, hit a major seasonal peak in Nov 2017 (Black Friday, which also strained logistics with a 14.31% late delivery rate), and stabilized at R$ 0.96M\u2013R$ 1.12M per month in Q1\u2013Q3 2018.",
+      "recommended_actions": [
+        "Pre-position carrier capacity ahead of Q4 promotional peaks to prevent Black Friday delivery bottlenecks.",
+        "Pair customer acquisition with 30\u201360 day retention campaigns so monthly GMV growth is compounded by repeat buyers."
+      ],
+      "limitations": [
+        "Excludes partial boundary months (Sep\u2013Dec 2016 and Sep\u2013Oct 2018) per Rule D-2. Full-dataset delivered order value proxy is R$ 15,422,461.77 (merchandise revenue R$ 13,221,498.11)."
+      ],
+      "chart_recommendation": {
+        "chart_type": "line",
+        "x_column": "sales_month",
+        "y_column": "order_value_proxy_brl",
+        "title": "Monthly Delivered Order Value Proxy (R$) \u2014 Jan 2017 to Aug 2018",
+        "rationale": "Time-series line chart tracks monthly order value trajectory and seasonality (Nov 2017 Black Friday peak)."
+      },
+      "execution_mode": "deterministic_local"
+    },
+    {
+      "question": "Why did order value decline in June 2018?",
+      "intent": "june_2018_decline_analysis",
+      "routed_agent": "SQLAnalystAgent -> BusinessInsightAgent",
+      "sql_query": "SELECT sales_month, delivered_orders, active_customers, order_value_proxy_brl, item_revenue_brl, freight_value_brl, average_order_value_brl, mom_growth_pct, avg_delivery_days, late_delivery_rate_pct, avg_review_score FROM vw_executive_monthly_kpis WHERE sales_month BETWEEN '2018-03' AND '2018-08' ORDER BY sales_month",
+      "validation": {
+        "is_safe": true,
+        "reason": "Read-only SELECT query verified against schema allow-list.",
+        "referenced_tables": [
+          "vw_executive_monthly_kpis"
+        ],
+        "normalized_sql": "SELECT sales_month, delivered_orders, active_customers, order_value_proxy_brl, item_revenue_brl, freight_value_brl, average_order_value_brl, mom_growth_pct, avg_delivery_days, late_delivery_rate_pct, avg_review_score FROM vw_executive_monthly_kpis WHERE sales_month BETWEEN '2018-03' AND '2018-08' ORDER BY sales_month"
+      },
+      "row_count": 6,
+      "data_preview": [
+        {
+          "sales_month": "2018-03",
+          "delivered_orders": 7003,
+          "active_customers": 6914,
+          "order_value_proxy_brl": 1120678.0,
+          "item_revenue_brl": 953356.25,
+          "freight_value_brl": 167241.99,
+          "average_order_value_brl": 160.03,
+          "mom_growth_pct": 15.95,
+          "avg_delivery_days": 16.3,
+          "late_delivery_rate_pct": 21.36,
+          "avg_review_score": 3.81
+        },
+        {
+          "sales_month": "2018-04",
+          "delivered_orders": 6798,
+          "active_customers": 6744,
+          "order_value_proxy_brl": 1132933.95,
+          "item_revenue_brl": 973534.09,
+          "freight_value_brl": 159344.84,
+          "average_order_value_brl": 166.66,
+          "mom_growth_pct": 1.09,
+          "avg_delivery_days": 11.5,
+          "late_delivery_rate_pct": 5.31,
+          "avg_review_score": 4.21
+        },
+        {
+          "sales_month": "2018-05",
+          "delivered_orders": 6749,
+          "active_customers": 6693,
+          "order_value_proxy_brl": 1128836.69,
+          "item_revenue_brl": 977544.69,
+          "freight_value_brl": 151229.83,
+          "average_order_value_brl": 167.26,
+          "mom_growth_pct": -0.36,
+          "avg_delivery_days": 11.42,
+          "late_delivery_rate_pct": 8.24,
+          "avg_review_score": 4.24
+        },
+        {
+          "sales_month": "2018-06",
+          "delivered_orders": 6099,
+          "active_customers": 6061,
+          "order_value_proxy_brl": 1012090.68,
+          "item_revenue_brl": 856077.86,
+          "freight_value_brl": 155900.43,
+          "average_order_value_brl": 165.94,
+          "mom_growth_pct": -10.34,
+          "avg_delivery_days": 9.24,
+          "late_delivery_rate_pct": 1.36,
+          "avg_review_score": 4.31
+        },
+        {
+          "sales_month": "2018-07",
+          "delivered_orders": 6159,
+          "active_customers": 6100,
+          "order_value_proxy_brl": 1027903.86,
+          "item_revenue_brl": 867953.46,
+          "freight_value_brl": 159853.82,
+          "average_order_value_brl": 166.89,
+          "mom_growth_pct": 1.56,
+          "avg_delivery_days": 8.96,
+          "late_delivery_rate_pct": 4.48,
+          "avg_review_score": 4.32
+        },
+        {
+          "sales_month": "2018-08",
+          "delivered_orders": 6351,
+          "active_customers": 6310,
+          "order_value_proxy_brl": 985414.28,
+          "item_revenue_brl": 838576.64,
+          "freight_value_brl": 146915.0,
+          "average_order_value_brl": 155.16,
+          "mom_growth_pct": -4.13,
+          "avg_delivery_days": 7.73,
+          "late_delivery_rate_pct": 10.39,
+          "avg_review_score": 4.31
+        }
+      ],
+      "source_tables": [
+        "vw_executive_monthly_kpis",
+        "order_level"
+      ],
+      "metric_definitions": [
+        "MoM Order Value Growth (%) = Month-over-Month % change in Delivered Order Value Proxy (payment_value, Rule D-1).",
+        "Order Volume vs AOV Decomposition = \u0394 Order Value decomposed into \u0394 Delivered Orders (-9.63% in Jun 2018) and \u0394 Mean Order Value (-0.79% in Jun 2018)."
+      ],
+      "factual_summary": "Delivered order value proxy declined by -10.34% MoM in June 2018, dropping from R$ 1,128,836.69 in May 2018 (6,749 delivered orders) to R$ 1,012,090.68 in June 2018 (6,099 delivered orders). Decomposition shows the decline was driven 93% by an order volume contraction (-9.63%, -650 delivered orders) while Mean Order Value held nearly flat (-0.79%, R$ 167.26 -> R$ 165.94).",
+      "business_interpretation": "Following the late-May 2018 nationwide Brazilian truckers' strike (which pushed May 2018 late delivery rate to 8.24% and avg transit time to 11.42 days), consumer checkout conversion dipped in June 2018 even as carrier transit times recovered to 9.24 days (1.36% late rate) and order volume rebounded to 6,159 orders (R$ 1,026,953.26) in July 2018.",
+      "recommended_actions": [
+        "Display real-time carrier SLA recovery badges at checkout after external logistics disruptions to restore buyer confidence faster.",
+        "Use temporary free-freight or installment promotions in post-disruption months to offset checkout volume dips."
+      ],
+      "limitations": [
+        "Monthly series uses purchase timestamp inside the Jan 2017 \u2013 Aug 2018 window (Rule D-2). External macro context (May 2018 Brazilian truckers' strike) explains timing alongside observed order-volume and SLA metrics."
+      ],
+      "chart_recommendation": {
+        "chart_type": "bar",
+        "x_column": "sales_month",
+        "y_column": "order_value_proxy_brl",
+        "title": "Q2\u2013Q3 2018 Monthly Order Value Proxy (R$) \u2014 June 2018 Decline Decomposition",
+        "rationale": "Highlights the -10.34% MoM decline in June 2018 following the May 2018 Brazilian logistics disruption."
+      },
+      "execution_mode": "deterministic_local"
+    },
+    {
+      "question": "Which customer segments have the highest retention risk?",
+      "intent": "rfm_segments",
+      "routed_agent": "SQLAnalystAgent -> BusinessInsightAgent",
+      "sql_query": "SELECT customer_segment, customer_count, customer_share_pct, avg_recency_days, avg_purchase_days, avg_monetary_brl, total_order_value_brl, revenue_share_pct FROM vw_rfm_segments_summary ORDER BY total_order_value_brl DESC",
+      "validation": {
+        "is_safe": true,
+        "reason": "Read-only SELECT query verified against schema allow-list.",
+        "referenced_tables": [
+          "vw_rfm_segments_summary"
+        ],
+        "normalized_sql": "SELECT customer_segment, customer_count, customer_share_pct, avg_recency_days, avg_purchase_days, avg_monetary_brl, total_order_value_brl, revenue_share_pct FROM vw_rfm_segments_summary ORDER BY total_order_value_brl DESC"
+      },
+      "row_count": 7,
+      "data_preview": [
+        {
+          "customer_segment": "Recent Customers",
+          "customer_count": 37219,
+          "customer_share_pct": 39.87,
+          "avg_recency_days": 89.85,
+          "avg_purchase_days": 1.03,
+          "avg_monetary_brl": 168.44,
+          "total_order_value_brl": 6269299.23,
+          "revenue_share_pct": 40.65
+        },
+        {
+          "customer_segment": "Lost Customers",
+          "customer_count": 37358,
+          "customer_share_pct": 40.02,
+          "avg_recency_days": 394.0,
+          "avg_purchase_days": 1.01,
+          "avg_monetary_brl": 165.11,
+          "total_order_value_brl": 6167951.88,
+          "revenue_share_pct": 39.99
+        },
+        {
+          "customer_segment": "Needs Attention",
+          "customer_count": 18272,
+          "customer_share_pct": 19.57,
+          "avg_recency_days": 219.17,
+          "avg_purchase_days": 1.0,
+          "avg_monetary_brl": 153.14,
+          "total_order_value_brl": 2798239.09,
+          "revenue_share_pct": 18.14
+        },
+        {
+          "customer_segment": "Potential Loyalists",
+          "customer_count": 449,
+          "customer_share_pct": 0.48,
+          "avg_recency_days": 197.87,
+          "avg_purchase_days": 2.2,
+          "avg_monetary_brl": 328.03,
+          "total_order_value_brl": 147286.12,
+          "revenue_share_pct": 0.96
+        },
+        {
+          "customer_segment": "Champions",
+          "customer_count": 23,
+          "customer_share_pct": 0.02,
+          "avg_recency_days": 81.3,
+          "avg_purchase_days": 5.13,
+          "avg_monetary_brl": 855.85,
+          "total_order_value_brl": 19684.5,
+          "revenue_share_pct": 0.13
+        },
+        {
+          "customer_segment": "At Risk",
+          "customer_count": 31,
+          "customer_share_pct": 0.03,
+          "avg_recency_days": 335.35,
+          "avg_purchase_days": 3.06,
+          "avg_monetary_brl": 486.06,
+          "total_order_value_brl": 15067.94,
+          "revenue_share_pct": 0.1
+        },
+        {
+          "customer_segment": "Loyal Customers",
+          "customer_count": 6,
+          "customer_share_pct": 0.01,
+          "avg_recency_days": 210.5,
+          "avg_purchase_days": 5.17,
+          "avg_monetary_brl": 822.17,
+          "total_order_value_brl": 4933.01,
+          "revenue_share_pct": 0.03
+        }
+      ],
+      "source_tables": [
+        "customer_rfm",
+        "vw_rfm_segments_summary",
+        "order_level"
+      ],
+      "metric_definitions": [
+        "Monetary (BRL) = SUM(payment_value) on delivered orders per customer_unique_id (Delivered Order Value Proxy, Rule D-1).",
+        "Frequency = COUNT(DISTINCT DATE(order_purchase_timestamp)) for delivered orders (Rule D-5).",
+        "Recency = Days from customer's last delivered purchase to dataset snapshot (2018-10-17)."
+      ],
+      "factual_summary": "Across 93,358 delivered customers (R$ 15,422,461.77 total delivered order value proxy), 'Recent Customers' generates the highest order value at R$ 6,269,299.23 (40.65% share across 37,219 customers), closely followed by 'Lost Customers' with 37,358 customers (R$ 6,167,951.88, 39.99% share). High-frequency multi-day segments ('Potential Loyalists' = 449, 'At Risk' = 31, 'Champions' = 23, 'Loyal Customers' = 6) total 509 customers (R$ 186,971.57).",
+      "business_interpretation": "Order value is heavily concentrated in one-time 'Recent Customers' (40.65% of value) and 'Lost Customers' (39.99% of value), reflecting low natural repeat frequency on the marketplace.",
+      "recommended_actions": [
+        "Trigger automated second-purchase replenishment & cross-sell incentives within 30\u201360 days for the 37,219 'Recent Customers' before they transition into 'Needs Attention'.",
+        "Deploy VIP retention perks (priority shipping / loyalty vouchers) for the 509 multi-order customers in 'Champions', 'Loyal', 'Potential Loyalists', and 'At Risk'."
+      ],
+      "limitations": [
+        "Monetary values represent Delivered Order Value Proxy (payment_value in BRL), not Olist commission revenue (Rule D-1).",
+        "Recency is measured relative to the dataset snapshot date (2018-10-17); 'Lost' and 'At Risk' are analytical RFM labels, not observed contractual churn (Rule D-6)."
+      ],
+      "chart_recommendation": {
+        "chart_type": "bar",
+        "x_column": "customer_segment",
+        "y_column": "total_order_value_brl",
+        "title": "Delivered Order Value Proxy (R$) by RFM Customer Segment",
+        "rationale": "Compares total order value proxy and customer counts across the 7 validated RFM segments."
+      },
+      "execution_mode": "deterministic_local"
+    },
+    {
+      "question": "What is the repeat purchase rate and why is it low?",
+      "intent": "repeat_purchase_rate",
+      "routed_agent": "SQLAnalystAgent -> BusinessInsightAgent",
+      "sql_query": "SELECT repeat_status_d5, COUNT(*) AS customer_count, ROUND(100.0 * COUNT(*) / NULLIF(SUM(COUNT(*)) OVER (), 0), 2) AS customer_share_pct, SUM(delivered_orders) AS total_delivered_orders, ROUND(SUM(historical_clv_brl), 2) AS total_order_value_brl, ROUND(AVG(historical_clv_brl), 2) AS avg_historical_clv_brl, ROUND(AVG(avg_order_value_brl), 2) AS avg_order_value_brl FROM vw_customer_lifecycle GROUP BY repeat_status_d5 ORDER BY customer_count DESC",
+      "validation": {
+        "is_safe": true,
+        "reason": "Read-only SELECT query verified against schema allow-list.",
+        "referenced_tables": [
+          "vw_customer_lifecycle"
+        ],
+        "normalized_sql": "SELECT repeat_status_d5, COUNT(*) AS customer_count, ROUND(100.0 * COUNT(*) / NULLIF(SUM(COUNT(*)) OVER (), 0), 2) AS customer_share_pct, SUM(delivered_orders) AS total_delivered_orders, ROUND(SUM(historical_clv_brl), 2) AS total_order_value_brl, ROUND(AVG(historical_clv_brl), 2) AS avg_historical_clv_brl, ROUND(AVG(avg_order_value_brl), 2) AS avg_order_value_brl FROM vw_customer_lifecycle GROUP BY repeat_status_d5 ORDER BY customer_count DESC"
+      },
+      "row_count": 2,
+      "data_preview": [
+        {
+          "repeat_status_d5": "One-Time Customer",
+          "customer_count": 91343,
+          "customer_share_pct": 97.84,
+          "total_delivered_orders": 92155.0,
+          "total_order_value_brl": 14776007.52,
+          "avg_historical_clv_brl": 161.76,
+          "avg_order_value_brl": 160.56
+        },
+        {
+          "repeat_status_d5": "Repeat Customer",
+          "customer_count": 2015,
+          "customer_share_pct": 2.16,
+          "total_delivered_orders": 4323.0,
+          "total_order_value_brl": 646454.25,
+          "avg_historical_clv_brl": 320.82,
+          "avg_order_value_brl": 149.09
+        }
+      ],
+      "source_tables": [
+        "vw_customer_lifecycle",
+        "order_level"
+      ],
+      "metric_definitions": [
+        "Repeat Customer (Rule D-5) = customer_unique_id with 2+ delivered orders placed on 2+ distinct calendar dates.",
+        "Historical CLV Proxy (BRL) = SUM(payment_value) across delivered orders per customer_unique_id (Order Value Proxy, not Olist commission)."
+      ],
+      "factual_summary": "Under approved Rule D-5, out of 93,358 unique delivered customers, 2,015 (2.16%) are True Repeat Customers (2+ delivered orders on 2+ distinct calendar dates), generating R$ 646,454.25 with an average historical CLV proxy of R$ 320.82 vs R$ 161.76 across the 91,343 non-D5 customers (which comprise 90,557 strictly single-order buyers at R$ 160.76 avg CLV and 786 same-day split-basket buyers at R$ 277.23 avg CLV).",
+      "business_interpretation": "True repeat customers generate 2.0x the historical order value of single-order customers (R$ 320.82 vs R$ 160.76), demonstrating that even a +1.84 percentage-point lift in repeat rate (from 2.16% to 4.00%) unlocks ~R$ 275,000+ in incremental order value.",
+      "recommended_actions": [
+        "Introduce post-delivery review-and-rebate vouchers sent 7 days after confirmed on-time delivery.",
+        "Target consumable high-repeat categories (health_beauty, bed_bath_table, sports_leisure) with 30\u201360 day replenishment reminders."
+      ],
+      "limitations": [
+        "Rule D-5 excludes 786 same-day multi-order customers (0.84%, split checkout baskets). Sensitivity Option (a) (2+ delivered orders any day) is 2,801 (3.00%), and Option (c) (all statuses) is 2,997 (3.12%).",
+        "Historical CLV proxy measures observed 2016\u20132018 buyer payments (Order Value Proxy), not net marketplace commission or a predictive forward-looking model."
+      ],
+      "chart_recommendation": {
+        "chart_type": "bar",
+        "x_column": "repeat_status_d5",
+        "y_column": "avg_historical_clv_brl",
+        "title": "Average Historical CLV Proxy (R$): True Repeat vs Non-Repeat Customers",
+        "rationale": "Contrasts the 2.0x higher historical order value of Rule D-5 repeat customers against one-time buyers."
+      },
+      "execution_mode": "deterministic_local"
+    },
+    {
+      "question": "Which product categories generate the highest revenue?",
+      "intent": "category_performance",
+      "routed_agent": "SQLAnalystAgent -> BusinessInsightAgent",
+      "sql_query": "SELECT category_name_en, category_name_pt, delivered_orders, items_sold, item_revenue_brl, freight_value_brl, avg_item_price_brl, late_delivery_rate_pct, avg_review_score FROM vw_category_performance ORDER BY item_revenue_brl DESC LIMIT 15",
+      "validation": {
+        "is_safe": true,
+        "reason": "Read-only SELECT query verified against schema allow-list.",
+        "referenced_tables": [
+          "vw_category_performance"
+        ],
+        "normalized_sql": "SELECT category_name_en, category_name_pt, delivered_orders, items_sold, item_revenue_brl, freight_value_brl, avg_item_price_brl, late_delivery_rate_pct, avg_review_score FROM vw_category_performance ORDER BY item_revenue_brl DESC LIMIT 15"
+      },
+      "row_count": 15,
+      "data_preview": [
+        {
+          "category_name_en": "health_beauty",
+          "category_name_pt": "beleza_saude",
+          "delivered_orders": 8647,
+          "items_sold": 9465,
+          "item_revenue_brl": 1233131.72,
+          "freight_value_brl": 178957.81,
+          "avg_item_price_brl": 130.28,
+          "late_delivery_rate_pct": 9.05,
+          "avg_review_score": 4.19
+        },
+        {
+          "category_name_en": "watches_gifts",
+          "category_name_pt": "relogios_presentes",
+          "delivered_orders": 5495,
+          "items_sold": 5859,
+          "item_revenue_brl": 1166176.98,
+          "freight_value_brl": 98156.14,
+          "avg_item_price_brl": 199.04,
+          "late_delivery_rate_pct": 8.28,
+          "avg_review_score": 4.07
+        },
+        {
+          "category_name_en": "bed_bath_table",
+          "category_name_pt": "cama_mesa_banho",
+          "delivered_orders": 9272,
+          "items_sold": 10953,
+          "item_revenue_brl": 1023434.76,
+          "freight_value_brl": 201774.5,
+          "avg_item_price_brl": 93.44,
+          "late_delivery_rate_pct": 8.4,
+          "avg_review_score": 3.92
+        },
+        {
+          "category_name_en": "sports_leisure",
+          "category_name_pt": "esporte_lazer",
+          "delivered_orders": 7530,
+          "items_sold": 8431,
+          "item_revenue_brl": 954852.55,
+          "freight_value_brl": 163404.36,
+          "avg_item_price_brl": 113.25,
+          "late_delivery_rate_pct": 7.41,
+          "avg_review_score": 4.17
+        },
+        {
+          "category_name_en": "computers_accessories",
+          "category_name_pt": "informatica_acessorios",
+          "delivered_orders": 6530,
+          "items_sold": 7644,
+          "item_revenue_brl": 888724.61,
+          "freight_value_brl": 143999.16,
+          "avg_item_price_brl": 116.26,
+          "late_delivery_rate_pct": 7.77,
+          "avg_review_score": 3.99
+        },
+        {
+          "category_name_en": "furniture_decor",
+          "category_name_pt": "moveis_decoracao",
+          "delivered_orders": 6307,
+          "items_sold": 8160,
+          "item_revenue_brl": 711927.69,
+          "freight_value_brl": 168402.23,
+          "avg_item_price_brl": 87.25,
+          "late_delivery_rate_pct": 8.43,
+          "avg_review_score": 3.95
+        },
+        {
+          "category_name_en": "housewares",
+          "category_name_pt": "utilidades_domesticas",
+          "delivered_orders": 5743,
+          "items_sold": 6795,
+          "item_revenue_brl": 615628.69,
+          "freight_value_brl": 142763.56,
+          "avg_item_price_brl": 90.6,
+          "late_delivery_rate_pct": 6.49,
+          "avg_review_score": 4.11
+        },
+        {
+          "category_name_en": "cool_stuff",
+          "category_name_pt": "cool_stuff",
+          "delivered_orders": 3559,
+          "items_sold": 3718,
+          "item_revenue_brl": 610204.1,
+          "freight_value_brl": 81476.79,
+          "avg_item_price_brl": 164.12,
+          "late_delivery_rate_pct": 6.75,
+          "avg_review_score": 4.2
+        },
+        {
+          "category_name_en": "auto",
+          "category_name_pt": "automotivo",
+          "delivered_orders": 3810,
+          "items_sold": 4140,
+          "item_revenue_brl": 578966.65,
+          "freight_value_brl": 90488.1,
+          "avg_item_price_brl": 139.85,
+          "late_delivery_rate_pct": 8.29,
+          "avg_review_score": 4.12
+        },
+        {
+          "category_name_en": "toys",
+          "category_name_pt": "brinquedos",
+          "delivered_orders": 3804,
+          "items_sold": 4030,
+          "item_revenue_brl": 471286.48,
+          "freight_value_brl": 75774.58,
+          "avg_item_price_brl": 116.94,
+          "late_delivery_rate_pct": 7.42,
+          "avg_review_score": 4.21
+        },
+        {
+          "category_name_en": "garden_tools",
+          "category_name_pt": "ferramentas_jardim",
+          "delivered_orders": 3448,
+          "items_sold": 4268,
+          "item_revenue_brl": 470495.28,
+          "freight_value_brl": 96650.4,
+          "avg_item_price_brl": 110.24,
+          "late_delivery_rate_pct": 7.97,
+          "avg_review_score": 4.08
+        },
+        {
+          "category_name_en": "baby",
+          "category_name_pt": "bebes",
+          "delivered_orders": 2809,
+          "items_sold": 2982,
+          "item_revenue_brl": 400421.84,
+          "freight_value_brl": 66305.81,
+          "avg_item_price_brl": 134.28,
+          "late_delivery_rate_pct": 8.79,
+          "avg_review_score": 4.08
+        },
+        {
+          "category_name_en": "perfumery",
+          "category_name_pt": "perfumaria",
+          "delivered_orders": 3086,
+          "items_sold": 3340,
+          "item_revenue_brl": 390144.65,
+          "freight_value_brl": 53026.98,
+          "avg_item_price_brl": 116.81,
+          "late_delivery_rate_pct": 7.34,
+          "avg_review_score": 4.22
+        },
+        {
+          "category_name_en": "telephony",
+          "category_name_pt": "telefonia",
+          "delivered_orders": 4093,
+          "items_sold": 4430,
+          "item_revenue_brl": 309860.23,
+          "freight_value_brl": 69342.39,
+          "avg_item_price_brl": 69.95,
+          "late_delivery_rate_pct": 8.33,
+          "avg_review_score": 3.99
+        },
+        {
+          "category_name_en": "office_furniture",
+          "category_name_pt": "moveis_escritorio",
+          "delivered_orders": 1254,
+          "items_sold": 1668,
+          "item_revenue_brl": 268154.31,
+          "freight_value_brl": 67057.05,
+          "avg_item_price_brl": 160.76,
+          "late_delivery_rate_pct": 8.93,
+          "avg_review_score": 3.51
+        }
+      ],
+      "source_tables": [
+        "vw_category_performance",
+        "order_items_clean",
+        "products_clean",
+        "order_level"
+      ],
+      "metric_definitions": [
+        "Delivered Merchandise Revenue (BRL) = SUM(price) for delivered order items (Rule D-1; distinct from Order Value Proxy).",
+        "Freight Value (BRL) = SUM(freight_value) reported separately from merchandise price."
+      ],
+      "factual_summary": "Per Rule D-1, the top 3 categories by delivered merchandise revenue (SUM(price)) are 'health_beauty' (R$ 1,233,131.72 across 8,647 orders), 'watches_gifts' (R$ 1,166,176.98, 5,495 orders), and 'bed_bath_table' (R$ 1,023,434.76, 9,272 orders). The top 5 categories combined generate R$ 5,266,320.62 (39.83% of all R$ 13,221,498.11 delivered merchandise revenue).",
+      "business_interpretation": "Merchandise sales follow a strong Pareto distribution: the top 5 of 74 categories account for nearly 40% of item sales, while 'watches_gifts' commands a high average item price (R$ 199.04) and 'bed_bath_table' leads in unit volume (10,953 items).",
+      "recommended_actions": [
+        "Prioritize inventory depth, sponsored search placement, and fast-shipping badges in the top 5 core categories.",
+        "Audit 'office_furniture' (late rate 8.88%, avg review 3.52) where heavy-freight logistics hurt buyer satisfaction."
+      ],
+      "limitations": [
+        "Per Rule D-1, category merchandise revenue strictly uses item price (SUM(price) = R$ 13,221,498.11 across delivered items) and excludes freight_value (R$ 2,198,275.64) and buyer payment interest."
+      ],
+      "chart_recommendation": {
+        "chart_type": "bar",
+        "x_column": "category_name_en",
+        "y_column": "item_revenue_brl",
+        "title": "Top 15 Product Categories by Delivered Merchandise Revenue \u2014 SUM(price) (R$)",
+        "rationale": "Ranks top revenue-generating product categories by merchandise item price."
+      },
+      "execution_mode": "deterministic_local"
+    },
+    {
+      "question": "How much revenue is concentrated among top sellers?",
+      "intent": "seller_performance",
+      "routed_agent": "SQLAnalystAgent -> BusinessInsightAgent",
+      "sql_query": "SELECT seller_id, seller_state, seller_city, delivered_orders, items_sold, item_revenue_brl, freight_value_brl, late_delivery_rate_pct, avg_review_score FROM vw_seller_performance ORDER BY item_revenue_brl DESC LIMIT 20",
+      "validation": {
+        "is_safe": true,
+        "reason": "Read-only SELECT query verified against schema allow-list.",
+        "referenced_tables": [
+          "vw_seller_performance"
+        ],
+        "normalized_sql": "SELECT seller_id, seller_state, seller_city, delivered_orders, items_sold, item_revenue_brl, freight_value_brl, late_delivery_rate_pct, avg_review_score FROM vw_seller_performance ORDER BY item_revenue_brl DESC LIMIT 20"
+      },
+      "row_count": 20,
+      "data_preview": [
+        {
+          "seller_id": "4869f7a5dfa277a7dca6462dcf3b52b2",
+          "seller_state": "SP",
+          "seller_city": "guariba",
+          "delivered_orders": 1124,
+          "items_sold": 1148,
+          "item_revenue_brl": 226987.93,
+          "freight_value_brl": 20019.13,
+          "late_delivery_rate_pct": 11.59,
+          "avg_review_score": 4.14
+        },
+        {
+          "seller_id": "53243585a1d6dc2643021fd1853d8905",
+          "seller_state": "BA",
+          "seller_city": "lauro de freitas",
+          "delivered_orders": 348,
+          "items_sold": 400,
+          "item_revenue_brl": 217940.44,
+          "freight_value_brl": 12856.58,
+          "late_delivery_rate_pct": 4.0,
+          "avg_review_score": 4.13
+        },
+        {
+          "seller_id": "4a3ca9315b744ce9f8e9374361493884",
+          "seller_state": "SP",
+          "seller_city": "ibitinga",
+          "delivered_orders": 1772,
+          "items_sold": 1949,
+          "item_revenue_brl": 196882.12,
+          "freight_value_brl": 34338.31,
+          "late_delivery_rate_pct": 10.98,
+          "avg_review_score": 3.83
+        },
+        {
+          "seller_id": "fa1c13f2614d7b5c4749cbc52fecda94",
+          "seller_state": "SP",
+          "seller_city": "sumare",
+          "delivered_orders": 578,
+          "items_sold": 579,
+          "item_revenue_brl": 190917.14,
+          "freight_value_brl": 9916.36,
+          "late_delivery_rate_pct": 10.19,
+          "avg_review_score": 4.37
+        },
+        {
+          "seller_id": "7c67e1448b00f6e969d365cea6b010ab",
+          "seller_state": "SP",
+          "seller_city": "itaquaquecetuba",
+          "delivered_orders": 973,
+          "items_sold": 1355,
+          "item_revenue_brl": 186570.05,
+          "freight_value_brl": 51236.64,
+          "late_delivery_rate_pct": 9.59,
+          "avg_review_score": 3.35
+        },
+        {
+          "seller_id": "7e93a43ef30c4f03f38b393420bc753a",
+          "seller_state": "SP",
+          "seller_city": "barueri",
+          "delivered_orders": 319,
+          "items_sold": 322,
+          "item_revenue_brl": 165981.49,
+          "freight_value_brl": 5992.06,
+          "late_delivery_rate_pct": 5.59,
+          "avg_review_score": 4.36
+        },
+        {
+          "seller_id": "da8622b14eb17ae2831f4ac5b9dab84a",
+          "seller_state": "SP",
+          "seller_city": "piracicaba",
+          "delivered_orders": 1311,
+          "items_sold": 1548,
+          "item_revenue_brl": 159816.87,
+          "freight_value_brl": 24889.91,
+          "late_delivery_rate_pct": 7.3,
+          "avg_review_score": 4.07
+        },
+        {
+          "seller_id": "7a67c85e85bb2ce8582c35f2203ad736",
+          "seller_state": "SP",
+          "seller_city": "sao paulo",
+          "delivered_orders": 1145,
+          "items_sold": 1155,
+          "item_revenue_brl": 139658.69,
+          "freight_value_brl": 20619.83,
+          "late_delivery_rate_pct": 5.89,
+          "avg_review_score": 4.27
+        },
+        {
+          "seller_id": "1025f0e2d44d7041d6cf58b6550e0bfa",
+          "seller_state": "SP",
+          "seller_city": "sao paulo",
+          "delivered_orders": 910,
+          "items_sold": 1420,
+          "item_revenue_brl": 138208.56,
+          "freight_value_brl": 33716.4,
+          "late_delivery_rate_pct": 9.23,
+          "avg_review_score": 3.86
+        },
+        {
+          "seller_id": "955fee9216a65b617aa5c0531780ce60",
+          "seller_state": "SP",
+          "seller_city": "sao paulo",
+          "delivered_orders": 1261,
+          "items_sold": 1472,
+          "item_revenue_brl": 131836.71,
+          "freight_value_brl": 24769.77,
+          "late_delivery_rate_pct": 8.08,
+          "avg_review_score": 4.09
+        },
+        {
+          "seller_id": "46dc3b2cc0980fb8ec44634e21d2718e",
+          "seller_state": "RJ",
+          "seller_city": "rio de janeiro",
+          "delivered_orders": 503,
+          "items_sold": 523,
+          "item_revenue_brl": 122811.38,
+          "freight_value_brl": 11351.5,
+          "late_delivery_rate_pct": 6.31,
+          "avg_review_score": 4.26
+        },
+        {
+          "seller_id": "6560211a19b47992c3666cc44a7e94c0",
+          "seller_state": "SP",
+          "seller_city": "sao paulo",
+          "delivered_orders": 1819,
+          "items_sold": 1996,
+          "item_revenue_brl": 120702.83,
+          "freight_value_brl": 27348.11,
+          "late_delivery_rate_pct": 6.21,
+          "avg_review_score": 3.95
+        },
+        {
+          "seller_id": "620c87c171fb2a6dd6e8bb4dec959fc6",
+          "seller_state": "RJ",
+          "seller_city": "petropolis",
+          "delivered_orders": 722,
+          "items_sold": 778,
+          "item_revenue_brl": 112461.5,
+          "freight_value_brl": 13816.68,
+          "late_delivery_rate_pct": 9.51,
+          "avg_review_score": 4.27
+        },
+        {
+          "seller_id": "7d13fca15225358621be4086e1eb0964",
+          "seller_state": "SP",
+          "seller_city": "ribeirao preto",
+          "delivered_orders": 558,
+          "items_sold": 571,
+          "item_revenue_brl": 112436.18,
+          "freight_value_brl": 8498.29,
+          "late_delivery_rate_pct": 11.91,
+          "avg_review_score": 4.02
+        },
+        {
+          "seller_id": "5dceca129747e92ff8ef7a997dc4f8ca",
+          "seller_state": "SP",
+          "seller_city": "santa barbara d oeste",
+          "delivered_orders": 322,
+          "items_sold": 343,
+          "item_revenue_brl": 111126.73,
+          "freight_value_brl": 13576.19,
+          "late_delivery_rate_pct": 5.83,
+          "avg_review_score": 4.02
+        }
+      ],
+      "source_tables": [
+        "vw_seller_performance",
+        "order_items_clean",
+        "sellers_clean",
+        "order_level"
+      ],
+      "metric_definitions": [
+        "Seller Merchandise Revenue (BRL) = SUM(price) across delivered items fulfilled by the seller (Rule D-1; excludes freight and buyer installment interest)."
+      ],
+      "factual_summary": "Across 2,970 active sellers with delivered orders (R$ 13,221,498.11 total merchandise revenue), the top 10% (297 sellers, Decile 1) account for 67.11% (R$ 8,873,076.37) of merchandise sales, and the top 20% (594 sellers, Deciles 1\u20132) account for 82.29% (R$ 10,879,659.64). The top 20 individual sellers alone generate R$ 2,813,946.82 (21.28%), led by seller 4869f7a5... (SP) with R$ 226,987.93 across 1,124 delivered orders (late rate 11.59%, review score 4.14).",
+      "business_interpretation": "Marketplace merchandise supply is highly concentrated in the top decile of sellers, creating both key-account leverage and seller retention risk.",
+      "recommended_actions": [
+        "Assign dedicated key-account management and SLA monitoring to top-decile sellers (top 297 merchants generating R$ 8.87M).",
+        "Enforce packaging and dispatch SLA audits on high-volume sellers with late rates above the 8.11% platform average."
+      ],
+      "limitations": [
+        "Per Rule D-1, seller performance strictly uses delivered merchandise price (SUM(price)) and excludes shipping freight and buyer installment interest."
+      ],
+      "chart_recommendation": {
+        "chart_type": "bar",
+        "x_column": "seller_id",
+        "y_column": "item_revenue_brl",
+        "title": "Top 20 Sellers by Delivered Merchandise Revenue \u2014 SUM(price) (R$)",
+        "rationale": "Ranks top marketplace sellers by merchandise revenue alongside delivery SLA and review ratings."
+      },
+      "execution_mode": "deterministic_local"
+    },
+    {
+      "question": "How do delivery delays affect customer review scores?",
+      "intent": "delivery_vs_reviews",
+      "routed_agent": "SQLAnalystAgent -> BusinessInsightAgent",
+      "sql_query": "WITH delay_classified AS (  SELECT order_id, payment_value, delivery_days, is_late, review_score,   DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) AS delay_calendar_days,   CASE     WHEN DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) <= -8 THEN '1. Early (8+ days early)'     WHEN DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) BETWEEN -7 AND -1 THEN '2. Early (1-7 days early)'     WHEN DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) = 0 THEN '3. On Estimated Date (0 days)'     WHEN DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) BETWEEN 1 AND 3 THEN '4. Slightly Late (1-3 days)'     WHEN DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) BETWEEN 4 AND 7 THEN '5. Moderately Late (4-7 days)'     ELSE '6. Severely Late (8+ days)'   END AS delivery_timing_bucket   FROM order_level   WHERE is_delivered = 1 AND missing_delivery_date = 0 AND order_estimated_delivery_date IS NOT NULL) SELECT delivery_timing_bucket, COUNT(*) AS delivered_orders, ROUND(100.0 * COUNT(*) / NULLIF(SUM(COUNT(*)) OVER (), 0), 2) AS order_share_pct, ROUND(SUM(payment_value), 2) AS order_value_proxy_brl, ROUND(AVG(delivery_days), 2) AS avg_actual_delivery_days, ROUND(AVG(review_score), 2) AS avg_review_score, ROUND(100.0 * SUM(CASE WHEN review_score = 1 THEN 1 ELSE 0 END) / NULLIF(COUNT(review_score), 0), 2) AS one_star_share_pct, ROUND(100.0 * SUM(CASE WHEN review_score = 5 THEN 1 ELSE 0 END) / NULLIF(COUNT(review_score), 0), 2) AS five_star_share_pct FROM delay_classified GROUP BY delivery_timing_bucket ORDER BY delivery_timing_bucket",
+      "validation": {
+        "is_safe": true,
+        "reason": "Read-only SELECT query verified against schema allow-list.",
+        "referenced_tables": [
+          "order_level"
+        ],
+        "normalized_sql": "WITH delay_classified AS (  SELECT order_id, payment_value, delivery_days, is_late, review_score,   DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) AS delay_calendar_days,   CASE     WHEN DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) <= -8 THEN '1. Early (8+ days early)'     WHEN DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) BETWEEN -7 AND -1 THEN '2. Early (1-7 days early)'     WHEN DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) = 0 THEN '3. On Estimated Date (0 days)'     WHEN DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) BETWEEN 1 AND 3 THEN '4. Slightly Late (1-3 days)'     WHEN DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) BETWEEN 4 AND 7 THEN '5. Moderately Late (4-7 days)'     ELSE '6. Severely Late (8+ days)'   END AS delivery_timing_bucket   FROM order_level   WHERE is_delivered = 1 AND missing_delivery_date = 0 AND order_estimated_delivery_date IS NOT NULL) SELECT delivery_timing_bucket, COUNT(*) AS delivered_orders, ROUND(100.0 * COUNT(*) / NULLIF(SUM(COUNT(*)) OVER (), 0), 2) AS order_share_pct, ROUND(SUM(payment_value), 2) AS order_value_proxy_brl, ROUND(AVG(delivery_days), 2) AS avg_actual_delivery_days, ROUND(AVG(review_score), 2) AS avg_review_score, ROUND(100.0 * SUM(CASE WHEN review_score = 1 THEN 1 ELSE 0 END) / NULLIF(COUNT(review_score), 0), 2) AS one_star_share_pct, ROUND(100.0 * SUM(CASE WHEN review_score = 5 THEN 1 ELSE 0 END) / NULLIF(COUNT(review_score), 0), 2) AS five_star_share_pct FROM delay_classified GROUP BY delivery_timing_bucket ORDER BY delivery_timing_bucket"
+      },
+      "row_count": 6,
+      "data_preview": [
+        {
+          "delivery_timing_bucket": "1. Early (8+ days early)",
+          "delivered_orders": 71303,
+          "order_share_pct": 73.91,
+          "order_value_proxy_brl": 11487545.15,
+          "avg_actual_delivery_days": 10.23,
+          "avg_review_score": 4.32,
+          "one_star_share_pct": 6.47,
+          "five_star_share_pct": 63.63
+        },
+        {
+          "delivery_timing_bucket": "2. Early (1-7 days early)",
+          "delivered_orders": 17341,
+          "order_share_pct": 17.98,
+          "order_value_proxy_brl": 2581890.91,
+          "avg_actual_delivery_days": 13.59,
+          "avg_review_score": 4.2,
+          "one_star_share_pct": 7.08,
+          "five_star_share_pct": 57.47
+        },
+        {
+          "delivery_timing_bucket": "3. On Estimated Date (0 days)",
+          "delivered_orders": 1292,
+          "order_share_pct": 1.34,
+          "order_value_proxy_brl": 200781.13,
+          "avg_actual_delivery_days": 19.22,
+          "avg_review_score": 4.03,
+          "one_star_share_pct": 8.52,
+          "five_star_share_pct": 50.63
+        },
+        {
+          "delivery_timing_bucket": "4. Slightly Late (1-3 days)",
+          "delivered_orders": 1870,
+          "order_share_pct": 1.94,
+          "order_value_proxy_brl": 294983.92,
+          "avg_actual_delivery_days": 23.31,
+          "avg_review_score": 3.29,
+          "one_star_share_pct": 25.11,
+          "five_star_share_pct": 33.15
+        },
+        {
+          "delivery_timing_bucket": "5. Moderately Late (4-7 days)",
+          "delivered_orders": 1802,
+          "order_share_pct": 1.87,
+          "order_value_proxy_brl": 332635.24,
+          "avg_actual_delivery_days": 28.23,
+          "avg_review_score": 2.1,
+          "one_star_share_pct": 58.58,
+          "five_star_share_pct": 14.13
+        },
+        {
+          "delivery_timing_bucket": "6. Severely Late (8+ days)",
+          "delivered_orders": 2862,
+          "order_share_pct": 2.97,
+          "order_value_proxy_brl": 523246.5,
+          "avg_actual_delivery_days": 44.5,
+          "avg_review_score": 1.7,
+          "one_star_share_pct": 69.87,
+          "five_star_share_pct": 7.01
+        }
+      ],
+      "source_tables": [
+        "order_level",
+        "order_review_summary"
+      ],
+      "metric_definitions": [
+        "Primary Review Score (Rule D-3) = Score (1\u20135) from the most recent review per order.",
+        "Late Delivery = order_delivered_customer_date > order_estimated_delivery_date (is_late = 1).",
+        "1-Star Share (%) = % of reviewed delivered orders in the bucket receiving a 1-star rating."
+      ],
+      "factual_summary": "Yes \u2014 late delivery is strongly and significantly associated with lower review scores (Mann-Whitney U p < 0.0001, Welch's t = 96.49). Orders delivered 8+ days early (71,303 orders) average 4.32 / 5.00 stars (6.47% 1-star rate), whereas orders 1\u20133 days late (1,870 orders) drop to 3.29 stars (25.11% 1-star rate), and orders 8+ days late (2,862 orders) plunge to 1.70 stars with 69.87% 1-star reviews. Overall, on-time delivered orders (91.89%) average 4.29 stars vs 2.57 stars for late orders (8.11%, -1.72 star drop).",
+      "business_interpretation": "Missing the estimated delivery date is the single largest operational driver of 1-star reviews on the marketplace: the 1-star review rate jumps more than 5x from 8.94% on-time to 46.46% late (and nearly 70% when delayed 8+ days).",
+      "recommended_actions": [
+        "Recalibrate Estimated Delivery Date (EDD) buffers on high-delay corridors (RJ and Northeast states) and trigger proactive delay notifications before the promised date expires.",
+        "Cutting the 8.11% late delivery rate in half (~3,913 orders) would prevent an estimated ~1,468 1-star reviews and lift overall marketplace rating from 4.15 to 4.22 stars."
+      ],
+      "limitations": [
+        "Primary review score uses the most recent review per order (Rule D-3). Association is observational across 95,824 reviewed delivered orders with valid delivery timestamps."
+      ],
+      "chart_recommendation": {
+        "chart_type": "bar",
+        "x_column": "delivery_timing_bucket",
+        "y_column": "avg_review_score",
+        "title": "Average Customer Review Score (1\u20135) by Delivery Timing Bucket",
+        "rationale": "Illustrates the steep drop in review scores once delivery crosses the estimated date."
+      },
+      "execution_mode": "deterministic_local"
+    },
+    {
+      "question": "What business actions should management consider?",
+      "intent": "executive_decision_actions",
+      "routed_agent": "SQLAnalystAgent -> BusinessInsightAgent",
+      "sql_query": "SELECT customer_segment, customer_count, customer_share_pct, avg_recency_days, avg_purchase_days, avg_monetary_brl, total_order_value_brl, revenue_share_pct FROM vw_rfm_segments_summary ORDER BY total_order_value_brl DESC",
+      "validation": {
+        "is_safe": true,
+        "reason": "Read-only SELECT query verified against schema allow-list.",
+        "referenced_tables": [
+          "vw_rfm_segments_summary"
+        ],
+        "normalized_sql": "SELECT customer_segment, customer_count, customer_share_pct, avg_recency_days, avg_purchase_days, avg_monetary_brl, total_order_value_brl, revenue_share_pct FROM vw_rfm_segments_summary ORDER BY total_order_value_brl DESC"
+      },
+      "row_count": 7,
+      "data_preview": [
+        {
+          "customer_segment": "Recent Customers",
+          "customer_count": 37219,
+          "customer_share_pct": 39.87,
+          "avg_recency_days": 89.85,
+          "avg_purchase_days": 1.03,
+          "avg_monetary_brl": 168.44,
+          "total_order_value_brl": 6269299.23,
+          "revenue_share_pct": 40.65
+        },
+        {
+          "customer_segment": "Lost Customers",
+          "customer_count": 37358,
+          "customer_share_pct": 40.02,
+          "avg_recency_days": 394.0,
+          "avg_purchase_days": 1.01,
+          "avg_monetary_brl": 165.11,
+          "total_order_value_brl": 6167951.88,
+          "revenue_share_pct": 39.99
+        },
+        {
+          "customer_segment": "Needs Attention",
+          "customer_count": 18272,
+          "customer_share_pct": 19.57,
+          "avg_recency_days": 219.17,
+          "avg_purchase_days": 1.0,
+          "avg_monetary_brl": 153.14,
+          "total_order_value_brl": 2798239.09,
+          "revenue_share_pct": 18.14
+        },
+        {
+          "customer_segment": "Potential Loyalists",
+          "customer_count": 449,
+          "customer_share_pct": 0.48,
+          "avg_recency_days": 197.87,
+          "avg_purchase_days": 2.2,
+          "avg_monetary_brl": 328.03,
+          "total_order_value_brl": 147286.12,
+          "revenue_share_pct": 0.96
+        },
+        {
+          "customer_segment": "Champions",
+          "customer_count": 23,
+          "customer_share_pct": 0.02,
+          "avg_recency_days": 81.3,
+          "avg_purchase_days": 5.13,
+          "avg_monetary_brl": 855.85,
+          "total_order_value_brl": 19684.5,
+          "revenue_share_pct": 0.13
+        },
+        {
+          "customer_segment": "At Risk",
+          "customer_count": 31,
+          "customer_share_pct": 0.03,
+          "avg_recency_days": 335.35,
+          "avg_purchase_days": 3.06,
+          "avg_monetary_brl": 486.06,
+          "total_order_value_brl": 15067.94,
+          "revenue_share_pct": 0.1
+        },
+        {
+          "customer_segment": "Loyal Customers",
+          "customer_count": 6,
+          "customer_share_pct": 0.01,
+          "avg_recency_days": 210.5,
+          "avg_purchase_days": 5.17,
+          "avg_monetary_brl": 822.17,
+          "total_order_value_brl": 4933.01,
+          "revenue_share_pct": 0.03
+        }
+      ],
+      "source_tables": [
+        "vw_rfm_segments_summary",
+        "vw_delivery_and_reviews_by_state",
+        "vw_seller_performance",
+        "vw_category_performance"
+      ],
+      "metric_definitions": [
+        "Decision Pillar 1 (Retention): 37,219 'Recent Customers' (R$ 6,269,299.23) + 18,272 'Needs Attention' (R$ 2,798,239.09).",
+        "Decision Pillar 2 (Logistics SLA): 8.11% late delivery rate causing a -1.73 star drop (4.29 vs 2.57 stars).",
+        "Decision Pillar 3 (Seller Concentration): Top 10% of sellers (297 merchants) generate 67.11% (R$ 8,873,076.37) of item revenue."
+      ],
+      "factual_summary": "Management actions are anchored in 4 verified empirical findings across the 96,478 delivered orders (R$ 15,422,461.77 order value proxy): (1) Retention: 37,219 'Recent Customers' (R$ 6,269,299.23) and 18,272 'Needs Attention' customers (R$ 2,798,239.09) face >97% single-order attrition (2.16% D-5 repeat rate); (2) Logistics SLA: 8.11% late deliveries trigger a -1.73 star review collapse (4.29 -> 2.57 stars, p < 0.0001), concentrated in RJ (13.47% late) and BA (14.04% late); (3) Seller Concentration: Top 10% of sellers (297 merchants) generate 67.11% (R$ 8,873,076.37) of item revenue; (4) Category Merchandising: Top 5 categories generate 39.83% (R$ 5,266,253.78) of merchandise revenue.",
+      "business_interpretation": "Combining second-order retention automation with corridor-specific EDD recalibration and top-decile seller SLA governance addresses the highest-leverage revenue and satisfaction bottlenecks.",
+      "recommended_actions": [
+        "Action 1 (CRM & Retention): Launch 30-to-45 day post-delivery replenishment vouchers targeting 37,219 'Recent Customers' in health_beauty, bed_bath_table, and watches_gifts (Target: lift D-5 repeat rate from 2.16% to 3.50%\u20134.00%, +R$ 200K\u2013R$ 275K order value proxy).",
+        "Action 2 (Logistics & EDD Recalibration): Add +2 to +3 business day EDD buffers on interstate SP->RJ and SP->Northeast routes and send proactive delay alerts (Target: cut 8.11% late rate to <4.5%, preventing ~1,400+ 1-star reviews).",
+        "Action 3 (Key-Account Seller Governance): Establish dedicated account management and dispatch SLA gates for the 297 Decile-1 sellers representing R$ 8.87M (67.11%) of item sales.",
+        "Action 4 (Regional Fulfillment Expansion): Recruit local 3PL/seller inventory in RJ, BA, and PE to reduce average interstate freight ratios (currently 20%\u201329% in North/Northeast vs 12% in SP)."
+      ],
+      "limitations": [
+        "Expected impact ranges are scenario estimates derived from historical AOV (R$ 159.86) and observed review-score deltas (-1.73 stars), not causal randomized experiments."
+      ],
+      "chart_recommendation": {
+        "chart_type": "bar",
+        "x_column": "customer_segment",
+        "y_column": "total_order_value_brl",
+        "title": "Targetable Order Value Pool (R$) by Customer Segment for Management Action",
+        "rationale": "Quantifies the revenue pool at stake across retention and reactivation management initiatives."
+      },
+      "execution_mode": "deterministic_local"
+    },
+    {
+      "question": "Which cohorts have the weakest retention?",
+      "intent": "cohort_retention",
+      "routed_agent": "SQLAnalystAgent -> BusinessInsightAgent",
+      "sql_query": "WITH delivered_window AS (  SELECT customer_unique_id,   DATE_FORMAT(order_purchase_timestamp, '%Y-%m') AS order_month,   (YEAR(order_purchase_timestamp) * 12 + MONTH(order_purchase_timestamp)) AS ym_num   FROM order_level   WHERE is_delivered = 1 AND in_analysis_window = 1 AND customer_unique_id IS NOT NULL), customer_cohort AS (  SELECT customer_unique_id, MIN(order_month) AS cohort_month, MIN(ym_num) AS cohort_num   FROM delivered_window GROUP BY customer_unique_id), cohort_sizes AS (  SELECT cohort_month, COUNT(DISTINCT customer_unique_id) AS cohort_size   FROM customer_cohort GROUP BY cohort_month), m1_activity AS (  SELECT c.cohort_month, COUNT(DISTINCT d.customer_unique_id) AS m1_customers   FROM delivered_window d INNER JOIN customer_cohort c   ON d.customer_unique_id = c.customer_unique_id   WHERE (d.ym_num - c.cohort_num) = 1 GROUP BY c.cohort_month) SELECT s.cohort_month, s.cohort_size, COALESCE(m.m1_customers, 0) AS m1_returning_customers, ROUND(100.0 * COALESCE(m.m1_customers, 0) / s.cohort_size, 3) AS m1_retention_rate_pct FROM cohort_sizes s LEFT JOIN m1_activity m ON s.cohort_month = m.cohort_month WHERE s.cohort_month < '2018-08' ORDER BY m1_retention_rate_pct ASC",
+      "validation": {
+        "is_safe": true,
+        "reason": "Read-only SELECT query verified against schema allow-list.",
+        "referenced_tables": [
+          "order_level"
+        ],
+        "normalized_sql": "WITH delivered_window AS (  SELECT customer_unique_id,   DATE_FORMAT(order_purchase_timestamp, '%Y-%m') AS order_month,   (YEAR(order_purchase_timestamp) * 12 + MONTH(order_purchase_timestamp)) AS ym_num   FROM order_level   WHERE is_delivered = 1 AND in_analysis_window = 1 AND customer_unique_id IS NOT NULL), customer_cohort AS (  SELECT customer_unique_id, MIN(order_month) AS cohort_month, MIN(ym_num) AS cohort_num   FROM delivered_window GROUP BY customer_unique_id), cohort_sizes AS (  SELECT cohort_month, COUNT(DISTINCT customer_unique_id) AS cohort_size   FROM customer_cohort GROUP BY cohort_month), m1_activity AS (  SELECT c.cohort_month, COUNT(DISTINCT d.customer_unique_id) AS m1_customers   FROM delivered_window d INNER JOIN customer_cohort c   ON d.customer_unique_id = c.customer_unique_id   WHERE (d.ym_num - c.cohort_num) = 1 GROUP BY c.cohort_month) SELECT s.cohort_month, s.cohort_size, COALESCE(m.m1_customers, 0) AS m1_returning_customers, ROUND(100.0 * COALESCE(m.m1_customers, 0) / s.cohort_size, 3) AS m1_retention_rate_pct FROM cohort_sizes s LEFT JOIN m1_activity m ON s.cohort_month = m.cohort_month WHERE s.cohort_month < '2018-08' ORDER BY m1_retention_rate_pct ASC"
+      },
+      "row_count": 19,
+      "data_preview": [
+        {
+          "cohort_month": "2017-02",
+          "cohort_size": 1628,
+          "m1_returning_customers": 3,
+          "m1_retention_rate_pct": 0.184
+        },
+        {
+          "cohort_month": "2017-12",
+          "cohort_size": 5338,
+          "m1_returning_customers": 11,
+          "m1_retention_rate_pct": 0.206
+        },
+        {
+          "cohort_month": "2017-01",
+          "cohort_size": 718,
+          "m1_returning_customers": 2,
+          "m1_retention_rate_pct": 0.279
+        },
+        {
+          "cohort_month": "2018-01",
+          "cohort_size": 6843,
+          "m1_returning_customers": 23,
+          "m1_retention_rate_pct": 0.336
+        },
+        {
+          "cohort_month": "2018-02",
+          "cohort_size": 6288,
+          "m1_returning_customers": 22,
+          "m1_retention_rate_pct": 0.35
+        },
+        {
+          "cohort_month": "2018-03",
+          "cohort_size": 6775,
+          "m1_returning_customers": 27,
+          "m1_retention_rate_pct": 0.399
+        },
+        {
+          "cohort_month": "2018-06",
+          "cohort_size": 5879,
+          "m1_returning_customers": 25,
+          "m1_retention_rate_pct": 0.425
+        },
+        {
+          "cohort_month": "2017-03",
+          "cohort_size": 2503,
+          "m1_returning_customers": 11,
+          "m1_retention_rate_pct": 0.439
+        },
+        {
+          "cohort_month": "2017-05",
+          "cohort_size": 3451,
+          "m1_returning_customers": 16,
+          "m1_retention_rate_pct": 0.464
+        },
+        {
+          "cohort_month": "2017-06",
+          "cohort_size": 3037,
+          "m1_returning_customers": 15,
+          "m1_retention_rate_pct": 0.494
+        },
+        {
+          "cohort_month": "2018-07",
+          "cohort_size": 5949,
+          "m1_returning_customers": 31,
+          "m1_retention_rate_pct": 0.521
+        },
+        {
+          "cohort_month": "2018-05",
+          "cohort_size": 6508,
+          "m1_returning_customers": 34,
+          "m1_retention_rate_pct": 0.522
+        },
+        {
+          "cohort_month": "2017-07",
+          "cohort_size": 3753,
+          "m1_returning_customers": 20,
+          "m1_retention_rate_pct": 0.533
+        },
+        {
+          "cohort_month": "2017-11",
+          "cohort_size": 7061,
+          "m1_returning_customers": 40,
+          "m1_retention_rate_pct": 0.566
+        },
+        {
+          "cohort_month": "2018-04",
+          "cohort_size": 6582,
+          "m1_returning_customers": 39,
+          "m1_retention_rate_pct": 0.593
+        }
+      ],
+      "source_tables": [
+        "order_level"
+      ],
+      "metric_definitions": [
+        "Cohort Month = YYYY-MM of customer_unique_id's first delivered purchase inside Jan 2017 \u2013 Aug 2018 (Rule D-2).",
+        "M+1 Retention Rate (%) = % of cohort customers placing a delivered order in the immediately following calendar month."
+      ],
+      "factual_summary": "Across the 19 acquisition cohorts with complete M+1 observation (2017-01 to 2018-07), M+1 repeat retention ranges from a low of 0.184% in cohort 2017-02 (3 of 1,628 customers) to a high of 0.716% in cohort 2017-10 (31 of 4,328 customers).",
+      "business_interpretation": "Consistently sub-1% month-1 retention across all cohorts confirms a structural post-first-purchase drop-off rather than an isolated seasonal anomaly, with December 2017 holiday gift buyers showing weak M+1 return (0.206%).",
+      "recommended_actions": [
+        "Build dedicated post-holiday January win-back campaigns for Q4 gift-season cohorts (Nov\u2013Dec).",
+        "Onboard first-time marketplace buyers into a unified Olist loyalty wallet so subsequent purchases across different sellers earn cumulative rewards."
+      ],
+      "limitations": [
+        "Analysis window covers Jan 2017 \u2013 Aug 2018 (Rule D-2); later cohorts in 2018 are right-censored at higher month indices."
+      ],
+      "chart_recommendation": {
+        "chart_type": "bar",
+        "x_column": "cohort_month",
+        "y_column": "m1_retention_rate_pct",
+        "title": "M+1 Cohort Repeat Retention Rate (%) by Acquisition Month (2017-01 to 2018-07)",
+        "rationale": "Ranks acquisition cohorts from lowest to highest month-1 repeat purchase rate."
+      },
+      "execution_mode": "deterministic_local"
+    },
+    {
+      "question": "Which regions have the highest delivery delay rate?",
+      "intent": "delivery_and_regions",
+      "routed_agent": "SQLAnalystAgent -> BusinessInsightAgent",
+      "sql_query": "SELECT customer_state, delivered_orders, unique_customers, order_value_proxy_brl, item_revenue_brl, freight_value_brl, avg_delivery_days, late_delivery_rate_pct, avg_review_score FROM vw_delivery_and_reviews_by_state ORDER BY late_delivery_rate_pct DESC",
+      "validation": {
+        "is_safe": true,
+        "reason": "Read-only SELECT query verified against schema allow-list.",
+        "referenced_tables": [
+          "vw_delivery_and_reviews_by_state"
+        ],
+        "normalized_sql": "SELECT customer_state, delivered_orders, unique_customers, order_value_proxy_brl, item_revenue_brl, freight_value_brl, avg_delivery_days, late_delivery_rate_pct, avg_review_score FROM vw_delivery_and_reviews_by_state ORDER BY late_delivery_rate_pct DESC"
+      },
+      "row_count": 27,
+      "data_preview": [
+        {
+          "customer_state": "AL",
+          "delivered_orders": 397,
+          "unique_customers": 387,
+          "order_value_proxy_brl": 94195.79,
+          "item_revenue_brl": 78855.72,
+          "freight_value_brl": 15316.77,
+          "avg_delivery_days": 24.54,
+          "late_delivery_rate_pct": 23.93,
+          "avg_review_score": 3.85
+        },
+        {
+          "customer_state": "MA",
+          "delivered_orders": 717,
+          "unique_customers": 700,
+          "order_value_proxy_brl": 147807.29,
+          "item_revenue_brl": 117009.38,
+          "freight_value_brl": 30794.17,
+          "avg_delivery_days": 21.57,
+          "late_delivery_rate_pct": 19.67,
+          "avg_review_score": 3.83
+        },
+        {
+          "customer_state": "PI",
+          "delivered_orders": 476,
+          "unique_customers": 464,
+          "order_value_proxy_brl": 105272.17,
+          "item_revenue_brl": 84721.0,
+          "freight_value_brl": 20457.19,
+          "avg_delivery_days": 19.46,
+          "late_delivery_rate_pct": 15.97,
+          "avg_review_score": 3.99
+        },
+        {
+          "customer_state": "CE",
+          "delivered_orders": 1279,
+          "unique_customers": 1258,
+          "order_value_proxy_brl": 266463.97,
+          "item_revenue_brl": 219757.38,
+          "freight_value_brl": 46679.39,
+          "avg_delivery_days": 21.27,
+          "late_delivery_rate_pct": 15.32,
+          "avg_review_score": 3.94
+        },
+        {
+          "customer_state": "SE",
+          "delivered_orders": 335,
+          "unique_customers": 329,
+          "order_value_proxy_brl": 70289.13,
+          "item_revenue_brl": 56574.19,
+          "freight_value_brl": 13714.94,
+          "avg_delivery_days": 21.52,
+          "late_delivery_rate_pct": 15.22,
+          "avg_review_score": 3.91
+        },
+        {
+          "customer_state": "BA",
+          "delivered_orders": 3256,
+          "unique_customers": 3158,
+          "order_value_proxy_brl": 591270.6,
+          "item_revenue_brl": 493584.14,
+          "freight_value_brl": 97553.67,
+          "avg_delivery_days": 19.34,
+          "late_delivery_rate_pct": 14.04,
+          "avg_review_score": 3.93
+        },
+        {
+          "customer_state": "RJ",
+          "delivered_orders": 12350,
+          "unique_customers": 11917,
+          "order_value_proxy_brl": 2055690.45,
+          "item_revenue_brl": 1759651.13,
+          "freight_value_brl": 295750.44,
+          "avg_delivery_days": 15.31,
+          "late_delivery_rate_pct": 13.47,
+          "avg_review_score": 3.97
+        },
+        {
+          "customer_state": "TO",
+          "delivered_orders": 274,
+          "unique_customers": 267,
+          "order_value_proxy_brl": 60007.37,
+          "item_revenue_brl": 48402.51,
+          "freight_value_brl": 11604.86,
+          "avg_delivery_days": 17.66,
+          "late_delivery_rate_pct": 12.77,
+          "avg_review_score": 4.15
+        },
+        {
+          "customer_state": "PA",
+          "delivered_orders": 946,
+          "unique_customers": 922,
+          "order_value_proxy_brl": 212027.55,
+          "item_revenue_brl": 174470.59,
+          "freight_value_brl": 37552.98,
+          "avg_delivery_days": 23.77,
+          "late_delivery_rate_pct": 12.37,
+          "avg_review_score": 3.91
+        },
+        {
+          "customer_state": "ES",
+          "delivered_orders": 1995,
+          "unique_customers": 1928,
+          "order_value_proxy_brl": 317682.65,
+          "item_revenue_brl": 268643.45,
+          "freight_value_brl": 49014.48,
+          "avg_delivery_days": 15.79,
+          "late_delivery_rate_pct": 12.23,
+          "avg_review_score": 4.08
+        },
+        {
+          "customer_state": "RR",
+          "delivered_orders": 41,
+          "unique_customers": 40,
+          "order_value_proxy_brl": 9039.52,
+          "item_revenue_brl": 7057.47,
+          "freight_value_brl": 1982.05,
+          "avg_delivery_days": 29.39,
+          "late_delivery_rate_pct": 12.2,
+          "avg_review_score": 3.9
+        },
+        {
+          "customer_state": "MS",
+          "delivered_orders": 701,
+          "unique_customers": 681,
+          "order_value_proxy_brl": 134421.54,
+          "item_revenue_brl": 115429.97,
+          "freight_value_brl": 18937.58,
+          "avg_delivery_days": 15.62,
+          "late_delivery_rate_pct": 11.55,
+          "avg_review_score": 4.16
+        },
+        {
+          "customer_state": "PB",
+          "delivered_orders": 517,
+          "unique_customers": 504,
+          "order_value_proxy_brl": 137834.65,
+          "item_revenue_brl": 112586.82,
+          "freight_value_brl": 25251.73,
+          "avg_delivery_days": 20.43,
+          "late_delivery_rate_pct": 11.03,
+          "avg_review_score": 4.08
+        },
+        {
+          "customer_state": "PE",
+          "delivered_orders": 1593,
+          "unique_customers": 1551,
+          "order_value_proxy_brl": 309074.59,
+          "item_revenue_brl": 251889.49,
+          "freight_value_brl": 57082.56,
+          "avg_delivery_days": 18.45,
+          "late_delivery_rate_pct": 10.8,
+          "avg_review_score": 4.08
+        },
+        {
+          "customer_state": "RN",
+          "delivered_orders": 474,
+          "unique_customers": 464,
+          "order_value_proxy_brl": 100728.3,
+          "item_revenue_brl": 82105.66,
+          "freight_value_brl": 18609.12,
+          "avg_delivery_days": 19.28,
+          "late_delivery_rate_pct": 10.76,
+          "avg_review_score": 4.15
+        }
+      ],
+      "source_tables": [
+        "vw_delivery_and_reviews_by_state",
+        "order_level",
+        "customers_clean"
+      ],
+      "metric_definitions": [
+        "Late Delivery Rate (%) = % of delivered orders with delivery timestamp after estimated delivery date.",
+        "Average Review Score = Mean of most recent review score (1\u20135) per delivered order (Rule D-3)."
+      ],
+      "factual_summary": "Highest state late-delivery rates occur in AL (23.93% late, 3.85/5), MA (19.67% late, 3.83/5), PI (15.97% late, 3.99/5). Among major revenue states, RJ has a 13.47% late rate (avg 15.31 days, review score 3.97) compared to SP at 5.89% late (avg 8.76 days, review score 4.25).",
+      "business_interpretation": "Inter-state shipping distance from Southeast sellers (primarily in SP) to Northeast/North states and RJ drives both elevated freight-to-price ratios and late deliveries, which directly depress review scores.",
+      "recommended_actions": [
+        "Recalibrate estimated delivery date (EDD) buffers for RJ, BA, CE, MA, and AL routes to prevent missed-promise penalties.",
+        "Recruit regional sellers and 3PL fulfillment hubs in Northeast Brazil (BA/PE/CE) and RJ to cut transit times and freight costs."
+      ],
+      "limitations": [
+        "State metrics reflect customer shipping destination state on delivered orders."
+      ],
+      "chart_recommendation": {
+        "chart_type": "bar",
+        "x_column": "customer_state",
+        "y_column": "late_delivery_rate_pct",
+        "title": "Late Delivery Rate (%) by Brazilian State",
+        "rationale": "Identifies states with elevated logistics delays and corresponding customer satisfaction drops."
+      },
+      "execution_mode": "deterministic_local"
+    }
+  ],
+  "audit_trail": [
+    {
+      "timestamp": "2026-11-16T17:14:23.721592",
+      "question": "What is the monthly delivered revenue trend?",
+      "intent": "monthly_revenue_trend",
+      "is_safe": true,
+      "sql_query": "SELECT sales_month, delivered_orders, active_customers, order_value_proxy_brl, item_revenue_brl, freight_value_brl, average_order_value_brl, mom_growth_pct, late_delivery_rate_pct, avg_review_score FROM vw_executive_monthly_kpis ORDER BY sales_month",
+      "row_count": 20,
+      "factual_summary": "Across the 20-month primary analysis window (Jan 2017 \u2013 Aug 2018), delivered order value proxy totals R$ 15,375,875.44 (and delivered merchandise revenue totals R$ 13,181,027.13) across 96,211 delivered orders. Monthly order value expanded 7.7x from R$ 127,545.67 in 2017-01 (750 orders) to R$ 985,414.28 in 2018-08 (6,351 orders), peaking in 2017-11 (Black Friday) at R$ 1,153,528.05 (7,289 orders)."
+    },
+    {
+      "timestamp": "2026-11-16T17:14:23.998819",
+      "question": "Why did order value decline in June 2018?",
+      "intent": "june_2018_decline_analysis",
+      "is_safe": true,
+      "sql_query": "SELECT sales_month, delivered_orders, active_customers, order_value_proxy_brl, item_revenue_brl, freight_value_brl, average_order_value_brl, mom_growth_pct, avg_delivery_days, late_delivery_rate_pct, avg_review_score FROM vw_executive_monthly_kpis WHERE sales_month BETWEEN '2018-03' AND '2018-08' ORDER BY sales_month",
+      "row_count": 6,
+      "factual_summary": "Delivered order value proxy declined by -10.34% MoM in June 2018, dropping from R$ 1,128,836.69 in May 2018 (6,749 delivered orders) to R$ 1,012,090.68 in June 2018 (6,099 delivered orders). Decomposition shows the decline was driven 93% by an order volume contraction (-9.63%, -650 delivered orders) while Mean Order Value held nearly flat (-0.79%, R$ 167.26 -> R$ 165.94)."
+    },
+    {
+      "timestamp": "2026-11-16T17:14:24.033206",
+      "question": "Which customer segments have the highest retention risk?",
+      "intent": "rfm_segments",
+      "is_safe": true,
+      "sql_query": "SELECT customer_segment, customer_count, customer_share_pct, avg_recency_days, avg_purchase_days, avg_monetary_brl, total_order_value_brl, revenue_share_pct FROM vw_rfm_segments_summary ORDER BY total_order_value_brl DESC",
+      "row_count": 7,
+      "factual_summary": "Across 93,358 delivered customers (R$ 15,422,461.77 total delivered order value proxy), 'Recent Customers' generates the highest order value at R$ 6,269,299.23 (40.65% share across 37,219 customers), closely followed by 'Lost Customers' with 37,358 customers (R$ 6,167,951.88, 39.99% share). High-frequency multi-day segments ('Potential Loyalists' = 449, 'At Risk' = 31, 'Champions' = 23, 'Loyal Customers' = 6) total 509 customers (R$ 186,971.57)."
+    },
+    {
+      "timestamp": "2026-11-16T17:14:24.547976",
+      "question": "What is the repeat purchase rate and why is it low?",
+      "intent": "repeat_purchase_rate",
+      "is_safe": true,
+      "sql_query": "SELECT repeat_status_d5, COUNT(*) AS customer_count, ROUND(100.0 * COUNT(*) / NULLIF(SUM(COUNT(*)) OVER (), 0), 2) AS customer_share_pct, SUM(delivered_orders) AS total_delivered_orders, ROUND(SUM(historical_clv_brl), 2) AS total_order_value_brl, ROUND(AVG(historical_clv_brl), 2) AS avg_historical_clv_brl, ROUND(AVG(avg_order_value_brl), 2) AS avg_order_value_brl FROM vw_customer_lifecycle GROUP BY repeat_status_d5 ORDER BY customer_count DESC",
+      "row_count": 2,
+      "factual_summary": "Under approved Rule D-5, out of 93,358 unique delivered customers, 2,015 (2.16%) are True Repeat Customers (2+ delivered orders on 2+ distinct calendar dates), generating R$ 646,454.25 with an average historical CLV proxy of R$ 320.82 vs R$ 161.76 across the 91,343 non-D5 customers (which comprise 90,557 strictly single-order buyers at R$ 160.76 avg CLV and 786 same-day split-basket buyers at R$ 277.23 avg CLV)."
+    },
+    {
+      "timestamp": "2026-11-16T17:14:25.091142",
+      "question": "Which product categories generate the highest revenue?",
+      "intent": "category_performance",
+      "is_safe": true,
+      "sql_query": "SELECT category_name_en, category_name_pt, delivered_orders, items_sold, item_revenue_brl, freight_value_brl, avg_item_price_brl, late_delivery_rate_pct, avg_review_score FROM vw_category_performance ORDER BY item_revenue_brl DESC LIMIT 15",
+      "row_count": 15,
+      "factual_summary": "Per Rule D-1, the top 3 categories by delivered merchandise revenue (SUM(price)) are 'health_beauty' (R$ 1,233,131.72 across 8,647 orders), 'watches_gifts' (R$ 1,166,176.98, 5,495 orders), and 'bed_bath_table' (R$ 1,023,434.76, 9,272 orders). The top 5 categories combined generate R$ 5,266,320.62 (39.83% of all R$ 13,221,498.11 delivered merchandise revenue)."
+    },
+    {
+      "timestamp": "2026-11-16T17:14:25.720795",
+      "question": "How much revenue is concentrated among top sellers?",
+      "intent": "seller_performance",
+      "is_safe": true,
+      "sql_query": "SELECT seller_id, seller_state, seller_city, delivered_orders, items_sold, item_revenue_brl, freight_value_brl, late_delivery_rate_pct, avg_review_score FROM vw_seller_performance ORDER BY item_revenue_brl DESC LIMIT 20",
+      "row_count": 20,
+      "factual_summary": "Across 2,970 active sellers with delivered orders (R$ 13,221,498.11 total merchandise revenue), the top 10% (297 sellers, Decile 1) account for 67.11% (R$ 8,873,076.37) of merchandise sales, and the top 20% (594 sellers, Deciles 1\u20132) account for 82.29% (R$ 10,879,659.64). The top 20 individual sellers alone generate R$ 2,813,946.82 (21.28%), led by seller 4869f7a5... (SP) with R$ 226,987.93 across 1,124 delivered orders (late rate 11.59%, review score 4.14)."
+    },
+    {
+      "timestamp": "2026-11-16T17:14:25.820615",
+      "question": "How do delivery delays affect customer review scores?",
+      "intent": "delivery_vs_reviews",
+      "is_safe": true,
+      "sql_query": "WITH delay_classified AS (  SELECT order_id, payment_value, delivery_days, is_late, review_score,   DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) AS delay_calendar_days,   CASE     WHEN DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) <= -8 THEN '1. Early (8+ days early)'     WHEN DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) BETWEEN -7 AND -1 THEN '2. Early (1-7 days early)'     WHEN DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) = 0 THEN '3. On Estimated Date (0 days)'     WHEN DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) BETWEEN 1 AND 3 THEN '4. Slightly Late (1-3 days)'     WHEN DATEDIFF(order_delivered_customer_date, order_estimated_delivery_date) BETWEEN 4 AND 7 THEN '5. Moderately Late (4-7 days)'     ELSE '6. Severely Late (8+ days)'   END AS delivery_timing_bucket   FROM order_level   WHERE is_delivered = 1 AND missing_delivery_date = 0 AND order_estimated_delivery_date IS NOT NULL) SELECT delivery_timing_bucket, COUNT(*) AS delivered_orders, ROUND(100.0 * COUNT(*) / NULLIF(SUM(COUNT(*)) OVER (), 0), 2) AS order_share_pct, ROUND(SUM(payment_value), 2) AS order_value_proxy_brl, ROUND(AVG(delivery_days), 2) AS avg_actual_delivery_days, ROUND(AVG(review_score), 2) AS avg_review_score, ROUND(100.0 * SUM(CASE WHEN review_score = 1 THEN 1 ELSE 0 END) / NULLIF(COUNT(review_score), 0), 2) AS one_star_share_pct, ROUND(100.0 * SUM(CASE WHEN review_score = 5 THEN 1 ELSE 0 END) / NULLIF(COUNT(review_score), 0), 2) AS five_star_share_pct FROM delay_classified GROUP BY delivery_timing_bucket ORDER BY delivery_timing_bucket",
+      "row_count": 6,
+      "factual_summary": "Yes \u2014 late delivery is strongly and significantly associated with lower review scores (Mann-Whitney U p < 0.0001, Welch's t = 96.49). Orders delivered 8+ days early (71,303 orders) average 4.32 / 5.00 stars (6.47% 1-star rate), whereas orders 1\u20133 days late (1,870 orders) drop to 3.29 stars (25.11% 1-star rate), and orders 8+ days late (2,862 orders) plunge to 1.70 stars with 69.87% 1-star reviews. Overall, on-time delivered orders (91.89%) average 4.29 stars vs 2.57 stars for late orders (8.11%, -1.72 star drop)."
+    },
+    {
+      "timestamp": "2026-11-16T17:14:25.861705",
+      "question": "What business actions should management consider?",
+      "intent": "executive_decision_actions",
+      "is_safe": true,
+      "sql_query": "SELECT customer_segment, customer_count, customer_share_pct, avg_recency_days, avg_purchase_days, avg_monetary_brl, total_order_value_brl, revenue_share_pct FROM vw_rfm_segments_summary ORDER BY total_order_value_brl DESC",
+      "row_count": 7,
+      "factual_summary": "Management actions are anchored in 4 verified empirical findings across the 96,478 delivered orders (R$ 15,422,461.77 order value proxy): (1) Retention: 37,219 'Recent Customers' (R$ 6,269,299.23) and 18,272 'Needs Attention' customers (R$ 2,798,239.09) face >97% single-order attrition (2.16% D-5 repeat rate); (2) Logistics SLA: 8.11% late deliveries trigger a -1.73 star review collapse (4.29 -> 2.57 stars, p < 0.0001), concentrated in RJ (13.47% late) and BA (14.04% late); (3) Seller Concentration: Top 10% of sellers (297 merchants) generate 67.11% (R$ 8,873,076.37) of item revenue; (4) Category Merchandising: Top 5 categories generate 39.83% (R$ 5,266,253.78) of merchandise revenue."
+    },
+    {
+      "timestamp": "2026-11-16T17:14:26.230141",
+      "question": "Which cohorts have the weakest retention?",
+      "intent": "cohort_retention",
+      "is_safe": true,
+      "sql_query": "WITH delivered_window AS (  SELECT customer_unique_id,   DATE_FORMAT(order_purchase_timestamp, '%Y-%m') AS order_month,   (YEAR(order_purchase_timestamp) * 12 + MONTH(order_purchase_timestamp)) AS ym_num   FROM order_level   WHERE is_delivered = 1 AND in_analysis_window = 1 AND customer_unique_id IS NOT NULL), customer_cohort AS (  SELECT customer_unique_id, MIN(order_month) AS cohort_month, MIN(ym_num) AS cohort_num   FROM delivered_window GROUP BY customer_unique_id), cohort_sizes AS (  SELECT cohort_month, COUNT(DISTINCT customer_unique_id) AS cohort_size   FROM customer_cohort GROUP BY cohort_month), m1_activity AS (  SELECT c.cohort_month, COUNT(DISTINCT d.customer_unique_id) AS m1_customers   FROM delivered_window d INNER JOIN customer_cohort c   ON d.customer_unique_id = c.customer_unique_id   WHERE (d.ym_num - c.cohort_num) = 1 GROUP BY c.cohort_month) SELECT s.cohort_month, s.cohort_size, COALESCE(m.m1_customers, 0) AS m1_returning_customers, ROUND(100.0 * COALESCE(m.m1_customers, 0) / s.cohort_size, 3) AS m1_retention_rate_pct FROM cohort_sizes s LEFT JOIN m1_activity m ON s.cohort_month = m.cohort_month WHERE s.cohort_month < '2018-08' ORDER BY m1_retention_rate_pct ASC",
+      "row_count": 19,
+      "factual_summary": "Across the 19 acquisition cohorts with complete M+1 observation (2017-01 to 2018-07), M+1 repeat retention ranges from a low of 0.184% in cohort 2017-02 (3 of 1,628 customers) to a high of 0.716% in cohort 2017-10 (31 of 4,328 customers)."
+    },
+    {
+      "timestamp": "2026-11-16T17:14:26.850223",
+      "question": "Which regions have the highest delivery delay rate?",
+      "intent": "delivery_and_regions",
+      "is_safe": true,
+      "sql_query": "SELECT customer_state, delivered_orders, unique_customers, order_value_proxy_brl, item_revenue_brl, freight_value_brl, avg_delivery_days, late_delivery_rate_pct, avg_review_score FROM vw_delivery_and_reviews_by_state ORDER BY late_delivery_rate_pct DESC",
+      "row_count": 27,
+      "factual_summary": "Highest state late-delivery rates occur in AL (23.93% late, 3.85/5), MA (19.67% late, 3.83/5), PI (15.97% late, 3.99/5). Among major revenue states, RJ has a 13.47% late rate (avg 15.31 days, review score 3.97) compared to SP at 5.89% late (avg 8.76 days, review score 4.25)."
+    },
+    {
+      "timestamp": "2026-11-16T17:14:26.854870",
+      "question": "Drop orders table test",
+      "intent": "custom_sql_query",
+      "is_safe": false,
+      "sql_query": "DROP TABLE orders_clean",
+      "row_count": 0,
+      "factual_summary": "Query rejected by SQL safety gate: Query must begin with SELECT or WITH (read-only query required)."
+    },
+    {
+      "timestamp": "2026-11-16T17:14:26.856036",
+      "question": "What is the company net profit margin after marketing CAC?",
+      "intent": "unsupported_question",
+      "is_safe": false,
+      "sql_query": "-- Question outside Olist dataset scope; no SQL executed.",
+      "row_count": 0,
+      "factual_summary": "Unsupported or out-of-scope question: this topic is not measured in the Olist e-commerce dataset. No fabricated figures or unrelated queries were executed."
+    }
+  ]
+}

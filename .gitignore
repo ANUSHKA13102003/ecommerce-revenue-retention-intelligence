@@ -1,0 +1,79 @@
+# ============================================================
+# .gitignore — AI-Powered E-Commerce Revenue & Customer
+#              Retention Intelligence
+# ============================================================
+
+# ----- Python virtual environments -----
+.venv/
+venv/
+env/
+ENV/
+
+# ----- Python bytecode & caches -----
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# ----- Jupyter -----
+.ipynb_checkpoints/
+
+# ----- Environment & credentials -----
+.env
+.env.local
+.env.production
+*.pem
+*.key
+credentials/
+secrets/
+
+# ----- Raw datasets (licence restrictions) -----
+data/raw/*.csv
+data/raw/*.zip
+data/raw/*.xlsx
+
+# ----- Large generated / temporary files -----
+data/processed/*.csv
+data/external/*.csv
+powerbi/data_exports/fact_*.csv
+powerbi/data_exports/dim_customers_rfm.csv
+powerbi/data_exports/dim_products.csv
+powerbi/data_exports/dim_sellers.csv
+# Project-authored manual mapping (not licensed raw data) — keep tracked
+!data/external/category_translation_supplement.csv
+code_review.txt
+project_inventory.txt
+*.tmp
+*.bak
+*.swp
+*.log
+
+# ----- Database dumps -----
+*.sql.gz
+*.dump
+*.sql.bak
+
+# ----- Power BI working files -----
+powerbi/*.pbix
+powerbi/*.pbit
+
+# ----- OS files -----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ----- IDE / editor -----
+.vscode/
+.idea/
+*.code-workspace
+
+# ----- Distribution / build -----
+dist/
+build/
+*.egg-info/
+
+# ----- Test / coverage -----
+.coverage
+htmlcov/
+.pytest_cache/
+

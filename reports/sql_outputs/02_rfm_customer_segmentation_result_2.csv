@@ -1,0 +1,8 @@
+customer_segment,customer_count,avg_recency_days,avg_purchase_days,total_order_value_brl
+Lost Customers,37358,394.0,1.01,6167951.88
+Recent Customers,37219,89.85,1.03,6269299.23
+Needs Attention,18272,219.17,1.0,2798239.09
+Potential Loyalists,449,197.87,2.2,147286.12
+At Risk,31,335.35,3.06,15067.94
+Champions,23,81.3,5.13,19684.5
+Loyal Customers,6,210.5,5.17,4933.01

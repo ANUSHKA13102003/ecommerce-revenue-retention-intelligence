@@ -1,0 +1,41 @@
+table payments_clean
+
+	measure 'Payment Transaction Value (BRL)' = CALCULATE(SUM(payments_clean[payment_value]), order_level[is_delivered] = TRUE())
+		formatString: "R$" #,##0.00
+		displayFolder: 01 Revenue & Orders
+
+	column order_id
+		dataType: string
+		sourceColumn: order_id
+
+	column payment_sequential
+		dataType: int64
+		sourceColumn: payment_sequential
+
+	column payment_type
+		dataType: string
+		sourceColumn: payment_type
+
+	column payment_installments
+		dataType: int64
+		sourceColumn: payment_installments
+
+	column payment_value
+		dataType: double
+		formatString: "R$" #,##0.00
+		sourceColumn: payment_value
+
+	column installments_invalid
+		dataType: boolean
+		sourceColumn: installments_invalid
+
+	partition payments_clean = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Dell\OneDrive\Desktop\Documents\DataAnalyticsPortfolio\ecommerce-revenue-retention-intelligence\data\processed\payments_clean.csv"),[Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Promoted,{{"order_id", type text}, {"payment_sequential", Int64.Type}, {"payment_type", type text}, {"payment_installments", Int64.Type}, {"payment_value", type number}, {"installments_invalid", type logical}}, "en-US")
+				in
+				    Typed
+
