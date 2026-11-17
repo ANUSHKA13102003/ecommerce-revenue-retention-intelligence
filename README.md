@@ -4,7 +4,7 @@
 
 ![Power BI Executive Overview](docs/screenshots/powerbi_overview.png)
 
-[Power BI report](powerbi/Ecommerce_Intelligence_OS.pbix) · [Executive PDF](reports/executive_summary/Ecommerce_Intelligence_OS_Executive_Report.pdf) · [Methodology](docs/methodology.md)
+[Power BI report](powerbi/Ecommerce_Intelligence_OS.pbix) · [Executive PDF](reports/executive_summary/Ecommerce_Revenue_Retention_Executive_Report.pdf) · [Methodology](docs/methodology.md)
 <!-- TODO: add "Live app" link here once the Streamlit app is deployed -->
 
 ## What I found
